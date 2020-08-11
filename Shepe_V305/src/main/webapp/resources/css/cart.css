@@ -1,0 +1,64 @@
+.check_all_box {
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	color: #333333;
+	margin: 0;
+}
+
+.item_box, .item_img, .check_box, .option_btn, .item_body,
+	.item_name_box {
+	float: left;
+}
+
+.select_del_box {
+	float: right;
+}
+
+.item_head, .money_box {
+	clear: both;
+}
+
+.input_cnt {
+	width: 40px;
+	height: 38px;
+	text-align: center;
+	padding: 6px 12px 6px 12px;
+	display: inline-block;
+}
+
+.input_cnt_box, .item_body, .item_img, .item_box, .item_name_box,
+	.select_del_box {
+	display: inline-block;
+}
+
+.item_name_box {
+	display: inline-block;
+	height: auto;
+	overflow: auto;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+}
+
+.item_body {
+	padding: 0px !important;
+}
+
+.input_cnt_box, .item_name_box, .money_box {
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+}
+
+.total_price {
+	margin: 10px;
+}
+
+.total_pay {
+	float: right;
+}
+
+.cart_box {
+	padding: 15px;
+}
+
+.money_box {
+	padding-top: 10px;
+}

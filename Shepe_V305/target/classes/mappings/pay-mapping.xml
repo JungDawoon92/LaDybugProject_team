@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="payDAO">
+	<insert id="insertKakaoPay">
+	 	INSERT INTO KAKAOPAY(aid, tid, cid, partner_order_id, partner_user_id, payment_method_type, total, tax_free, vat, point, discount, 
+	 						item_name, quantity, created_at, approved_at) 
+	 	VALUES(#{aid}, #{tid}, #{cid}, #{partner_order_id}, #{partner_user_id}, #{payment_method_type}, 
+	 			#{amount.total}, #{amount.tax_free}, #{amount.vat}, #{amount.point}, #{amount.discount}, 
+	 			 #{item_name}, #{quantity}, #{created_at}, #{approved_at})
+	</insert>
+		
+	<select id="getKakaoPayInfo" parameterType="String" resultType="HashMap">
+		SELECT 
+			tid, cid, partner_order_id, partner_user_id, payment_method_type, total, tax_free, vat, point, discount, item_name, quantity, created_at, approved_at
+		FROM KAKAOPAY 
+		WHERE partner_order_id = #{partner_order_id}
+	</select>
+</mapper>

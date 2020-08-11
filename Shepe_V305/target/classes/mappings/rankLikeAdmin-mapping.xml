@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="adrankLikeDAO">
+ 	
+ 	<insert id="insertRankLike">
+ 		<![CDATA[
+ 			INSERT INTO rank_like(recipe_no, member_like_id, member_nickname)
+ 			VALUES (#{recipe_no}, #{member_like_id}, #{member_nickname})
+ 		]]>
+ 	</insert>
+ 	
+ 	<select id="getRankLike" resultType="adrankLike">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM rank_like
+ 			WHERE recipe_no = #{recipe_no} AND member_like_id = #{member_like_id}
+ 		]]>
+ 	</select>
+ 
+ 	<select id="getRankLikeList" resultType="adrankLike">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM rank_like
+ 			WHERE recipe_no = #{recipe_no}
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getAgesChart" resultType="adrankLike">
+ 		<![CDATA[
+ 			SELECT CONCAT(FLOOR((YEAR(NOW())-YEAR(me.member_birth))/10)*10, '대') AS AGES, COUNT(me.member_birth) AS member_count
+			FROM member me, rank_like rk
+			WHERE me.member_id = rk.member_like_id 
+			  AND rk.recipe_no = #{recipe_no}
+			GROUP BY AGES
+ 		]]>
+ 	</select>
+
+ </mapper>

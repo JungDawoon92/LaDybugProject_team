@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="commentDAO">
+ 
+ 	<insert id="insertComment">
+ 		<![CDATA[
+ 			INSERT INTO comment(member_id, member_nickname, recipe_no, comment_content, comment_ymd)
+ 			VALUES(#{member_id}, #{member_nickname}, #{recipe_no}, #{comment_content}, now())
+ 		]]>
+ 	</insert>
+ 	
+ 	<update id="updateComment">
+ 		<![CDATA[
+ 			UPDATE comment 
+ 			SET comment_content = #{comment_content}, comment_ymd = now()
+ 			WHERE comment_sq = #{comment_sq}
+ 		]]>
+ 	</update>
+ 	
+ 	<delete id="deleteComment">
+ 		<![CDATA[
+ 			DELETE 
+ 			FROM comment
+ 			WHERE comment_sq = #{comment_sq}
+ 		]]>
+ 	</delete>
+ 	
+ 	<select id="getCommentCnt" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM comment
+ 			WHERE recipe_no = #{recipe_no}
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getCommentList" resultType="comment">
+ 		<![CDATA[
+	 		SELECT co.member_id, co.member_nickname, co.recipe_no, co.comment_sq, co.comment_content, co.comment_ymd, me.member_img
+	 		FROM comment co
+	 		INNER JOIN member me
+	 		ON recipe_no = #{ recipe_no } AND co.member_id = me.member_id
+	 		ORDER BY comment_sq DESC
+	 		LIMIT 5 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 회원 이미지 수정 -->
+	<update id="updateMemberImg">
+		<![CDATA[
+			UPDATE member SET member_img = #{member_img}
+			WHERE member_id = #{member_id}
+		]]>
+	</update>
+ 	
+ </mapper>

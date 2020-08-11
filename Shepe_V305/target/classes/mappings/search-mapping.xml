@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SearchDAO">
+	
+	<select id="getsearch_reCount" resultType="int">
+			SELECT COUNT(*) FROM RECIPE 
+			WHERE recipe_nm LIKE CONCAT('%', #{searchValue}, '%') 
+			OR recipe_info LIKE  CONCAT('%', #{searchValue}, '%') 
+			OR recipe_category_kind LIKE CONCAT('%', #{searchValue}, '%') 
+			OR recipe_category_ing LIKE CONCAT('%', #{searchValue}, '%') 
+			OR recipe_category_how LIKE CONCAT('%', #{searchValue}, '%');
+
+	</select>
+	
+	<select id="getsearch_inCount" resultType="int">
+			SELECT COUNT(*)
+			from ingredient R INNER join rank_sell_ingredient_list I
+			on R.ingredient_no = I.ingredient_no
+			WHERE ingredient_nm LIKE CONCAT('%', #{searchValue}, '%')  
+			OR ingredient_categ LIKE CONCAT('%', #{searchValue}, '%')  
+			OR ingredient_thumbName LIKE CONCAT('%', #{searchValue}, '%') ;
+	</select>
+	
+	<select id="getsearch_reListList" parameterType="java.util.HashMap" resultType="division">
+			SELECT * FROM RECIPE WHERE recipe_nm LIKE CONCAT('%', #{searchValue}, '%') OR recipe_info LIKE CONCAT('%', #{searchValue}, '%') OR recipe_category_kind LIKE CONCAT('%', #{searchValue}, '%') OR recipe_category_ing LIKE CONCAT('%', #{searchValue}, '%') OR recipe_category_how LIKE CONCAT('%', #{searchValue}, '%') ORDER BY RECIPE_CNT DESC  LIMIT #{startpage}, 2;
+	</select>
+	
+	<select id="getsearch_inListList" parameterType="java.util.HashMap" resultType="divisionIn">
+			SELECT R.ingredient_no, R.ingredient_nm, R.ingredient_categ, R.ingredient_price, R.ingredient_thumbName, R.ingredient_amt, I.ingredient_sell_sum
+			from ingredient R INNER join rank_sell_ingredient_list I
+			on R.ingredient_no = I.ingredient_no
+			WHERE ingredient_nm LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_categ LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_thumbName LIKE CONCAT('%', #{searchValue}, '%')
+			order by ingredient_sell_sum desc
+			LIMIT #{startpage}, 5;
+	</select>
+	
+	<insert id="search_add">
+			INSERT INTO search VALUES (#{searchValue}, NOW(), 1)
+	</insert>
+	
+	<select id="search_select" resultType="int">
+			SELECT IFNULL(MAX(search_data_cnt),-1) FROM search WHERE search_data = #{searchValue} AND (DATE_FORMAT(search_date, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d'))
+	</select>
+	<update id="search_cnt_update">
+			UPDATE search SET search_data_cnt = search_data_cnt+1 WHERE search_data = #{search_data} AND (DATE_FORMAT(search_date, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d'))
+	</update>
+	
+	<select id="searchInputAction" resultType="search">
+			SELECT search_data,sum(search_data_cnt) as search_data_cnt FROM search WHERE search_data LIKE CONCAT(#{search_value}, '%') GROUP BY search_data  ORDER BY search_data_cnt DESC ;
+	</select>
+	<select id="searchChart_total" resultType="searchAdmin">
+		SELECT search_data,sum(search_data_cnt) as search_data_cnt FROM search GROUP BY search_data ORDER BY search_data_cnt DESC LIMIT 0 , 10
+	</select>
+	
+	<select id="searchChart_month" resultType="searchAdmin">
+		SELECT search_data,sum(search_data_cnt) as search_data_cnt FROM search where DATE(search_date) >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY search_data ORDER BY search_data_cnt DESC LIMIT 0,10
+	</select>
+	
+	<select id="searchChart_day" resultType="searchAdmin">
+		SELECT search_data,sum(search_data_cnt) as search_data_cnt FROM search WHERE (DATE_FORMAT(search_date, '%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d')) GROUP BY search_data ORDER BY search_data_cnt DESC LIMIT 0,10
+	</select>
+	<select id="search_week_searchAmount" resultType="searchAdmin">
+		select CASE WHEN DAYOFWEEK(search_date) = 1 THEN '일'
+		WHEN DAYOFWEEK(search_date) = 2 THEN '월'
+		WHEN DAYOFWEEK(search_date) = 3 THEN '화'
+		WHEN DAYOFWEEK(search_date) = 4 THEN '수'
+		WHEN DAYOFWEEK(search_date) = 5 THEN '목'
+		WHEN DAYOFWEEK(search_date) = 6 THEN '금'
+		WHEN DAYOFWEEK(search_date) = 7 THEN '토'
+		ELSE '오류' END search_data
+		, sum(search_data_cnt) AS search_data_cnt FROM search
+		where search_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() 
+		group by DAYOFWEEK(search_date);
+	</select>
+
+</mapper>

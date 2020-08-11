@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="CartDAO">
+	<insert id="insertCart">
+	 	INSERT INTO CART(member_id, recipe_nm,  ingredient_no, ingredient_nm, ingredient_cnt, ingredient_price, ingredient_thumbName) 
+	 	VALUES(#{member_id}, #{recipe_nm}, #{ingredient_no}, #{ingredient_nm}, #{ingredient_cnt}, #{ingredient_price}, #{ingredient_thumbName}) 
+	</insert>
+
+	<update id="cartCntUpdate">
+	 	UPDATE CART SET INGREDIENT_CNT=#{ingredient_cnt} 
+	 	WHERE cart_sq = #{cart_sq} 
+	</update>
+	
+	<delete id="deleteCart" parameterType="java.util.List">
+	 	DELETE FROM CART 
+	 	WHERE cart_sq IN 
+	 	<foreach collection="list" item="item" open="(" separator="," close=")"> 
+	 		#{item}
+	 	</foreach>
+	</delete>
+	
+	<select id="getCartList" resultType="Cart">
+	 	SELECT cart_sq, member_id, recipe_nm, ingredient_no, ingredient_nm, ingredient_cnt, ingredient_price, ingredient_thumbName 
+	 	FROM CART 
+	 	WHERE MEMBER_ID = #{member_id} 
+	</select>
+</mapper>

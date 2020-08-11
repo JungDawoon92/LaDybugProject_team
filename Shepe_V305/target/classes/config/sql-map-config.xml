@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+ 	
+ 	<!-- Properties 파일 설정 -->
+ 	<properties resource="config/database.properties" />
+ 	
+ 	<!-- Alias 설정 -->
+ 	<typeAliases>
+		<typeAlias alias="order" type="com.shepe.client.order.OrderVO" />
+ 		<typeAlias alias="orderInfo" type="com.shepe.client.order.OrderInfoVO" />
+ 		<typeAlias alias="orderIngredient" type="com.shepe.client.order.OrderIngredientVO" />
+ 		<typeAlias alias="orderMember" type="com.shepe.client.order.OrderMemberVO" />
+ 		<typeAlias alias="cart" type="com.shepe.client.cart.CartVO" />
+ 		<typeAlias alias="member" type="com.shepe.client.member.MemberVO" />
+ 		<typeAlias alias="memberAddr" type="com.shepe.client.member.MemberAddressVO" />
+ 		<typeAlias alias="ingredient" type="com.shepe.client.ingredient.IngredientVO" />
+		<typeAlias alias="recipe" type="com.shepe.client.recipe.RecipeVO" />
+		<!-- 다운 --> 		
+ 		<typeAlias alias="division" type="com.shepe.client.biz.division.DivisionVO" />
+ 		<typeAlias alias="divisionIn" type="com.shepe.client.biz.division.DivisionInVO" />
+ 		<typeAlias alias="chat" type="com.shepe.client.biz.chat.CommonChatDTO" />
+ 		<typeAlias alias="boot" type="com.shepe.admin.biz.chat.BootVO" />
+ 		<typeAlias alias="chatlist" type="com.shepe.client.biz.chat.ChatRoomVO" />
+ 		<typeAlias alias="counseling" type="com.shepe.admin.biz.chat.CounselingVO" />
+ 		<typeAlias alias="search" type="com.shepe.client.biz.division.SearchVO" />
+ 		<typeAlias alias="searchAdmin" type="com.shepe.admin.biz.search.SearchAdminVO" />
+ 		<typeAlias alias="faq" type="com.shepe.admin.faq.FaqVO" />
+		
+		<!-- 이승우 admin-->
+		<typeAlias alias="adcomment" type="com.shepe.admin.comment.CommentAdminVO" />
+ 		<typeAlias alias="adrankLikeRanking" type="com.shepe.admin.rank.RankLikeRankingAdminVO" />
+ 		<typeAlias alias="adrankSubRanking" type="com.shepe.admin.rank.RankSubscribeRankingAdminVO" />
+ 		<typeAlias alias="adrankLike" type="com.shepe.admin.rank.RankLikeAdminVO" />
+ 		<typeAlias alias="adrankSubscribe" type="com.shepe.admin.rank.RankSubscribeAdminVO" />
+ 		<typeAlias alias="adrecipetest" type="com.shepe.admin.comment.RecipeAdminVO"/>
+		
+ 		<!-- 이승우 client-->
+ 		<typeAlias alias="comment" type="com.shepe.client.comment.CommentVO" />
+ 		<typeAlias alias="rankLikeRanking" type="com.shepe.client.rank.RankLikeRankingVO" />
+ 		<typeAlias alias="rankSubRanking" type="com.shepe.client.rank.RankSubscribeRankingVO" />
+ 		<typeAlias alias="rankLike" type="com.shepe.client.rank.RankLikeVO" />
+ 		<typeAlias alias="rankSubscribe" type="com.shepe.client.rank.RankSubscribeVO" />
+ 		<typeAlias alias="recipetest" type="com.shepe.client.comment.RecipeVO"/>
+ 	</typeAliases>
+ 	
+ 	
+ 	<!-- Sql Mapper 설정 -->
+ 	<mappers>
+ 		<mapper resource="mappings/order-mapping.xml" />
+ 		<mapper resource="mappings/cart-mapping.xml" />
+ 		<mapper resource="mappings/pay-mapping.xml" />
+ 		<mapper resource="mappings/member-mapping.xml" />
+ 		<mapper resource="mappings/ingredient-mapping.xml" />
+		<mapper resource="mappings/recipe-mapping.xml" />
+		
+		<!-- 다운 -->
+		<mapper resource="mappings/division-mapping.xml" />
+ 		<mapper resource="mappings/chat-mapping.xml" />
+ 		<mapper resource="mappings/boot-mapping.xml" />
+ 		<mapper resource="mappings/counseling-mapping.xml" />
+ 		<mapper resource="mappings/search-mapping.xml" />
+ 		<mapper resource="mappings/faq-mapping.xml" />
+		
+		<!-- 이승우 admin-->
+		<mapper resource="mappings/member-mapping.xml" />
+ 		<mapper resource="mappings/commentAdmin-mapping.xml" />
+ 		<mapper resource="mappings/rankLikeRankingAdmin-mapping.xml" />
+ 		<mapper resource="mappings/rankSubscribeRankingAdmin-mapping.xml" />
+ 		<mapper resource="mappings/rankLikeAdmin-mapping.xml" />
+ 		<mapper resource="mappings/rankSubscribeAdmin-mapping.xml" />
+ 		<mapper resource="mappings/recipeTestAdmin-mapping.xml" />
+		
+ 		<!-- 이승우 client-->
+ 		<mapper resource="mappings/comment-mapping.xml" />
+ 		<mapper resource="mappings/rankLikeRanking-mapping.xml" />
+ 		<mapper resource="mappings/rankSubscribeRanking-mapping.xml" />
+ 		<mapper resource="mappings/rankLike-mapping.xml" />
+ 		<mapper resource="mappings/rankSubscribe-mapping.xml" />
+ 		<mapper resource="mappings/recipeTest-mapping.xml" />
+ 	</mappers>
+ </configuration>

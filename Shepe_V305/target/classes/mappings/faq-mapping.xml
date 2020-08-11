@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="FaqDAO">
+
+ 	<insert id="insertFaq">
+ 		<![CDATA[
+ 			INSERT INTO FAQ(
+			FAQ_CATEGORY, FAQ_NM, MEMBER_ID, FAQ_CONTENTS)
+			VALUES (#{faq_category}, #{faq_nm}, #{member_id}, #{faq_contents})
+ 		]]>
+ 	</insert>
+ 	
+ 	<update id="updateFaq">
+ 		<![CDATA[
+ 			UPDATE FAQ SET FAQ_CONTENTS = #{faq_contents}
+			WHERE FAQ_SQ = #{faq_sq}
+ 		]]>
+ 	</update>
+ 	
+ 	<delete id="deleteFaq">
+ 		<![CDATA[
+ 			DELETE FROM FAQ 
+			WHERE FAQ_SQ = #{faq_sq}
+ 		]]>
+ 	</delete>
+ 	
+ 	<select id="detailFaq" resultType="faq">
+ 		<![CDATA[
+ 			SELECT * FROM FAQ 
+			WHERE FAQ_SQ = #{faq_sq}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- Paging -->
+ 	 <select id="getFaqList" resultType="faq">
+ 		<![CDATA[
+ 			SELECT * FROM FAQ ORDER BY FAQ_SQ DESC 
+ 			LIMIT #{startpage}, 10;
+ 			
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getAjaxFaqList" resultType="faq">
+ 		<![CDATA[
+ 			SELECT * FROM FAQ WHERE FAQ_CATEGORY = #{choice};
+ 		]]>
+ 	</select>  
+ 	
+ 	<!-- Paging -->
+ 	<select id="getListCount" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*) FROM FAQ ;
+ 		]]>
+ 	</select> 
+
+ 	<!--<select id="getBoardList" resultMap="boardResult">
+ 		SELECT *
+ 		FROM BOARD
+ 		WHERE 1 = 1
+ 		<if test="searchCondition == 'title'">
+ 			AND TITLE LIKE '%'||#{searchKeyword}||'%'
+ 		</if>
+ 		<if test="searchCondition == 'content'">
+ 			AND CONTENT LIKE '%'||#{searchKeyword}||'%'
+ 		</if>
+ 		ORDER BY SEQ DESC
+ 	</select>-->
+ </mapper>

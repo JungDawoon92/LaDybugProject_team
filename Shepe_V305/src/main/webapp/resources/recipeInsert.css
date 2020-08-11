@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+
+.background{
+	background-color: #fff;
+	padding-top:50px;
+	padding-bottom: 100px;
+}
+.recipe-insert-back {
+	background-color: #fff;
+	margin-top: 15px;
+}
+.recipe-insert-back col-sm-6 {
+	padding: 0 0;
+}
+.recipe-ingre-back {
+	background-color: #fff6ea;
+	margin-top: 15px;
+	border-radius: 5px;
+}
+.recipe-insert-title {
+	margin-top:20px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 23px;
+	font-weight: bold;
+	color: black;
+}
+.recipe-insert-section {
+	margin-bottom: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	font-size: 16px;
+}
+.recipe-insert-column {
+	margin-bottom: 11px;
+}
+.recipe-detail-column {
+	margin-bottom: 11px;
+	text-align: center;
+}
+.recipe-process-column {
+	margin-bottom: 11px;
+}
+
+.recipe-caregory {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+.form-control.ingre {
+	width: 200px;
+	display:inline-block;
+	align: center;
+	font-size: 1.5rem;
+}
+.recipe-complete-title{
+	font-size: 25pt;
+    margin-bottom: 10px;
+    color: black;
+}
+.recipe-complete-info{
+	font-size: 15pt;
+	font-family: fantasy;
+    font-style: italic;
+    font-weight: lighter;
+}
+.glyphicon-chevron-left{
+	font-weight: lighter;
+}
+.glyphicon-chevron-right{
+	font-weight: lighter;
+}
+.glyphicon-heart{
+	font-weight: bold;
+	font-size: 15pt;
+	color: red;
+}
+.pagingCenter{
+	text-align: center;
+}
+.buttonCenter.btn {
+	margin-top: 5px;
+}
+.titleCenter {
+	text-align: center;
+	font-size: 25pt;
+}
+.titleRight {
+	text-align: right;
+}
+.red {
+	color: red;
+	font-weight: lighter;
+}
+.comImege {
+	border-radius: 5px;
+	margin-top:0;
+	width: 90%;
+}
+.proImege {
+	border-radius: 5px;
+	width: 100%;
+}
+.ingreImege{
+	width: 80%;
+	border-radius: 5px; 
+}
+.ingreTitle{
+	color: black;
+	font-weight: bold;
+}
+.alignRight{
+	text-align: right;
+}
+.background hr{
+	margin: 0;
+}
+.color {
+	background-color: #fff6ea;
+	border-radius: 5px;
+}
+.recipe-insert-column.image_container img{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.rightIcon{
+	text-align: right;
+    font-size: 25px;
+    color: #337ab7;
+}
+.glyphicon-chevron-up{
+	cursor: pointer;
+}
+.glyphicon-chevron-down{
+	cursor: pointer;
+}
+.left {
+	text-align: left;
+}

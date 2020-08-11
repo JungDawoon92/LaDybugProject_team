@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="adrankSubscribeDAO">
+ 
+ 	<insert id="insertRankSubscribe">
+ 		<![CDATA[
+ 			INSERT INTO rank_subscribe(member_id, member_sub_id, member_nickname)
+ 			VALUES (#{member_id}, #{member_sub_id}, #{member_nickname})
+ 		]]>
+ 	</insert>
+ 	
+ 	<select id="getRankSubscribe" resultType="adrankSubscribe">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM rank_subscribe
+ 			WHERE member_id = #{member_id} AND member_sub_id = #{member_sub_id}
+ 		]]>
+ 	</select>
+ 
+ 	<select id="getRankSubscribeList" resultType="adrankSubscribe">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM rank_subscribe
+ 			WHERE member_id = #{member_id}
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getCategoryChart" resultType="adrankSubscribe">
+ 		<![CDATA[
+ 			SELECT recipe_category_kind, COUNT(recipe_category_kind) AS cate_count
+			FROM recipe
+			WHERE member_id = #{member_id}
+			GROUP BY recipe_category_kind
+			ORDER BY cate_count DESC
+			LIMIT 5
+ 		]]>
+ 	</select>
+ </mapper>

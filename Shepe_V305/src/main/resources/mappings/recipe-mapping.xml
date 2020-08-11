@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RecipeDAO">
+
+	<insert id="recipeInsert" parameterType="recipe">
+		INSERT INTO recipe(member_id, member_nickname,recipe_no, recipe_nm, recipe_info, recipe_complete_img, recipe_category_kind, recipe_category_ing, recipe_category_how, recipe_cnt, recipe_person)
+		VALUES(#{member_id}, #{member_nickname},#{recipe_no},  #{recipe_nm}, #{recipe_info}, #{recipe_complete_img}, #{recipe_category_kind}, #{recipe_category_ing}, #{recipe_category_how}, #{recipe_cnt}, #{recipe_person})
+	</insert>
+	
+	<insert id="recipeProcessInsert" parameterType="recipe">
+		INSERT INTO recipe_process(recipe_no, recipe_process, recipe_process_img, recipe_process_sq)
+		VALUES(#{recipe_no}, #{recipe_process}, #{recipe_process_img}, #{recipe_process_sq})
+	</insert>
+	
+	<insert id="recipeIngreInsert" parameterType="recipe">
+		INSERT INTO recipe_Ingredient(recipe_no, ingredient_nm, recipeingre_cnt, recipeingre_sq)
+		VALUES(#{recipe_no}, #{ingredient_nm}, #{recipeingre_cnt}, #{recipeingre_sq})
+	</insert>
+	
+	<select id="getRecipeList" resultType="recipe">
+		SELECT * FROM recipe
+		ORDER BY recipe_sq DESC
+	</select>
+	
+	<select id="getRecipe" resultType="recipe">
+		SELECT * FROM recipe WHERE recipe_no=#{recipe_no}
+	</select>
+	
+	<select id="getRecipeIngreList" resultType="recipe">
+		SELECT * FROM recipe_ingredient WHERE recipe_no=#{recipe_no}
+	</select>
+	
+	<select id="getRecipeProcessList" resultType="recipe">
+		SELECT * FROM recipe_process WHERE recipe_no=#{recipe_no}
+	</select>
+	
+	<update id="recipeCntUpdate" parameterType="recipe">
+		UPDATE recipe SET recipe_cnt = recipe_cnt+1
+		 WHERE recipe_no = #{recipe_no}
+	</update>
+	
+	<update id="recipeUpdateImg" parameterType="recipe">
+		UPDATE recipe SET recipe_nm = #{recipe_nm}, recipe_info = #{recipe_info}, recipe_complete_img = #{recipe_complete_img},
+			 recipe_category_kind = #{recipe_category_kind}, recipe_category_ing = #{recipe_category_ing},
+			 recipe_category_how = #{recipe_category_how}, recipe_cnt = #{recipe_cnt}
+		 WHERE recipe_no = #{recipe_no}
+	</update>
+	
+	<update id="recipeUpdate" parameterType="recipe">
+		UPDATE recipe SET recipe_nm = #{recipe_nm}, recipe_info = #{recipe_info}, 
+			 recipe_category_kind = #{recipe_category_kind}, recipe_category_ing = #{recipe_category_ing},
+			 recipe_category_how = #{recipe_category_how}, recipe_cnt = #{recipe_cnt}
+		 WHERE recipe_no = #{recipe_no}
+	</update>
+
+	<insert id="processUpdate" parameterType="recipe">
+		INSERT INTO recipe_process
+			(recipe_no, recipe_process, recipe_process_sq)
+		VALUES
+			(#{recipe_no}, #{recipe_process}, #{recipe_process_sq})
+		ON DUPLICATE KEY UPDATE
+			recipe_no = #{recipe_no}, recipe_process = #{recipe_process}
+	</insert>
+	
+	<insert id="processUpdateImg" parameterType="recipe">
+		INSERT INTO recipe_process
+			(recipe_no, recipe_process, recipe_process_img, recipe_process_sq)
+		VALUES
+			(#{recipe_no}, #{recipe_process}, #{recipe_process_img}, #{recipe_process_sq})
+		ON DUPLICATE KEY UPDATE
+			recipe_no = #{recipe_no}, recipe_process = #{recipe_process}, recipe_process_img = #{recipe_process_img}
+	</insert>
+	
+	<insert id="recipeIngreUpdate" parameterType="recipe">
+		INSERT INTO recipe_ingredient
+			(recipe_no, ingredient_nm, recipeingre_cnt, recipeingre_sq)
+		VALUES
+			(#{recipe_no}, #{ingredient_nm}, #{recipeingre_cnt}, #{recipeingre_sq})
+		ON DUPLICATE KEY UPDATE
+			recipe_no = #{recipe_no}, ingredient_nm = #{ingredient_nm}, recipeingre_cnt = #{recipeingre_cnt}
+	</insert>
+	
+	<select id="getShopingIngreList" resultType="recipe">
+		SELECT A.ingredient_no, A.ingredient_nm, A.ingredient_price, A.ingredient_thumbName, A.ingredient_amt, B.ingredient_weight, C.recipeingre_cnt, C.recipe_no
+		  FROM ingredient A
+		  JOIN ingredient_details B
+		    ON A.ingredient_no = B.ingredient_no
+		  JOIN recipe_ingredient C
+		    ON A.ingredient_nm LIKE CONCAT('%',#{ingredient_nm},'%')
+		 WHERE A.ingredient_nm LIKE CONCAT('%',#{ingredient_nm},'%')
+		   AND C.recipe_no = #{recipe_no}
+		   AND C.ingredient_nm LIKE CONCAT('%',#{ingredient_nm},'%')
+		   AND C.recipeingre_sq = #{recipeingre_sq}
+	</select>
+	
+	<insert id="basketInsert" parameterType="recipe">
+		INSERT INTO cart(member_id, recipe_no, ingredient_no, ingredient_nm, ingredient_cnt, ingredient_price, ingredient_thumbName)
+		VALUES(#{member_id},#{recipe_no},#{ingredient_no},#{ingredient_nm}, #{ingredient_cnt}, #{ingredient_price},#{ingredient_thumbName})
+	</insert>
+	
+	<select id="listCount" resultType="int" parameterType="com.shepe.admin.recipe.RecipeListVO">
+		SELECT COUNT(member_id)
+		  FROM recipe
+		 WHERE 1 = 1
+		<if test="searchCondition == 'member_id'">
+		 	AND member_id LIKE CONCAT('%',#{searchKeyword},'%')
+		</if>
+		<if test="searchCondition == 'recipe_nm'">
+			AND recipe_nm LIKE CONCAT('%',#{searchKeyword},'%')
+		</if>
+	</select>
+	
+	<select id="getAdminRecipeList" resultType="recipe" parameterType="com.shepe.admin.recipe.RecipeListVO">
+		SELECT * FROM recipe
+		 WHERE 1 = 1
+		<if test="searchCondition == 'member_id'">
+		 	AND member_id LIKE CONCAT('%',#{searchKeyword},'%')
+		</if>
+		<if test="searchCondition == 'recipe_nm'">
+			AND recipe_nm LIKE CONCAT('%',#{searchKeyword},'%')
+		</if>
+		ORDER BY recipe_sq DESC
+		LIMIT #{pageStart}, #{perPageNum}
+	</select>
+	
+	<delete id="recipeDelete" parameterType="recipe">
+		DELETE FROM recipe
+		WHERE recipe_no = #{recipe_no}
+	</delete>
+	
+</mapper>

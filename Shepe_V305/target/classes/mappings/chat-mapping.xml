@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommonChatDAO">
+
+	<select id="getChatListByID" resultType="chat">
+		<![CDATA[
+			SELECT * FROM CHAT WHERE ((fromID = #{fromID} AND toID = #{toID}) OR (fromID = #{fromIDr} AND toID = #{toIDr})) AND chatsq > #{chatSQ} ORDER BY chatTime
+		]]>
+	</select>
+	<select id="getChatListByRecent" resultType="chat">
+		<![CDATA[
+			SELECT * FROM CHAT WHERE ((fromID = #{fromID} AND toID =#{toID}) OR (fromID = #{fromIDr} AND toID =#{toIDr}))AND chatroomnum= #{chatroomnum} AND chatsq > (SELECT MAX(chatsq) - #{number} FROM CHAT WHERE (fromID =#{toIDrr} AND toID = #{fromIDrr}) OR (fromID = #{toIDrrr} AND toID = #{fromIDrrr})) ORDER BY chatTime
+		]]>
+	</select>
+	<select id="getBox" resultType="chat">
+		<![CDATA[
+			SELECT * FROM CHAT WHERE chatsq IN (SELECT MAX(chatsq) FROM CHAT WHERE toID = #{userID} OR fromID = #{userID} GROUP BY fromID, toID)
+		]]>
+	</select>
+	
+	<insert id="submit">
+		<![CDATA[
+			INSERT INTO CHAT VALUES (NULL, #{fromID}, #{toID}, #{chatContent}, NOW(), #{chatread}, #{chatRoomNum})
+		]]>
+	</insert>
+	
+	<insert id="chatBootSubmit">
+		<![CDATA[
+			INSERT INTO CHAT VALUES (NULL, #{fromID}, #{toID}, #{chatContent}, NOW(), 1, #{chatRoomNum})
+		]]>
+	</insert>
+	
+	<update id="readChat">
+		<![CDATA[
+			UPDATE CHAT SET chatRead = 1 WHERE (fromID = #{fromID} AND toID = #{toID})
+		]]>
+	</update>
+	
+	<select id="getAllUnreadChat" resultType="int">
+		<![CDATA[
+			SELECT COUNT(chatsq) FROM CHAT WHERE toID = #{fromID} AND chatREAD = 0
+		]]>
+	</select>
+	
+	<select id="getUnreadChat" resultType="int">
+		<![CDATA[
+			SELECT COUNT(chatsq) FROM CHAT WHERE fromID = #{fromID} AND toID = #{toID} AND chatRead = 0
+		]]>
+	</select>
+	
+	<select id="chatListNum" resultType="int">
+		<![CDATA[
+			SELECT IFNULL(MAX(CHATROOMNUM),0) FROM CHAT WHERE FROMID = #{userID}
+		]]>
+	</select>
+	
+	<insert id="chatRoomSetting">
+		<![CDATA[
+			INSERT INTO CHATROOM VALUES (#{fromID}, #{chatRoomNum}, 0, #{chatRoomSubject}, sysdate(), null, #{admincall})
+		]]>
+	</insert>
+	
+	<insert id="chatRoomSettingboot">
+		<![CDATA[
+			INSERT INTO CHATROOM VALUES (#{fromID}, #{chatRoomNum}, 1, #{chatRoomSubject}, sysdate(), null, #{admincall})
+		]]>
+	</insert>
+	
+	
+	<select id="chatroomlist" resultType="chatlist">
+		<![CDATA[
+			SELECT * FROM CHATROOM WHERE USERID=#{userID} ORDER BY chatroomnum DESC;
+		]]>
+	</select>
+	
+	
+	<select id="admin_chatroomone" resultType="chatlist">
+		<![CDATA[
+			SELECT * FROM CHATROOM WHERE USERID = #{userID} AND (CHATROOMNUM = (SELECT MAX(CHATROOMNUM) FROM CHATROOM WHERE USERID = #{userID})) 
+		]]>
+	</select>
+	
+	<select id="admin_chatroomList" resultType="chatlist">
+		<![CDATA[
+			SELECT * FROM CHATROOM WHERE admincall=1 ORDER BY consultsq DESC LIMIT 0,10 
+		]]>
+	</select>
+	
+	<update id="updateOk">
+		<![CDATA[
+			UPDATE CHATROOM SET chatcomplete = 1 where Consultsq = #{getConsultsq}
+		]]>
+	</update>
+	
+	<select id="chatCompleteCheck" resultType="int">
+		<![CDATA[
+			select IFNULL(min(chatcomplete), -1) from chatroom where userid = #{userID}
+		]]>
+	</select>
+	
+	<update id="chatAllComplete">
+		<![CDATA[
+			UPDATE CHATROOM SET chatcomplete = 1 where userid = #{userID}
+		]]>
+	</update>
+	
+	<select id="selectChatroomnum" resultType="int">
+		<![CDATA[
+			SELECT ifnull(max(chatroomnum),0) FROM chatroom WHERE (userid = #{userID} AND chatcomplete = 0);
+		]]>
+	</select>
+	
+	
+</mapper>
+

@@ -1,0 +1,139 @@
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.form-control {
+	height: 41px;
+	background: #f2f2f2;
+	box-shadow: none !important;
+	border: none;
+}
+
+.form-control:focus {
+	background: #e2e2e2;
+}
+
+.form-control, .btn {
+	border-radius: 3px;
+}
+
+.signup-form {
+	width: 390px;
+	margin: 30px auto;
+}
+
+.signup-form form {
+	color: #31708f;
+	border-radius: 3px;
+	margin: auto;
+    margin-top: 30px;
+	margin-bottom: 15px;
+	background: #fff;
+	box-shadow: 5px 10px 5px rgba(0, 0, 0, 0.3);
+	padding: 30px;
+}
+
+.signup-form h2 {
+	color: #333;
+	font-weight: bold;
+	margin-top: 0;
+}
+
+.signup-form hr {
+	margin: 0 -30px 20px;
+}
+
+.signup-form .form-group {
+	margin-bottom: 20px;
+}
+
+
+.signup-form input[type="checkbox"] {
+	margin-top: 3px;
+}
+
+.signup-form input[type="radio"] {
+	margin-top: 3px;
+	width: 20px;
+	height: 15px;
+	display: inline;
+}
+
+.signup-form .row div:first-child {
+	padding-right: 10px;
+	margin-bottom : 10px;
+}
+
+.signup-form .row div:last-child {
+	padding-left: auto;	
+}
+
+.signup-form .btn {
+	font-size: 16px;
+	font-weight: bold;
+	background: #686868;
+	border: none;
+	min-width: 100%;
+}
+
+.signup-form .btn:hover, .signup-form .btn:focus {
+	background: black !important;
+	outline: none;
+}
+
+.join_info_p {
+	text-align: right;
+    font-size: 14px;
+}
+
+.signup-form a {
+	color: #3598dc;
+	text-decoration: underline;
+}
+
+.signup-form a:hover {
+	text-decoration: none;
+}
+
+.signup-form form a {
+	color: #3598dc;
+	text-decoration: none;
+}
+
+.signup-form form a:hover {
+	text-decoration: underline;
+}
+
+.signup-form .hint-text {
+	padding-bottom: 15px;
+	text-align: center;
+}
+
+.policy {
+	background: #f2f2f2;
+	box-shadow: none !important;
+	border: none;
+	height: 70px;
+	overflow:auto;
+}
+
+.idCheck {
+	float:right;
+	margin-bottom:4px;
+}
+
+.signup-form label {
+	font-weight : normal;
+}
+.body_wrapper {
+	background-image: url(/shepe/resources/img/bg-img/login_bg3.jpg);
+}
+.end_p a {
+	color: white;
+	text-decoration: white;
+}
+
+.end_p {
+	color: white;
+}

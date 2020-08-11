@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="OrderDAO">
+	<insert id="insertOrderInfo">
+	 	INSERT INTO ORDER_INFO(order_no, order_ymd, order_sum, paymentType, payType) 
+	 	VALUES(#{order_no}, now(), #{order_sum}, #{paymentType}, #{payType})
+	</insert>
+
+	<insert id="insertOrderIngredient"  parameterType="java.util.List">
+	 	INSERT INTO ORDER_INGREDIENT(order_no, ingredient_no, ingredient_nm, ingredient_cnt, ingredient_price, ingredient_thumbName, recipe_no, recipe_nm)
+	 	VALUES 
+	 	<foreach collection="list" item="item" separator=","> 
+	 		(#{item.order_no}, #{item.ingredient_no}, #{item.ingredient_nm}, #{item.ingredient_cnt}, 
+	 		#{item.ingredient_price}, #{item.ingredient_thumbName}, #{item.recipe_no}, #{item.recipe_nm})
+	 	</foreach>
+	</insert>
+	
+	<insert id="insertOrderMember">
+	 	INSERT INTO ORDER_MEMBER(order_no, member_sq, member_id, member_nm, member_phone, 
+	 							member_address1, member_address2, member_reciever, member_email, member_email_domain) 
+	 	VALUES(#{order_no}, #{member_sq}, #{member_id}, #{member_nm}, #{member_phone}, 
+	 			#{member_address1}, #{member_address2}, #{member_reciever}, #{member_email}, #{member_email_domain})
+	</insert>
+	
+	<update id="updatePaymentCompleted" parameterType="String">
+	 	UPDATE ORDER_INFO 
+	 	SET paymentSuccess = 'Y' 
+	 	WHERE order_no = #{order_no} 
+	</update>
+	
+	<delete id="deletePaymentFail" parameterType="String">
+		<if test="order_no != null">
+			DELETE T1, T2, T3 
+			FROM ORDER_INFO T1 INNER JOIN ORDER_INGREDIENT T2 INNER JOIN ORDER_MEMBER T3 
+			ON T1.order_no = T2.order_no 
+			AND T2.order_no = T3.order_no 
+			WHERE T1.order_no = #{order_no}
+		</if>
+	</delete>
+	
+	<resultMap id="order" type="com.shepe.client.order.OrderVO">
+		<id property="order_no" column="order_no" />
+		<result property="order_ymd" column="order_ymd" />
+		<result property="order_sum" column="order_sum" />
+		<collection property="orderIngreVOs" ofType="orderIngredient" resultMap="orderItem"></collection>
+	</resultMap>
+	
+	<resultMap id="orderItem" type="orderIngredient" >
+		<id property="recipe_no" column="recipe_no" />
+		<result property="order_no" column="order_no" />
+		<result property="ingredient_no" column="ingredient_no" />
+		<result property="ingredient_nm" column="ingredient_nm" />
+		<result property="ingredient_cnt" column="ingredient_cnt" />
+		<result property="ingredient_price" column="ingredient_price" />
+		<result property="ingredient_thumbName" column="ingredient_thumbName" />
+		<result property="recipe_nm" column="recipe_nm" />
+	</resultMap>
+	
+	<select id="getOrderHistory" resultMap="order" parameterType="String">
+		SELECT T1.order_no, T1.order_ymd, T1.order_sum, T2.ingredient_no, T2.ingredient_nm, T2.ingredient_cnt,
+				T2.ingredient_price, T2.ingredient_thumbName, T2.recipe_no, T2.recipe_nm 
+		FROM ORDER_INFO T1 LEFT JOIN ORDER_INGREDIENT T2 
+		ON T1.order_no = T2.order_no 
+		WHERE T1.order_no IN (SELECT order_no FROM ORDER_MEMBER 
+							WHERE member_id = #{member_id}) 
+		GROUP BY T1.order_no, T2.recipe_no  
+	</select>
+	
+	<select id="getOrderHistory_ingredient" resultType="orderIngredient" parameterType="String">
+		SELECT order_no, ingredient_no, ingredient_nm, ingredient_cnt, ingredient_price, ingredient_thumbName, recipe_no, recipe_nm 
+		FROM ORDER_INGREDIENT 
+		WHERE order_no = #{order_no} 
+		GROUP BY recipe_no 
+	</select>
+</mapper>

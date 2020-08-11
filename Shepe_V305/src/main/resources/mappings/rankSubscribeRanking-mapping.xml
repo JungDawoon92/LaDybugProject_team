@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="rankSubscribeRankingDAO">
+ 
+ 	<!-- 매일 정해진 시각에 등록 Scheduler 사용 -->
+ 	<insert id="insertRankSubscribeRanking">
+ 		<![CDATA[
+ 			INSERT INTO rank_subscribe_ranking (member_id, member_nickname, member_sub_sum, rank_no, rank_ymd)
+ 			SELECT me.member_id, me.member_nickname,
+ 					(SELECT COUNT(member_sub_id) FROM rank_subscribe WHERE member_id = me.member_id) AS member_sub_sum, 0, now()
+ 			FROM member me
+ 			WHERE me.member_id IN (SELECT member_id FROM rank_subscribe)
+ 			ORDER BY member_sub_sum DESC, member_id
+ 			LIMIT 100
+ 		]]>
+ 	</insert>
+ 	
+ 	<!-- 등록된 자료에 순위를 업데이트 -->
+ 	<update id="updateRankSubscribeRanking">
+ 		<![CDATA[
+ 			UPDATE rank_subscribe_ranking
+ 			SET rank_no = #{rank_no}
+ 			WHERE member_id = #{member_id}
+ 		]]>
+ 	</update>
+ 	
+ 	<select id="getRankSubscribeRankingCnt" resultType="int">
+		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM rank_subscribe_ranking
+ 			WHERE rank_ymd = curdate()
+ 		]]>
+	</select> 	
+ 	
+ 	<!-- 순위 업데이트를 위해 100개를 불러옴 -->
+ 	<select id="getSubscribeRankList" resultType="rankSubRanking">
+ 	 	<![CDATA[
+ 			SELECT member_id, rank_no
+ 			FROM rank_subscribe_ranking
+ 			WHERE rank_ymd = curdate()
+ 			ORDER BY member_sub_sum DESC
+ 			LIMIT 100
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 누적 구독자 리스트 -->
+ 	<select id="getRankSubscribeRankingList" resultType="rankSubRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.member_id, rk.member_nickname, rk.member_sub_sum, rk.rank_no, rk.rank_ymd, me.member_img
+ 			FROM rank_subscribe_ranking rk
+ 			INNER JOIN member me
+ 			ON rank_ymd = curdate() AND rk.member_id = me.member_id
+ 			ORDER BY rk.member_sub_sum DESC
+ 			LIMIT 21 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 월간 구독자 리스트 -->
+ 	<select id="getRankSubscribeRankingListMonth" resultType="rankSubRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.member_id, me.member_nickname, COUNT(rk.member_sub_id) AS member_sub_sum, rank_ymd, me.member_img
+ 			FROM rank_subscribe rk, member me
+ 			WHERE rk.member_id = me.member_id AND rank_ymd
+ 			BETWEEN (SELECT LAST_DAY(NOW() -INTERVAL 1 MONTH)+ INTERVAL 1 day FROM DUAL)
+ 				AND (SELECT LAST_DAY(NOW())FROM DUAL)
+ 			GROUP BY member_id
+			ORDER BY member_sub_sum DESC, member_id
+			LIMIT 15
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 주간 구독자 리스트 -->
+ 	<select id="getRankSubscribeRankingListWeek" resultType="rankSubRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.member_id, me.member_nickname, COUNT(rk.member_sub_id) AS member_sub_sum, rank_ymd, me.member_img
+ 			FROM rank_subscribe rk, member me
+ 			WHERE rk.member_id = me.member_id AND rank_ymd
+ 			BETWEEN (SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL WEEKDAY(NOW()) DAY), '%Y-%m-%d'))
+ 				AND (SELECT DATE_FORMAT(DATE_ADD(NOW(), INTERVAL (6 - (WEEKDAY(NOW()))) DAY), '%Y-%m-%d'))
+ 			GROUP BY member_id
+			ORDER BY member_sub_sum DESC, member_id
+			LIMIT 15
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 일간 구독자 리스트 -->
+ 	<select id="getRankSubscribeRankingListToday" resultType="rankSubRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.member_id, me.member_nickname, COUNT(rk.member_sub_id) AS member_sub_sum, rank_ymd, me.member_img
+ 			FROM rank_subscribe rk, member me
+ 			WHERE rk.member_id = me.member_id AND rank_ymd = curdate()
+ 			GROUP BY member_id
+			ORDER BY member_sub_sum DESC, member_id
+			LIMIT 15
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 내가 구독중인 쉐프 리스트 -->
+ 	<select id="getMyChefList" resultType="rankSubRanking">
+ 	 	<![CDATA[
+ 			SELECT me.member_id, me.member_nickname, (SELECT COUNT(member_sub_id) FROM rank_subscribe WHERE member_id = me.member_id) AS member_sub_sum, me.member_img
+			FROM member me
+			INNER JOIN rank_subscribe rs
+			ON me.member_id = rs.member_id AND rs.member_sub_id = #{member_id}
+			ORDER BY member_sub_sum DESC
+ 			LIMIT 21 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 	
+ </mapper>

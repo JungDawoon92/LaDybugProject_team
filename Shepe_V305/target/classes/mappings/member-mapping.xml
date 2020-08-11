@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="MemberDAO">
+ 	
+ 	<!-- 회원가입 -->
+ 	<insert id="insertMember" >
+ 		<![CDATA[
+ 			INSERT INTO MEMBER (member_nm, member_id, member_password, member_nickname, member_phone, member_birth, member_email, member_email_domain, member_join, changePWD_date)
+ 			VALUES( #{member_nm}, #{member_id}, #{member_password}, #{member_nickname}, #{member_phone}, #{member_birth}, #{member_email}, #{member_email_domain}, now(), now())
+ 			]]>
+ 	</insert>
+ 	
+ 	<!-- 회원 정보 가져오기 -->
+ 	<select id="getMember" resultType="member">
+ 	<![CDATA[
+		select * from member
+		where member_id = #{member_id} 
+		]]>
+	</select>
+	
+ 	<!-- 이메일 인증 업데이트 n -> y -->
+ 	<update id="verifyMember">
+	 	<![CDATA[
+			update member set member_verify='y' where member_email = #{member_email} and member_email_domain = #{member_email_domain}
+			]]>
+	</update>
+ 	
+ 	<!-- 아이디 중복 체크 -->
+ 	<select id="checkOverId" resultType="int">
+ 		<![CDATA[
+ 			select count(*) from member where member_id = #{member_id}
+ 			]]>
+ 	</select>
+ 	
+ 	<!-- 닉네임 중복 체크 -->
+ 	<select id="nickCheck" resultType="int">
+ 		<![CDATA[
+ 			select count(*) from member where member_nickname = #{member_nickname}
+ 			]]>
+ 	</select>
+ 	
+ 	<!-- 로그인 -->
+ 	<select id="memberLogin" resultType="member">
+ 		<![CDATA[
+ 			select * from member where member_id = #{member_id} and member_password = #{member_password}
+ 			]]>
+ 	</select>
+ 	
+ 	<!-- 회원정보 수정 -->
+	<update id="memberUpdate">
+		<![CDATA[
+			UPDATE MEMBER SET	
+			member_nickname = #{member_nickname},
+			member_phone = #{member_phone},
+			member_email = #{member_email},
+			member_email_domain = #{member_email_domain}
+			WHERE member_id = #{member_id}
+			]]>
+	</update>
+
+	<!-- 회원 탈퇴 -->
+	<delete id="memberDelete">
+	<![CDATA[
+		DELETE FROM MEMBER
+		WHERE MEMBER_DELDATE = curdate()
+	]]>
+	</delete>
+
+	<!-- 패스워드 체크 -->
+	<select id="passChk" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_ID = #{member_id}
+		AND MEMBER_PASSWORD = #{member_password}
+		]]>
+	</select>
+	
+	<!-- 이메일 중복확인 -->
+    <select id = "email_check" resultType="String">
+        select member_email from member
+        where member_email = #{member_email}
+    </select>
+    
+	<!-- 아이디 찾기 -->
+	<select id="searchID" resultType="member">
+		select * from member
+		where member_nm = #{member_nm} and member_email = #{member_email} and member_email_domain = #{member_email_domain}
+	</select>
+		
+	<!-- 비밀번호 변경 -->
+	<update id="updatePW">
+		update member set 
+		member_password = #{member_password}
+		where MEMBER_ID = #{member_id} and member_email = #{member_email} and member_email_domain = #{member_email_domain}
+	</update>
+		
+	<!-- 회원 탈퇴 날짜 기입 -->
+ 	<insert id="delDate" >
+ 		<![CDATA[
+ 			UPDATE MEMBER SET MEMBER_DELDATE = DATE_ADD( NOW(), INTERVAL 1 MONTH )
+ 			]]>
+ 	</insert>
+ 	
+ 	<!-- 로그인 실패 횟수 업데이트 +1 -->
+ 	<update id="updateFailureCount">
+        <![CDATA[
+            UPDATE MEMBER SET
+            FAILURE_CNT = FAILURE_CNT + 1
+            WHERE MEMBER_ID = #{ member_id }
+        ]]>
+	</update>
+	
+	<!-- 회원의 로그인 실패 횟수 조회 -->
+	<select id="checkFailureCount" resultType="int">
+        <![CDATA[
+            SELECT FAILURE_CNT
+            FROM MEMBER
+            WHERE MEMBER_ID = #{ member_id }
+        ]]>
+	</select>
+ 	
+ 	<!-- 로그인 실패 5회 이상 로그인 제한 -->
+ 	<update id="updateDisabled">
+        <![CDATA[
+            UPDATE MEMBER SET
+            ACCOUNTLOCK = 'y'
+            WHERE MEMBER_ID = #{ member_id }
+        ]]>
+	</update>
+	
+	<!-- 로그인 실패 횟수 초기화(로그인 성공 시) -->
+ 	<update id="initializeFailCount">
+        <![CDATA[
+            UPDATE MEMBER SET
+            FAILURE_CNT = 0
+            WHERE MEMBER_ID = #{ member_id }
+        ]]>
+	</update>
+	
+	<!-- 계정 잠금 초기화(비밀번호 찾기 서비스 이용시) -->
+ 	<update id="accountLockInitialize">
+        <![CDATA[
+            UPDATE MEMBER SET
+            ACCOUNTLOCK = 'n'
+            WHERE MEMBER_ID = #{ member_id }
+        ]]>
+	</update>
+	
+	<!-- 비밀번호 변경 날짜 90일 지났는지 체크 -->
+    <select id = "check90overPW" resultType="int">
+	    <![CDATA[
+	        SELECT COUNT(*) FROM MEMBER
+	        WHERE NOW() >= DATE_ADD(changePWD_date, INTERVAL 90 DAY)
+	        AND MEMBER_ID = #{ member_id }
+	    ]]>
+    </select>
+	
+	<!-- 비밀번호 변경 날짜 최신화 업데이트 -->
+ 	<update id="changePWDateInitialize">
+        <![CDATA[
+            UPDATE MEMBER SET
+            changePWD_date = now()
+            WHERE MEMBER_ID = #{ member_id }
+        ]]>
+	</update>
+	
+	<!-- 로그인 시 로그인 날짜 컬럼에 업데이트 -->
+ 	<insert id="insertMemberLoginDay" >
+ 		<![CDATA[
+ 			UPDATE MEMBER SET
+            LOGIN_MEMBER_DATE = now()
+            WHERE MEMBER_ID = #{ member_id }
+ 			]]>
+ 	</insert>
+	
+	<!-- ..................................관리자 mapper..................................... -->
+	
+	<!-- 회원 리스트 가져오기 -->
+	<select id="listPage" resultType="member" parameterType="com.shepe.commons.Criteria">
+	<![CDATA[	
+		SELECT * FROM MEMBER
+ 		ORDER BY MEMBER_SQ ASC
+		LIMIT #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	
+	<!-- 리스트 갯수 -->
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(MEMBER_SQ)
+		  FROM MEMBER
+		 WHERE MEMBER_SQ > 0
+	]]>
+	</select>
+	
+	<!-- 회원 정보 가져오기 -->
+	<select id="read" parameterType="int" resultType="member">
+		SELECT * FROM MEMBER
+		WHERE member_sq = #{member_sq}
+	</select>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="update" parameterType="member">
+		UPDATE MEMBER SET
+			member_nm = #{member_nm},
+			MEMBER_ID = #{member_id},
+			MEMBER_PASSWORD = #{member_password},
+			member_nickname = #{member_nickname},
+			member_phone = #{member_phone},
+			member_birth = #{member_birth},
+			member_email = #{member_email},
+			member_email_domain = #{member_email_domain}
+		WHERE MEMBER_sq = #{member_sq}
+	</update>
+	
+	<!-- 회원 삭제 -->
+	<delete id="delete" parameterType="int">
+	DELETE
+	FROM MEMBER
+	WHERE MEMBER_SQ = #{member_sq}
+	</delete>
+	
+ 	<!-- 회원 탈퇴 시 컬럼 업뎃 n -> y -->
+ 	<update id="delUpdate">
+	 	<![CDATA[
+			update member set del_update = 'y'
+			]]>
+	</update>
+	
+	<!-- 생년월일별 그래프 -->
+	<select id="getBirthChart" resultType="member">
+	<![CDATA[	
+		SELECT * FROM MEMBER
+ 		ORDER BY MEMBER_SQ ASC
+	]]>
+	</select>
+	
+	<!-- 날짜별 가입 된 회원 수 확인 (그래프) -->
+	<select id="searchMemberBirthCount" resultType="member">
+	<![CDATA[
+		SELECT DATE_FORMAT(member_join, '%Y-%m-%d') AS member_join, count(*) AS dayByMemberCnt 
+		FROM MEMBER
+		GROUP BY DATE_FORMAT(member_join, '%Y-%m-%d') ORDER BY member_join ASC;
+	]]>
+	</select>
+	
+	<!-- 연령대별 회원수(그래프) -->
+	<select id="searchMemberAgeCount" resultType="member">
+	<![CDATA[
+		SELECT DATE_FORMAT(member_birth, '%Y%m%d'),
+			SUM(if(date_format(now(),'%Y')-substring(member_birth,1,4) between 10 and 19 , 1, 0)) as age_10,
+			SUM(if(date_format(now(),'%Y')-substring(member_birth,1,4) between 20 and 29 , 1, 0)) as age_20,
+			SUM(if(date_format(now(),'%Y')-substring(member_birth,1,4) between 30 and 39 , 1, 0)) as age_30,
+			SUM(if(date_format(now(),'%Y')-substring(member_birth,1,4) between 40 and 49 , 1, 0)) as age_40,
+			SUM(if(date_format(now(),'%Y')-substring(member_birth,1,4) between 50 and 59 , 1, 0)) as age_50,
+			SUM(if(date_format(now(),'%Y')-substring(member_birth,1,4) between 60 and 69 , 1, 0)) as age_60
+		FROM MEMBER;
+	]]>
+	</select>
+	
+	<!-- 날짜별 로그인 한 회원수(그래프) -->
+	<select id="getMemberByLogin" resultType="member">
+	<![CDATA[
+		SELECT DATE_FORMAT(login_member_date, '%Y-%m-%d') AS login_member_date, count(*) AS login_member_cnt 
+		FROM MEMBER
+		GROUP BY DATE_FORMAT(login_member_date, '%Y-%m-%d') ORDER BY login_member_date ASC;
+	]]>
+	</select>
+	
+	<select id="getAddress" resultType="memberAddr">
+		select * from member_address 
+		where member_id = #{member_id} 
+	</select>
+	
+	<!-- 회원 검색 -->
+	<!-- 
+	<select id="searchMember" resultMap="member">
+ 		SELECT *
+ 		FROM MEMBER
+ 		WHERE 1 = 1
+ 		<if test="searchCondition == 'member_id'">
+ 			AND MEMBER_ID LIKE '%'||#{searchKeyword}||'%'
+ 		</if>
+ 		<if test="searchCondition == 'member_nm'">
+ 			AND MEMBER_NM LIKE '%'||#{searchKeyword}||'%'
+ 		</if>
+ 		ORDER BY MEMBER_SQ DESC
+ 	</select>
+	-->
+ </mapper>

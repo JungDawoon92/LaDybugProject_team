@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="IngredientDAO">
+ 	<!-- 식재료 가격  ajax 업데이트 -->
+ 	<update id="priceCount" >
+ 		<![CDATA[
+ 			UPDATE ingredient SET
+			ingredient_amt = ingredient_amt - #{ingredient_amt}
+			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</update>
+ 	
+ 	<update id="ingredientUpdate" >
+ 		<![CDATA[
+ 			UPDATE ingredient SET
+ 			ingredient_nm = #{ingredient_nm}, ingredient_categ = #{ingredient_categ}, ingredient_price = #{ingredient_price}, 
+			ingredient_thumbName = #{ingredient_thumbName}, ingredient_amt = #{ingredient_amt}
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</update>
+ 	<update id="ingredientUpdateDetail">
+ 		<![CDATA[
+ 			UPDATE ingredient_details SET
+ 			ingredient_codeNum = #{ingredient_codeNum}, ingredient_country = #{ingredient_country}, ingredient_productimporter = #{ingredient_productimporter},
+			ingredient_weight = #{ingredient_weight}, ingredient_mnfctDate = #{ingredient_mnfctDate}, ingredient_life = #{ingredient_life},
+			ingredient_selLife = #{ingredient_selLife}, ingredient_foodType = #{ingredient_foodType}, ingredient_selFoodType = #{ingredient_selFoodType},
+			ingredient_storage = #{ingredient_storage}, ingredient_selStorage = #{ingredient_selStorage}, ingredient_pckmtr = #{ingredient_pckmtr},
+			ingredient_nutrient = #{ingredient_nutrient}, ingredient_allergy = #{ingredient_allergy}
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</update>
+ 	<update id="ingredientUpdateMulti">
+ 		<![CDATA[
+ 			UPDATE ingredient_multi SET			
+ 			ingredient_fileName = #{ingredient_fileName}
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</update>
+ 	
+ 	<!--  식재료 삭제-->
+ 	<delete id="ingredientDelete">
+ 		<![CDATA[
+ 			DELETE FROM ingredient
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</delete> 
+ 	<!-- 식재료 디테일 삭제-->
+ 	<delete id="ingredientDeleteDetail">
+ 		<![CDATA[
+ 			DELETE FROM ingredient_details
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</delete> 
+ 	<!--  식재료 멀티 삭제-->
+ 	<delete id="ingredientDeleteMulti">
+ 		<![CDATA[
+ 			DELETE FROM ingredient_multi
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</delete> 
+
+	<insert id="adminInsertDetail">
+ 		<![CDATA[
+ 			INSERT INTO ingredient_details( ingredient_no, ingredient_codeNum, ingredient_country, ingredient_productimporter, ingredient_weight, ingredient_mnfctDate, 
+ 						ingredient_life, ingredient_selLife, ingredient_foodType, ingredient_selFoodType, ingredient_storage, ingredient_selStorage, ingredient_pckmtr, ingredient_nutrient, ingredient_allergy)
+			values( #{ingredient_no}, #{ingredient_codeNum}, #{ingredient_country}, 
+					#{ingredient_productimporter}, #{ingredient_weight}, #{ingredient_mnfctDate}, 
+					#{ingredient_life}, #{ingredient_selLife}, #{ingredient_foodType}, #{ingredient_selFoodType}, 
+					#{ingredient_storage}, #{ingredient_selStorage},  
+					#{ingredient_pckmtr}, #{ingredient_nutrient}, #{ingredient_allergy})			
+ 		]]>
+	</insert>
+	<insert id="adminInsert">
+ 		<![CDATA[
+ 			INSERT INTO ingredient( ingredient_no, ingredient_nm, ingredient_categ, ingredient_price, ingredient_thumbName, ingredient_amt)
+			values( #{ingredient_no}, #{ingredient_nm}, #{ingredient_categ}, 
+					#{ingredient_price}, #{ingredient_thumbName}, #{ingredient_amt})			
+ 		]]>
+	</insert>
+	<insert id="adminInsertMulti">
+ 		<![CDATA[
+ 			INSERT INTO ingredient_multi( ingredient_no, ingredient_fileName)
+			values( #{ingredient_no}, #{ingredient_fileName})			
+ 		]]>
+	</insert> 
+	
+	<!-- 페이징 데이타 총 개수 구하깅 -->
+	<select id="IngredientListCnt" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM ingredient
+ 		]]>
+ 	</select>
+ 	
+	<!--  식재료 리스트 선택  -->
+	<select id="getIngredientList" resultType="ingredient">
+ 			SELECT * FROM ingredient
+ 			WHERE  1 = 1
+ 			<if test = "ingredient_searchCondition == 'ingredient_nm'">
+ 				AND ingredient_nm LIKE CONCAT('%', #{ingredient_searchKeyword}, '%')
+ 			</if>
+ 			<if test = "ingredient_searchCondition == 'ingredient_no'">
+ 				AND ingredient_no LIKE CONCAT('%', #{ingredient_searchKeyword}, '%')
+ 			</if>
+ 			ORDER BY ingredient_no DESC 
+	</select>
+	
+	<!-- AJAX add 리스트  -->
+	<select id="AjaxAddList" resultType="ingredient">
+ 			SELECT * FROM ingredient
+ 			ORDER BY ingredient_no DESC 
+ 			LIMIT 10 OFFSET #{offset}
+	</select>
+	
+	
+	<!--  식재료 중복확인 검사     -->	
+ 	<select id="ingredient_nmCheck" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM ingredient
+ 			WHERE ingredient_nm = #{ingredient_nm}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 식재료 썸네일 중복 검사     -->
+ 	<select id="thumbNm" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*) FROM ingredient
+			WHERE ingredient_thumbName = #{ingredient_thumbName}
+ 		]]>
+ 	</select> 
+ 	
+ 	<!-- 식재료 디테일 페이지 -->
+ 	<select id="detailIngredient" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]> 
+	</select>
+ 	<select id="detailIngredeintDetail" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient_details	
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	<select id="detailIngredeintMulti" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient_multi
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	
+ 	<!--  get식재료 -->
+ 	 <select id="getIngredient" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+	</select>	
+ 	<select id="getIngredeintDetail" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient_details	
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	<select id="getIngredeintMulti" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient_multi
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	<!--  클라이언트단 시작!!! -->
+ 	<!--  클라이언트 리스트!!  -->
+ 	<select id="clientList" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			LIMIT 3
+ 		]]>
+ 	</select>
+ 	<!--  클라이언트 디테일 리스트 페이지 입니다. -->
+ 	<select id="clientDetailList" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			ORDER BY ingredient_no DESC
+ 		]]>
+ 	</select>
+ 	<!--  클라이언트 식재료 디테일 후훗 !  -->
+	<select id="clientDetail" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	<!--  클라이언트 식재료 디테일디테일  -->
+ 	<select id="clientDetailDetails" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient_details	
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	<!--  클라이언트 식재료 디테일 멀티 -->
+ 	<select id="clientDetailMulti" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient_multi
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!--  가격 식재료 업데이트 Ajax -->
+ 	<select id="ing_amtCheck" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT ingredient_amt
+ 			FROM ingredient
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 
+ 	<!--원본   <update id="ing_amtCheck" >
+ 		<![CDATA[
+ 			UPDATE ingredient SET
+			ingredient_amt = ingredient_amt - #{ingredient_amt}
+			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</update>  -->
+ 	
+ 	<!-- 얘 나중에 업데이트 쓰기 디테일 페이지에서 구매하기 눌렀을 경우에 말이야!! -->
+ 	<!--<update id="ing_amtCheck" >
+ 		<![CDATA[
+ 			UPDATE ingredient SET
+			ingredient_amt = ingredient_amt - #{ingredient_amt}
+			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</update>  -->
+ 	
+
+ </mapper>

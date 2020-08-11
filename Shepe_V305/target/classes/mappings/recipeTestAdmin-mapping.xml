@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ <mapper namespace="adRecipeTestDAO">
+ 	
+ 	<select id="getRecipe" resultType="adrecipetest">
+	 	<![CDATA[
+	 		SELECT *
+	 		FROM recipe
+	 		WHERE recipe_no = #{ recipe_no }
+	 	]]>
+ 	</select>
+ 	
+ 	<select id="getChefRecipeCnt" resultType="int">
+	 	<![CDATA[
+	 		SELECT COUNT(*)
+	 		FROM recipe
+	 		WHERE member_id = #{ member_id }
+	 	]]>
+ 	</select>
+ 	
+ 	<select id="getChefRecipeList" resultType="adrecipetest">
+	 	<![CDATA[
+	 		SELECT *
+	 		FROM recipe
+	 		WHERE member_id = #{ member_id }
+	 		LIMIT 9 OFFSET #{offset}
+	 	]]>
+ 	</select>
+ 	
+ </mapper>

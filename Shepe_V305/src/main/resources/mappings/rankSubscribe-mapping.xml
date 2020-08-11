@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="rankSubscribeDAO">
+ 
+ 	<insert id="insertRankSubscribe">
+ 		<![CDATA[
+ 			INSERT INTO rank_subscribe(member_id, member_sub_id, member_nickname)
+ 			VALUES (#{member_id}, #{member_sub_id}, #{member_nickname})
+ 		]]>
+ 	</insert>
+ 	
+ 	<delete id="deleteRankSubscribe">
+ 		<![CDATA[
+ 			DELETE
+ 			FROM rank_subscribe
+ 			WHERE member_id = #{member_id} AND member_sub_id = #{member_sub_id}
+ 		]]>
+ 	</delete>
+ 	
+ 	<select id="getRankSubscribe" resultType="rankSubscribe">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM rank_subscribe
+ 			WHERE member_id = #{member_id} AND member_sub_id = #{member_sub_id}
+ 		]]>
+ 	</select>
+ 
+ 	<select id="getRankSubscribeList" resultType="rankSubscribe">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM rank_subscribe
+ 			WHERE member_id = #{member_id}
+ 		]]>
+ 	</select>
+ 	
+ </mapper>

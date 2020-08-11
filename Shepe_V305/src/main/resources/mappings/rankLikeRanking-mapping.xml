@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="rankLikeRankingDAO">
+
+ 	<!-- 매일 정해진 시각에 등록 Scheduler 사용 -->
+ 	<insert id="insertRankLikeRanking">
+ 		<![CDATA[
+ 			INSERT INTO rank_like_ranking (recipe_no, recipe_nm, recipe_like_sum, rank_no, rank_ymd)
+ 			SELECT re.recipe_no, re.recipe_nm,
+ 					(SELECT COUNT(member_like_id) FROM rank_like WHERE recipe_no = re.recipe_no) AS recipe_like_sum, 0, now()
+ 			FROM recipe re
+ 			WHERE re.recipe_no IN (SELECT recipe_no FROM rank_like)
+ 			ORDER BY recipe_like_sum DESC, recipe_no
+ 			LIMIT 100
+ 		]]>
+ 	</insert>
+ 	
+ 	<!-- 등록된 자료에 순위를 업데이트 -->
+ 	<update id="updateRankLikeRanking">
+ 		<![CDATA[
+ 			UPDATE rank_like_ranking
+ 			SET rank_no = #{rank_no}
+ 			WHERE recipe_no = #{recipe_no}
+ 		]]>
+ 	</update>
+ 	
+ 	
+ 	<select id="getRankLikeRankingCnt" resultType="int">
+		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM rank_like_ranking
+ 			WHERE rank_ymd = curdate()
+ 		]]>
+	</select> 	
+ 	
+ 	<!-- 순위 업데이트를 위해 100개를 불러옴 -->
+ 	<select id="getLikeRankList" resultType="rankLikeRanking">
+ 	 	<![CDATA[
+ 			SELECT recipe_no, rank_no
+ 			FROM rank_like_ranking
+ 			WHERE rank_ymd = curdate()
+ 			ORDER BY recipe_like_sum DESC
+ 			LIMIT 100
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 누적 좋아요 리스트 -->
+ 	<select id="getRankLikeRankingList" resultType="rankLikeRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.recipe_no, rk.recipe_nm, rk.recipe_like_sum, rk.rank_no, rk.rank_ymd, re.recipe_complete_img
+ 			FROM rank_like_ranking rk, recipe re
+ 			WHERE rank_ymd = curdate() AND rk.recipe_no = re.recipe_no
+ 			ORDER BY rk.recipe_like_sum DESC
+ 			LIMIT 9 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 월간 좋아요 리스트 -->
+ 	<select id="getRankLikeRankingListMonth" resultType="rankLikeRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.recipe_no, re.recipe_nm, count(rk.member_like_id) AS recipe_like_sum, rk.rank_ymd, re.recipe_complete_img
+ 			FROM rank_like rk, recipe re
+ 			WHERE rk.recipe_no = re.recipe_no AND rank_ymd 
+ 			BETWEEN (SELECT LAST_DAY(NOW() -INTERVAL 1 MONTH)+ INTERVAL 1 day FROM DUAL)
+ 				AND (SELECT LAST_DAY(NOW())FROM DUAL)
+ 			GROUP BY recipe_no
+ 			ORDER BY recipe_like_sum DESC, recipe_no
+ 			LIMIT 12
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 주간 좋아요 리스트 -->
+ 	<select id="getRankLikeRankingListWeek" resultType="rankLikeRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.recipe_no, re.recipe_nm, count(rk.member_like_id) AS recipe_like_sum, rk.rank_ymd, re.recipe_complete_img
+ 			FROM rank_like rk, recipe re
+ 			WHERE rk.recipe_no = re.recipe_no AND rank_ymd 
+ 			BETWEEN (SELECT DATE_FORMAT(DATE_SUB(curdate(), INTERVAL WEEKDAY(curdate()) DAY), '%Y-%m-%d'))
+ 				AND (SELECT DATE_FORMAT(DATE_ADD(curdate(), INTERVAL (6 - (WEEKDAY(curdate()))) DAY), '%Y-%m-%d'))
+ 			GROUP BY recipe_no
+ 			ORDER BY recipe_like_sum DESC, recipe_no
+ 			LIMIT 12
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 일간 좋아요 리스트 -->
+ 	<select id="getRankLikeRankingListToday" resultType="rankLikeRanking">
+ 	 	<![CDATA[
+ 			SELECT rk.recipe_no, re.recipe_nm, count(rk.member_like_id) AS recipe_like_sum, rk.rank_ymd, re.recipe_complete_img
+ 			FROM rank_like rk, recipe re
+ 			WHERE rk.recipe_no = re.recipe_no 
+ 			  AND rank_ymd = curdate()
+ 			GROUP BY recipe_no
+ 			ORDER BY recipe_like_sum DESC, recipe_no
+ 			LIMIT 12
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 내가누른 좋아요 리스트 -->
+ 	<select id="getMyLikeList" resultType="rankLikeRanking">
+ 	 	<![CDATA[
+ 			SELECT re.recipe_no, re.recipe_nm, (SELECT COUNT(member_like_id) FROM rank_like WHERE recipe_no = re.recipe_no) AS recipe_like_sum, re.recipe_complete_img
+			FROM recipe re
+			INNER JOIN rank_like rk
+			ON re.recipe_no = rk.recipe_no AND rk.member_like_id = #{member_id}
+			ORDER BY recipe_like_sum DESC
+			LIMIT 9 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 	
+ </mapper>
