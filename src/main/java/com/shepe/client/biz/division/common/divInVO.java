@@ -15,7 +15,7 @@ public class divInVO {
 		case 1:
 			return "MEAT";
 		case 2:
-			return "BEAF";
+			return "BEEF";
 		case 3:
 			return "CHICKEN";
 		case 4:

@@ -78,5 +78,9 @@ public class ChatServiceImpl implements ChatService {
 	public void chatBootSubmit(String fromID, String toID, String chatContent, int chatRoomNum) {
 		commonChatDAO.chatBootSubmit(fromID, toID, chatContent, chatRoomNum);
 	}
+	
+	public String selectchatroomDate(String userID, String chatroomnum) {
+		return commonChatDAO.selectchatroomDate(userID, chatroomnum);
+	}
 
 }

@@ -26,4 +26,6 @@ public interface ChatService {
 	int selectChatroomnum(String userID);
 	
 	void chatBootSubmit(String fromID, String toID, String chatContent, int chatRoomNum);
+	
+	String selectchatroomDate(String userID, String chatroomnum);
 }

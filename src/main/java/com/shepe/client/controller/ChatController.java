@@ -56,6 +56,19 @@ public class ChatController {
 
 		return a;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/selectchatroomDate")
+	public String selectchatroomDate(@RequestParam String userID, @RequestParam String chatroomnum) {
+
+		String a = chatService.selectchatroomDate(userID,chatroomnum);
+		System.out.println(a);
+		return a;
+	}
+		
+	
+	
+	
 		
 		
 	@RequestMapping("/chat")
@@ -170,7 +183,7 @@ public class ChatController {
 		for(int i = 0; i <chatList.size(); i++) {
 			result.append("[{\"value\": \"" + chatencoding.encoding(chatList.get(i).getFromID()) + "\"},");
 			result.append("{\"value\": \"" + chatencoding.encoding(chatList.get(i).getToID()) + "\"},");
-			result.append("{\"value\": \"" + chatList.get(i).getChatContent() + "\"},");
+			result.append("{\"value\": \"" + chatencoding.encoding(chatList.get(i).getChatContent()) + "\"},");
 			result.append("{\"value\": \"" + chatencoding.encoding(chatList.get(i).getChatTime()) + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChatRead() + "\"}]");
 			if(i != chatList.size() -1) result.append(",");

@@ -106,9 +106,9 @@
 		]]>
 	</update>
 	
-	<select id="selectChatroomnum" resultType="int">
+	<select id="selectChatroomnum" resultType="String">
 		<![CDATA[
-			SELECT ifnull(max(chatroomnum),0) FROM chatroom WHERE (userid = #{userID} AND chatcomplete = 0);
+			SELECT chatdate FROM chatroom WHERE userid=#{userID} AND chatroomnum = #{chatroomnum}
 		]]>
 	</select>
 	

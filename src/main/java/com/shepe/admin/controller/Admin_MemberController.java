@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.shepe.admin.biz.chat.BootService;
+import com.shepe.admin.biz.chat.BootVO;
 import com.shepe.admin.member.Admin_MemberService;
 import com.shepe.client.member.MemberService;
 import com.shepe.client.member.MemberVO;
@@ -35,6 +38,9 @@ public class Admin_MemberController {
 	@Inject
 	BCryptPasswordEncoder pwdEncoder;
 	
+	@Autowired
+	private BootService bootservice;
+	
 	// 검색 조건 목록 설정
 	@ModelAttribute("conditionMap")
 	public Map<String, String> searchConditionMap() {
@@ -46,13 +52,18 @@ public class Admin_MemberController {
 	
 	// 사용자가 입력한 정보로부터 POST 요청은 Spring Security를 거친 후 해당 메서드로 들어온다.
     @GetMapping("/login") 
-    public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
+    public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model,HttpServletRequest request) {
         if(error != null) {
             model.addAttribute("errorMsg", "Invalid AdminName and Password");
         }
         if(logout != null) {
             model.addAttribute("logoutMsg", "You have been logged out successfully");
         }
+        
+		HttpSession session = request.getSession();
+		BootVO vo = bootservice.BootContent();
+		session.setAttribute("BootContentt", vo);
+
         return "/admin/member/admin_login"; // login.jsp(Custom Login Page)
     }
 	

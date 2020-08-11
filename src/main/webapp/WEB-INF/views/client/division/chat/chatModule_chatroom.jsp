@@ -54,7 +54,7 @@
 			<main class="chat-screen">
 				<ul id="chatList" class="chat__messages" style="padding-left: 5px;">
 					<li class="chat__timestamp">&nbsp;</li>
-					<span class="chat__timestamp">Monday, December 30, 2019</span>
+					<span id="Today_recent" class="chat__timestamp"></span>
 				</ul>
 			</main>
 			
@@ -248,7 +248,7 @@
 		<script>
 		$(document).ready(function() {
 			chatListFunction('ten');
-			
+			var chatRoomNum = sessionStorage.getItem("roomnum");
 			$.ajax({
 				type : "POST",
 				url : "chatCompleteCheck",
@@ -263,6 +263,26 @@
 					$('#chatContent').attr('disabled', true);
 				}
 			});
+			
+			$.ajax({
+				type : "POST",
+				url : "selectchatroomDate",
+				data : {
+					userID : '${member_id}',
+					chatroomnum : chatRoomNum
+				}
+			}).done(function(a) {
+				var today = a ;
+				var strArray = today.split('-');
+				var week = new Array('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNSEDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY');
+				var month = new Array('JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER');
+				var today_Recent ="" + week[new Date(today).getDay()] + ", " + month[(strArray[1]).substring(1,2)-1] + ", " +strArray[2] + ", " +strArray[0];
+				$('#Today_recent').append(today_Recent);
+			});
+			
+			
+			
+			
 		});
 		</script>
 

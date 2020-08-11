@@ -15,12 +15,7 @@
 	</select>
 	
 	<select id="getsearch_inCount" resultType="int">
-			SELECT COUNT(*)
-			from ingredient R INNER join rank_sell_ingredient_list I
-			on R.ingredient_no = I.ingredient_no
-			WHERE ingredient_nm LIKE CONCAT('%', #{searchValue}, '%')  
-			OR ingredient_categ LIKE CONCAT('%', #{searchValue}, '%')  
-			OR ingredient_thumbName LIKE CONCAT('%', #{searchValue}, '%') ;
+			SELECT COUNT(*) from ingredient WHERE ingredient_nm LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_categ LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_thumbName LIKE CONCAT('%', #{searchValue}, '%')
 	</select>
 	
 	<select id="getsearch_reListList" parameterType="java.util.HashMap" resultType="division">
@@ -28,11 +23,8 @@
 	</select>
 	
 	<select id="getsearch_inListList" parameterType="java.util.HashMap" resultType="divisionIn">
-			SELECT R.ingredient_no, R.ingredient_nm, R.ingredient_categ, R.ingredient_price, R.ingredient_thumbName, R.ingredient_amt, I.ingredient_sell_sum
-			from ingredient R INNER join rank_sell_ingredient_list I
-			on R.ingredient_no = I.ingredient_no
-			WHERE ingredient_nm LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_categ LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_thumbName LIKE CONCAT('%', #{searchValue}, '%')
-			order by ingredient_sell_sum desc
+			SELECT * from ingredient WHERE ingredient_nm LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_categ LIKE CONCAT('%', #{searchValue}, '%') OR ingredient_thumbName LIKE CONCAT('%', #{searchValue}, '%')
+			order by ingredient_price
 			LIMIT #{startpage}, 5;
 	</select>
 	

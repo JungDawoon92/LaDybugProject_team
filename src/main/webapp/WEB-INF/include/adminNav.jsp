@@ -18,8 +18,8 @@
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="counselerChat">상담하기</a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="messageBox">Message 리스트</a>
-      <a class="dropdown-item" href="admin_getChatroom">Message봇</a>
-      <a class="dropdown-item" href="#">Message 차트</a>
+      <a class="dropdown-item" href="messageBoot">Message봇</a>
+      <a class="dropdown-item" href="searchChart">Search 차트</a>
     </div>
   </li>
     <li class="nav-item">

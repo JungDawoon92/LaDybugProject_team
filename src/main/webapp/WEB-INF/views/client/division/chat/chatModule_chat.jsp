@@ -54,7 +54,9 @@
 			<main class="chat-screen">
 				<ul id="chatList" class="chat__messages" style="padding-left: 5px;">
 					<li class="chat__timestamp">&nbsp;</li>
-					<span class="chat__timestamp">Monday, December 30, 2019</span>
+
+					<span id="Today_recent" class="chat__timestamp"></span>
+
 
 
 					<li class="incoming-message message chatbootstart1"><img
@@ -208,6 +210,14 @@
 			}
 
 			$(document).ready(function() {
+				
+				today = new Date()
+				var week = new Array('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNSEDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY');
+				var month = new Array('JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER');
+				
+				var today_Recent ="" + week[today.getDay()] + ", " + month[today.getMonth()] + ", " +today.getDate() + ", " +today.getFullYear();
+				
+				$('#Today_recent').append(today_Recent);
 				
 				$('.chatbootstart1')
 				  .delay(700)
