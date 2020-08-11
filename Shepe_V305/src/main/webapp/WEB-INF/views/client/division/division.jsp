@@ -27,6 +27,9 @@
 	.btn_color {
 		font-family: 'Nanum Pen Script';
 	}
+	.titleRight {
+		text-align: right;
+	}
   </style>
 </head>
 <body>
@@ -102,16 +105,24 @@
 </table>
 <hr>
 </div>
-
+	<div class="titleRight">
+		<a href="recipeInterceptor/recipeInsert.re">
+			<button class="btn btn-success">레시피 등록</button>
+		</a>
+	</div>
 	<div id="list">
 
 	<div class="container">
 		<div class="row">
 			<c:forEach items="${divisionList}" var="division">
 			  <div class="card col-lg-3 col-md-3 col-12" style="width:13rem; margin:20px 0 24px 0">
-			  	<img class="card-img-top img-thumbnail" src="/shepe/resources/img/${division.recipe_complete_img}" alt="image" style="width: 255px;height: 350px;">
+			  	<a href="getRecipe.re?recipe_no=${ division.recipe_no }">
+			  		<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${division.recipe_complete_img}" alt="image" style="width: 255px;height: 280px;">
+			  	</a>
 			  	<div class="card-body">
-			    	<h4 class="card-title">${division.recipe_nm}</h4>
+			  		<a href="getRecipe.re?recipe_no=${ division.recipe_no }">
+			    		<h4 class="card-title">${division.recipe_nm}</h4>
+			    	</a>
 			    	<p class="card-text float-right"><i class="far fa-heart"></i><i class="far fa-eye"></i>${division.recipe_cnt}</p>
 			  	</div>
 			  </div>

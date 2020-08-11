@@ -40,7 +40,8 @@ public class RecipeClientInterceptorController {
 	
 	// 레시피 등록 action
 	@RequestMapping(value="/recipeInsert.re", method=RequestMethod.POST)
-	public String insertRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart, HttpSession session) throws IOException {
+	public String insertRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart,
+			HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
 		
 		Date date_now = new Date(System.currentTimeMillis());
 		SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -62,7 +63,7 @@ public class RecipeClientInterceptorController {
 		MultipartFile uploadCompleteImege = vo.getRecipe_complete_img_file();
 		if(!uploadCompleteImege.isEmpty()) {
 			String completeImegeName = fourteen_format.format(date_now) + uploadCompleteImege.getOriginalFilename();
-			uploadCompleteImege.transferTo(new File("D:\\Swork\\Shepe_V304(08-03)\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
+			uploadCompleteImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
 			vo.setRecipe_complete_img(completeImegeName);
 		}
 		
@@ -82,7 +83,7 @@ public class RecipeClientInterceptorController {
 			// 이미지 업로드
 			if(!uploadProcessImege.isEmpty()) {
 				String processImegeName = fourteen_format.format(date_now) + uploadProcessImege.getOriginalFilename();
-				uploadProcessImege.transferTo(new File("D:\\Swork\\Shepe_V304(08-03)\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
+				uploadProcessImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
 				vo.setRecipe_process_img(processImegeName);
 			}
 			recipeService.processInsert(vo);
@@ -102,7 +103,8 @@ public class RecipeClientInterceptorController {
 			recipeService.recipeIngreInsert(vo);
 		}
 		
-		return "redirect:/recipeList.re";
+		redirectAttributes.addAttribute("recipe_no", vo.getRecipe_no());
+		return "redirect:/getRecipe.re";
 	}
 	
 	// 레시피 업데이트 폼
@@ -121,7 +123,8 @@ public class RecipeClientInterceptorController {
 	
 	// 레시피 업데이트 action
 	@RequestMapping(value="/recipeUpdate.re", method=RequestMethod.POST)
-	public String updateRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart, HttpSession session, Model model) throws IOException {
+	public String updateRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart,
+			HttpSession session, Model model, RedirectAttributes redirectAttributes) throws IOException {
 	
 		Date date_now = new Date(System.currentTimeMillis());
 		SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmSS");
@@ -132,7 +135,7 @@ public class RecipeClientInterceptorController {
 		MultipartFile uploadCompleteImege = vo.getRecipe_complete_img_file();
 		if(!uploadCompleteImege.isEmpty()) {
 			String completeImegeName = fourteen_format.format(date_now) + uploadCompleteImege.getOriginalFilename();
-			uploadCompleteImege.transferTo(new File("D:\\Swork\\Shepe_V304(08-03)\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
+			uploadCompleteImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
 			vo.setRecipe_complete_img(completeImegeName);
 			
 			recipeService.recipeUpdateImg(vo);
@@ -162,7 +165,7 @@ public class RecipeClientInterceptorController {
 			// 이미지 업로드
 			if(!uploadProcessImege.isEmpty()) {
 				String processImegeName = fourteen_format.format(date_now) + uploadProcessImege.getOriginalFilename();
-				uploadProcessImege.transferTo(new File("D:\\Swork\\Shepe_V304(08-03)\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
+				uploadProcessImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
 				vo.setRecipe_process_img(processImegeName);
 				recipeService.processUpdateImg(vo);
 			} else if(uploadProcessImege.isEmpty()) {
@@ -194,7 +197,8 @@ public class RecipeClientInterceptorController {
 			recipeService.recipeIngreUpdate(vo);
 		}
 		
-		return "redirect:/recipeList.re";
+		redirectAttributes.addAttribute("recipe_no", vo.getRecipe_no());
+		return "redirect:/getRecipe.re";
 	}
 	
 	// 장바구니 입력
@@ -244,7 +248,7 @@ public class RecipeClientInterceptorController {
 		if (vo.getWhere().equals("recipe")) {
 			return "redirect:/getRecipe.re";
 		} else {
-			return "redirect:/cartList";
+			return "client/recipe/basket";
 		}
 	}
 	

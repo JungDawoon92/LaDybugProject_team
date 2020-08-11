@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,10 +16,11 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/recipeInsert.css">
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
 </head>
 <body>
-	<jsp:include page="/WEB-INF/include/adminNav.jsp" />
+	<jsp:include page="/WEB-INF/include/adminNav.jsp" />	
 	
 	<!-- ##### insert form ##### -->
 	<div>
@@ -50,7 +52,7 @@
 
 								<div class="recipe-insert-column">
 									레시피 설명
-									<textarea class="form-control" rows="5" name="recipe_info"></textarea>
+									<textarea class="form-control" rows="5" name="recipe_info" style="font-size:15px"></textarea>
 								</div>
 
 								<div class="recipe-insert-column row">
@@ -75,7 +77,7 @@
 										<option value="스프">스프</option>
 										<option value="과자">과자</option>
 									</select> <select class="col-sm-3 recipe-caregory"
-										name="recipe_category_ing required="required"">
+										name="recipe_category_ing" required="required">
 										<option value="">재료별</option>
 										<option value="육류">육류</option>
 										<option value="해물류">해물류</option>
@@ -173,7 +175,7 @@
 									<div class="recipe-insert-column">
 										요리 과정
 										<textarea class="form-control" rows="5" name="recipe_process"
-										 required="required"></textarea>
+										 required="required" style="font-size:15px"></textarea>
 									</div>
 									<div class="recipe-insert-column" id="image_container1">
 										과정 이미지 <input multiple="multiple" type="file" name="recipe_process_img_file" accept="image/*" onchange="setThumbnail(event, 1);">
@@ -247,7 +249,7 @@
 							<div class="recipe-insert-section">
 								<div class="recipe-insert-column">
 									요리 과정
-									<textarea class="form-control" rows="5" name="recipe_process"></textarea>
+									<textarea class="form-control" rows="5" name="recipe_process" style="font-size:15px"></textarea>
 								</div>
 								<div class="recipe-insert-column" id="image_container1">
 									과정 이미지 <input multiple="multiple" class="imageIndex" type="file"

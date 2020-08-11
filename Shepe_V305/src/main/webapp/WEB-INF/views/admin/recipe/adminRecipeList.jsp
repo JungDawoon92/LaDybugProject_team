@@ -39,8 +39,11 @@
 		</form>
 		
 		<div class="titleRight">
+			<a href="adminRecipeChartView.adre">
+				<button class="btn btn-primary">레시피 현황</button>
+			</a>
 			<a href="adminRecipeInsert.adre">
-				<button class="btn btn-default">레시피 등록</button>
+				<button class="btn btn-success">레시피 등록</button>
 			</a>
 		</div>
 		<table class="table table-bordered">

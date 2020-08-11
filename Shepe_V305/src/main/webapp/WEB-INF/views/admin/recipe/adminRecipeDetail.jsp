@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -20,15 +22,6 @@
 	href="${pageContext.request.contextPath}/resources/recipeInsert.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<style>
-	.hn {
-		font-family: 'Hanna', sans-serif;
-		font-size: 15pt;
-		font-weight: lighter;
-		color: coral;
-	}
-</style>
 
 </head>
 <body>
@@ -52,7 +45,7 @@
 								<div class="recipe-complete-title">${ recipe.recipe_nm } </div>
 								<input type="hidden" value="${ recipe.member_id }">
 								<div class="recipe-complete-info">
-									${ recipe.recipe_info }
+									${fn:replace(recipe.recipe_info, replaceChar, "<br/>")}
 								</div>
 								<div class="alignRight">
 									<a href="adminRecipeUpdate.adre?recipe_no=${ recipe.recipe_no }">
@@ -103,7 +96,8 @@
 								<c:forEach items="${ recipeProcessList }" var="process" varStatus="status">
 									<div>
 										<span class="hn">STEP ${status.count}.</span>
-										${ process.recipe_process }&nbsp;&nbsp;
+										
+										${fn:replace(process.recipe_process, replaceChar, "<br/>")}&nbsp;&nbsp;
 									</div>
 									<div>
 										<img class="recipe-insert-title proImege" src="${pageContext.request.contextPath}/resources/img/recipe-pro-img/${ process.recipe_process_img }">

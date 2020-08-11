@@ -34,7 +34,28 @@ public class RecipeVO {
 	private String ingredient_weight;
 	private int ingredient_cnt;
 	
+	private int category_cnt;
+	private int categoryIng_cnt;
+	private int categoryHow_cnt;
 	
+	public int getCategoryHow_cnt() {
+		return categoryHow_cnt;
+	}
+	public void setCategoryHow_cnt(int categoryHow_cnt) {
+		this.categoryHow_cnt = categoryHow_cnt;
+	}
+	public int getCategoryIng_cnt() {
+		return categoryIng_cnt;
+	}
+	public void setCategoryIng_cnt(int categoryIng_cnt) {
+		this.categoryIng_cnt = categoryIng_cnt;
+	}
+	public int getCategory_cnt() {
+		return category_cnt;
+	}
+	public void setCategory_cnt(int category_cnt) {
+		this.category_cnt = category_cnt;
+	}
 	public String getRecipe_ymd() {
 		return recipe_ymd;
 	}

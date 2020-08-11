@@ -128,5 +128,26 @@ public class RecipeDAO {
 		System.out.println("===> Mybatis로 recipeDelete() 기능 처리");
 		mybatis.delete("RecipeDAO.recipeDelete", vo);
 	}
+
+
+	public List<RecipeVO> getRecipeChart(RecipeVO vo) {
+		
+		System.out.println("===> Mybatis로 getRecipeChart() 기능 처리");
+		return mybatis.selectList("RecipeDAO.getRecipeChart", vo);
+	}
+
+
+	public List<RecipeVO> getRecipeChartIng(RecipeVO vo) {
+		
+		System.out.println("===> Mybatis로 getRecipeChartIng() 기능 처리");
+		return mybatis.selectList("RecipeDAO.getRecipeChartIng", vo);
+	}
+
+
+	public List<RecipeVO> getRecipeChartHow(RecipeVO vo) {
+		
+		System.out.println("===> Mybatis로 getRecipeChartHow() 기능 처리");
+		return mybatis.selectList("RecipeDAO.getRecipeChartHow", vo);
+	}
 	
 }

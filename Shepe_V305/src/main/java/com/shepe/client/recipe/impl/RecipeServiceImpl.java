@@ -104,5 +104,20 @@ public class RecipeServiceImpl implements RecipeService{
 		
 		recipeDAO.recipeDelete(vo);
 	}
+
+	public List<RecipeVO> getRecipeChart(RecipeVO vo) {
+		
+		return recipeDAO.getRecipeChart(vo);
+	}
+
+	public List<RecipeVO> getRecipeChartIng(RecipeVO vo) {
+		
+		return recipeDAO.getRecipeChartIng(vo);
+	}
+
+	public List<RecipeVO> getRecipeChartHow(RecipeVO vo) {
+		
+		return recipeDAO.getRecipeChartHow(vo);
+	}
 	
 }

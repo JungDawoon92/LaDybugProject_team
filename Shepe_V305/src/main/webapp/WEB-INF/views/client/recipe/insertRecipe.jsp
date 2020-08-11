@@ -61,7 +61,7 @@
 
 								<div class="recipe-insert-column">
 									레시피 설명
-									<textarea class="form-control" rows="5" name="recipe_info"></textarea>
+									<textarea class="form-control" rows="5" name="recipe_info" style="font-size:15px"></textarea>
 								</div>
 
 								<div class="recipe-insert-column row">
@@ -184,7 +184,7 @@
 									<div class="recipe-insert-column">
 										요리 과정
 										<textarea class="form-control" rows="5" name="recipe_process"
-										 required="required"></textarea>
+										 required="required" style="font-size:15px"></textarea>
 									</div>
 									<div class="recipe-insert-column" id="image_container1">
 										과정 이미지 <input multiple="multiple" type="file" name="recipe_process_img_file" accept="image/*" onchange="setThumbnail(event, 1);">
@@ -258,7 +258,7 @@
 							<div class="recipe-insert-section">
 								<div class="recipe-insert-column">
 									요리 과정
-									<textarea class="form-control" rows="5" name="recipe_process"></textarea>
+									<textarea class="form-control" rows="5" name="recipe_process" style="font-size:15px"></textarea>
 								</div>
 								<div class="recipe-insert-column" id="image_container1">
 									과정 이미지 <input multiple="multiple" class="imageIndex" type="file"

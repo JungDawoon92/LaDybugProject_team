@@ -92,6 +92,7 @@
 		   AND C.recipe_no = #{recipe_no}
 		   AND C.ingredient_nm LIKE CONCAT('%',#{ingredient_nm},'%')
 		   AND C.recipeingre_sq = #{recipeingre_sq}
+		 LIMIT 1
 	</select>
 	
 	<insert id="basketInsert" parameterType="recipe">
@@ -128,5 +129,23 @@
 		DELETE FROM recipe
 		WHERE recipe_no = #{recipe_no}
 	</delete>
+	
+	<select id="getRecipeChart" resultType="recipe">
+		SELECT recipe_category_kind, COUNT(*) category_cnt
+		  FROM recipe
+		 GROUP BY recipe_category_kind;
+	</select>
+	
+	<select id="getRecipeChartIng" resultType="recipe">
+		SELECT recipe_category_ing, COUNT(*) categoryIng_cnt
+		  FROM recipe
+		 GROUP BY recipe_category_ing;
+	</select>
+	
+	<select id="getRecipeChartHow" resultType="recipe">
+		SELECT recipe_category_how, COUNT(*) categoryHow_cnt
+		  FROM recipe
+		 GROUP BY recipe_category_how;
+	</select>
 	
 </mapper>

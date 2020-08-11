@@ -30,7 +30,7 @@
 	margin-bottom: 20px;
 	margin-left: 20px;
 	margin-right: 20px;
-	font-size: 16px;
+	font-size: 18px;
 }
 .recipe-insert-column {
 	margin-bottom: 11px;
@@ -138,4 +138,17 @@
 }
 .left {
 	text-align: left;
+}
+.hn {
+	font-family: 'Hanna', sans-serif;
+	font-size: 20pt;
+	font-weight: lighter;
+	color: coral;
+}
+.recipe-process-column hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.section textarea{
+	font-size: 30pt;
 }

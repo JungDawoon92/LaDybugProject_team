@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -20,15 +22,6 @@
 	href="${pageContext.request.contextPath}/resources/recipeInsert.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<style>
-	.hn {
-		font-family: 'Hanna', sans-serif;
-		font-size: 15pt;
-		font-weight: lighter;
-		color: coral;
-	}
-</style>
 
 </head>
 <body>
@@ -51,7 +44,7 @@
 								<div class="recipe-complete-title">${ recipe.recipe_nm } </div>
 								<input type="hidden" value="${ recipe.member_id }">
 								<div class="recipe-complete-info">
-									${ recipe.recipe_info }
+									${fn:replace(recipe.recipe_info, replaceChar, "<br/>")}
 								</div>
 								<div class="alignRight">
 									<%if((session.getAttribute("member_id")!=null)&&(request.getAttribute("member_id")!=null) ){%>
@@ -118,7 +111,8 @@
 									<c:forEach items="${ recipeProcessList }" var="process" varStatus="status">
 										<div>
 											<span class="hn">STEP ${status.count}.</span>
-											${ process.recipe_process }&nbsp;&nbsp;
+											
+											${fn:replace(process.recipe_process, replaceChar, "<br/>")}&nbsp;&nbsp;
 										</div>
 										<div class="pagingCenter">
 											<img class="recipe-insert-title proImege" src="${pageContext.request.contextPath}/resources/img/recipe-pro-img/${ process.recipe_process_img }">
@@ -136,11 +130,11 @@
 							<div class="recipe-insert-title">쇼핑 하기 <br>
 								<span class="recipe_person">(${ recipe.recipe_person } 인분)</span>
 								<input type="hidden" class="original_person" value="${ recipe.recipe_person }">
-								<button type="button" class="btn btn-default btn-sm" title="인원수 늘리기"
+								<button type="button" class="btn btn-success btn-sm" title="인원수 늘리기"
 									onclick="personUp()">
 									<span class="glyphicon glyphicon-plus"></span>
 								</button>
-								<button type="button" class="btn btn-default btn-sm" title="인원수 내리기"
+								<button type="button" class="btn btn-success btn-sm" title="인원수 내리기"
 									onclick="personDown()">
 									<span class="glyphicon glyphicon-minus"></span>
 								</button>
@@ -197,12 +191,13 @@
 									<input type="hidden" name="orderRecipe" value="">
 									<input type="hidden" name="where" id="where" value="before"/>
 									<div id="totalPrice"></div>
-									<%if (session.getAttribute("member_id") == null) {%>
+									<%if ((session.getAttribute("member_id") == null)&&(session.getAttribute("kname") == null)
+											&&(session.getAttribute("nname") == null)) {%>
 									<div class="pagingCenter">
 										<input type="button" class="orderRecipeButton" value="장바구니 담기">
 										<input type="button" class="orderRecipeButton" value="바로 구매하기">
 									</div>
-									<%} else if (session.getAttribute("member_id") != null) { %>
+									<%} else { %>
 									<div class="pagingCenter">
 										<input type="button" data-toggle="modal" data-target="#myModal" value="장바구니 담기">
 										<input type="button" class="orderRecipeButton" value="바로 구매하기">

@@ -42,5 +42,10 @@ public interface RecipeService {
 
 	void recipeDelete(RecipeVO vo);
 
+	List<RecipeVO> getRecipeChart(RecipeVO vo);
+
+	List<RecipeVO> getRecipeChartIng(RecipeVO vo);
+
+	List<RecipeVO> getRecipeChartHow(RecipeVO vo);
 
 }

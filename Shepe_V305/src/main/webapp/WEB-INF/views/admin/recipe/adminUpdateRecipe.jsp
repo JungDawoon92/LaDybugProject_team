@@ -21,14 +21,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 	
-<style>
-	.hn {
-		font-family: 'Hanna', sans-serif;
-		font-size: 15pt;
-		font-weight: lighter;
-		color: coral;
-	}
-</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/adminNav.jsp" />
@@ -61,7 +53,7 @@
 
 								<div class="recipe-insert-column">
 									레시피 설명
-									<textarea class="form-control" rows="5" name="recipe_info">${recipe.recipe_info}</textarea>
+									<textarea class="form-control" rows="5" name="recipe_info" style="font-size:15px">${recipe.recipe_info}</textarea>
 								</div>
 
 								<div class="recipe-insert-column row">
@@ -169,7 +161,7 @@
 									<div class="recipe-insert-section">
 										<div class="recipe-insert-column">
 											<span class="hn">STEP ${status.count}.</span>
-											<textarea class="form-control" rows="5" name="recipe_process">${ process.recipe_process }</textarea>
+											<textarea class="form-control" rows="5" name="recipe_process" style="font-size:15px">${ process.recipe_process }</textarea>
 										</div>
 										
 										<div class="recipe-insert-column" id="image_container${ status.count }">
@@ -237,7 +229,7 @@
 				<div class="recipe-insert-section">
 					<div class="recipe-insert-column">
 						요리 과정
-						<textarea class="form-control" rows="5" name="recipe_process"></textarea>
+						<textarea class="form-control" rows="5" name="recipe_process" style="font-size:15px"></textarea>
 					</div>
 					<div class="recipe-insert-column" id="image_container1">
 						과정 이미지 <input multiple="multiple" class="imageIndex" type="file"

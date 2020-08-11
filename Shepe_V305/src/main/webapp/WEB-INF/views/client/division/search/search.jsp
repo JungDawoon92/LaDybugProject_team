@@ -36,12 +36,14 @@
 										<c:forEach items="${search_reList}" var="reList">
 											<div class="search-item">
 											<div class="media">
-												<img class="d-flex mr-3 img-thumbnail"
-													src="/shepe/resources/img/${reList.recipe_complete_img}" height="54"
-													style="width: 250px; height: 210px;">
+												<a href="getRecipe.re?recipe_no=${ reList.recipe_no }">
+													<img class="d-flex mr-3 img-thumbnail"
+														src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${reList.recipe_complete_img}" height="54"
+														style="width: 250px; height: 210px;">
+												</a>
 												<div class="media-body">
 													<h5 class="media-heading mt-0">
-														<a href="#" class="text-dark">${reList.recipe_nm}</a>
+														<a href="getRecipe.re?recipe_no=${ reList.recipe_no }" class="text-dark">${reList.recipe_nm}</a>
 													</h5>
 													<p class="font-13">
 														<b>category:</b> <span><a href="#" class="text-muted">${reList.recipe_category_kind}</a></span>

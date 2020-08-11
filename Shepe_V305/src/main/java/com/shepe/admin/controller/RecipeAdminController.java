@@ -3,6 +3,7 @@ package com.shepe.admin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,9 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.shepe.admin.recipe.RecipeListVO;
 import com.shepe.admin.recipe.RecipePageMaker;
 import com.shepe.client.recipe.RecipeService;
@@ -116,7 +120,8 @@ public class RecipeAdminController {
 	
 	// 레시피 업데이트 action
 	@RequestMapping(value="/admin/adminRecipeUpdate.adre", method=RequestMethod.POST)
-	public String updateRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart, HttpSession session, Model model) throws IOException {
+	public String updateRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart,
+			HttpSession session, Model model, RedirectAttributes redirectAttributes) throws IOException {
 	
 		Date date_now = new Date(System.currentTimeMillis());
 		SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmSS");
@@ -190,7 +195,8 @@ public class RecipeAdminController {
 			recipeService.recipeIngreUpdate(vo);
 		}
 		
-		return "redirect:recipeList.adre";
+		redirectAttributes.addAttribute("recipe_no", vo.getRecipe_no());
+		return "redirect:/getRecipe.re";
 	}
 	
 	// 레시피 등록 폼
@@ -202,7 +208,8 @@ public class RecipeAdminController {
 	
 	// 레시피 등록 action
 	@RequestMapping(value="/admin/adminRecipeInsert.adre", method=RequestMethod.POST)
-	public String insertRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart, HttpSession session) throws IOException {
+	public String insertRecipe(RecipeVO vo, HttpServletRequest request, MultipartHttpServletRequest multipart,
+			HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
 		
 		Date date_now = new Date(System.currentTimeMillis());
 		SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -256,7 +263,8 @@ public class RecipeAdminController {
 			recipeService.recipeIngreInsert(vo);
 		}
 		
-		return "redirect:recipeList.adre";
+		redirectAttributes.addAttribute("recipe_no", vo.getRecipe_no());
+		return "redirect:/getRecipe.re";
 	}
 	
 	// 검색 조건 목록 설정
@@ -268,4 +276,42 @@ public class RecipeAdminController {
 				
 		return conditionMap;
 	}
+	
+	// 차트 뷰
+	@RequestMapping(value="/admin/adminRecipeChartView.adre")
+	public String recipeChartView() {
+		return "admin/recipe/adminRecipeChart";
+		
+	}
+	
+	// 종류 별 차트 
+	@ResponseBody
+	@RequestMapping(value="admin/adminRecipeChart.adre", produces = "application/text; charset=UTF-8")
+	public String recipeChart(RecipeVO vo) {
+		Gson incomeGson = new Gson(); 
+		List<RecipeVO> recipeChart = new ArrayList<RecipeVO>();
+		recipeChart.addAll(recipeService.getRecipeChart(vo));
+		
+		return incomeGson.toJson(recipeChart);
+	}
+	// 식재료 별 차트 
+	@ResponseBody
+	@RequestMapping(value="admin/adminRecipeChartIng.adre", produces = "application/text; charset=UTF-8")
+	public String recipeChartIng(RecipeVO vo) {
+		Gson incomeGson = new Gson(); 
+		List<RecipeVO> recipeChart = new ArrayList<RecipeVO>();
+		recipeChart.addAll(recipeService.getRecipeChartIng(vo));
+			
+		return incomeGson.toJson(recipeChart);
+	}
+	// 방법 별 차트 
+	@ResponseBody
+	@RequestMapping(value="admin/adminRecipeChartHow.adre", produces = "application/text; charset=UTF-8")
+	public String recipeChartHow(RecipeVO vo) {
+		Gson incomeGson = new Gson(); 
+		List<RecipeVO> recipeChart = new ArrayList<RecipeVO>();
+		recipeChart.addAll(recipeService.getRecipeChartHow(vo));
+				
+		return incomeGson.toJson(recipeChart);
+	}	
 }
