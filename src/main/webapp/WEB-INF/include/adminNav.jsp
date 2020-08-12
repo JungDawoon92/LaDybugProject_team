@@ -29,7 +29,7 @@
       <a class="nav-link" href="recipeList.adre">레시피</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">식재료</a>
+      <a class="nav-link" href="getIngredientList.co">식재료</a>
     </li>
     <li class="nav-item">
       <a class="nav-link disabled" href="#">QnA</a>

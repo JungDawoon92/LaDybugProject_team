@@ -59,9 +59,15 @@
 		<div class="row">
 			<c:forEach items="${divisionInList}" var="division">
 			  <div class="card col-lg-3 col-md-3 col-12" style="width:13rem; margin:20px 0 24px 0">
-			  	<img class="card-img-top img-thumbnail" src="/shepe/resources/img/${division.ingredient_thumbName}" alt="image" style="width: 255px;height: 350px;">
+			  	<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/ingredient-img/${division.ingredient_thumbName}" alt="image" style="width: 255px;height: 350px;">
 			  	<div class="card-body">
-			    	<h4 class="card-title">${division.ingredient_nm} <font size=3 class="float-right text-muted"><i class="fas fa-chart-line"></i>&nbsp;</font></h4>
+			  		
+			    	<h4 class="card-title">
+			    		<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}">
+			    			${division.ingredient_nm}
+			    		</a>
+			    	</h4>
+			    	
 			    	<p class="card-text float-right"><i class="fas fa-coins"></i><font size=5> ${division.ingredient_price}원</font></p>
 			  	</div>
 			  </div>

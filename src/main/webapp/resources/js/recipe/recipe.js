@@ -108,14 +108,16 @@ $(document).ready(function(){
     		if ($("#check" + i).val() == "true") {
     			var map = {
     	    			ingre_no : $(".ingredient_no" + i).val(),
-    	    			ingre_cnt : $(".ingredient_cnt" + i).val()
+    	    			ingre_cnt : $(".ingredient_cnt" + i).val(),
+    	    			recipe_no : $(".recipe_no" + i).val(),
+    	    			recipe_nm : $(".recipe_nm" + i).val()
     	    		};
     	    		list.push(map);
 			}
     	}
     	let json = JSON.stringify(list);
-    	$("input[name=orderRecipe]").val(json);
-    	$("[name=basketInsert]").attr("action", "recipeInterceptor/orderForm");
+    	$("input[name=order]").val(json);
+    	$("[name=basketInsert]").attr("action", "orderForm");
     	$("[name=basketInsert]").submit();
 
     });

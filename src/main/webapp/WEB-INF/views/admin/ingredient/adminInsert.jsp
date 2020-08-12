@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.shepe.client.ingredient.IngredientVO" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +29,7 @@ $(document).ready(function(){
 			$("#regForm").submit();
 		}
 	});
-})
+  })
 
 function fn_idChk(){
 	$.ajax({
@@ -96,26 +95,28 @@ $.ajax({
 } 
 
 </script>
+
 </head>
 <body>
 <center>
 <h1>식재료 등록</h1>
-<a href="logout">Log-out</a>
-<hr>
-<form action="adminInsertDetail.co" method="post" enctype="multipart/form-data" id="regform">
+<hr>							
+<form:form commandName="ingredientVO" action="adminInsertDetail.co" method="POST" enctype="multipart/form-data">
 <h2>Ingredient 등록</h2>
 <!--       Ingredient      -->
   <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; height: 502px;">
 	<tr>
-		<td bgcolor="pink" width="70" style="width: 150px;">식재료 이름</td><td align="left">
-		<input type="text" id="ingredient_nm" name="ingredient_nm" style="width: 95%;" ><br>
-		<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
-		<div class="check_font" id = "nm_check"></div> 
+		<td bgcolor="pink" width="70" style="width: 150px;">식재료 이름</td>
+		<td align="left">
+			<form:input path="ingredient_nm" style="width: 95%;"/><br>
+		 	<span style="color:red;">※식재료 이름을 정확히 기입해 주세요※</span><br>
+			<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
+			<div class="check_font" id = "nm_check"></div> 
 		</td>		
 	</tr>			
 	<tr>
 		<td bgcolor="pink" width="70">카테고리</td><td align="left">
-		<select name="ingredient_categ" id="select1" onChange="checkCateg()" selected required>
+		<select name="ingredient_categ" id="select1" onChange="checkCateg()" selected>
       		<option value="MEAT">육류</option>
 			<option value="BEEF">소고기</option>
 			<option value="CHICKEN">닭고기</option>
@@ -141,8 +142,7 @@ function checkCateg() {
 </script>
 	<tr>
 		<td bgcolor="pink">가격</td><td align="left">
-		<input type="number" name="ingredient_price" size="10" 
-				min="0" max="1000000" step="5000" value="500000" style="width: 95%;" required placeholder="숫자만 입력해주세요" onkeypress="priceNum()"/></td>
+		<input type="number" name="ingredient_price" size="10" required style="width: 95%;"  placeholder="숫자만 입력해주세요" onkeypress="priceNum()"/></td>
 	</tr>
 <script language="javascript">
 function priceNum() { 
@@ -156,30 +156,18 @@ function priceNum() {
 }
 </script>
 	<tr>
-		<td bgcolor="pink">식재료 썸네일</td><td align="left">
-		<input type="file" name="ingredient_thumbimg"  id ="ingredient_thumbimg" size="10" style="width: 95%;" required placeholder="특수문자는 되지 않습니다" />
+		<td bgcolor="pink">식재료 썸네일</td><td align="left">											
+		<input type="file" name="ingredient_thumbimg"  id ="ingredient_thumbimg" size="10" style="width: 95%;"/>
 		<button class="thumbChk" type="button" id="thumbChk" onclick="fn_thumbChk();" value="N">썸네일 중복확인</button>
 		<div class="check_font" id = "thumb_check"></div> 
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="pink">식재료 양</td><td align="left">
-		<input type="number" name="ingredient_amt" size="10" 
-			min="0" max="1000" step="10" value="100"	style="width: 95%;" required placeholder="숫자만 입력해주세요" /></td>
-	</tr>
-</table>
-<hr> 
-
-
-<!--     식재료 디테일     -->
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; height: 502px;">
-<h2>Ingredeint 디테일 등록</h2>
-	<tr>
-		<td bgcolor="pink" width="70" style="width: 150px;"><label for="Num">식재료 코드번호</label></td><td align="left">
-		<input type="text" id ="Num" name="ingredient_codeNum" style="width: 95%;"  value="102" required placeholder="숫자만 입력해 주시기 바랍니다." autofocus="autofocus" onkeydown="Number()"/></td>
+		<form:input path="ingredient_amt" type="number" value="100" style="width: 95%;" placeholder="숫자만 입력해주세요" onkeypress="amtNum()"/></td>
 	</tr>
 <script language="javascript">
-function Number() { 
+function amtNum() { 
 	if((event.keyCode < 48) || (event.keyCode > 57 )) {
 		alert('숫자만 입력해주세요');
 		event.returnValue = false;
@@ -188,10 +176,15 @@ function Number() {
 		return true;
 	} 
 }
-</script>	
+</script>
+</table>
+<hr> 
+<!--    				 식재료 디테일      				 		 -->	
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; height: 502px;">
+<h2>Ingredeint 디테일 등록</h2>
 	<tr>
 		<td bgcolor="pink" width="70">식재료 원산지</td><td align="left">
-		<select name="ingredient_country" id="select1" required>
+		<select name="ingredient_country" id="select1">
       		<option value="국산">국산</option>
 			<option value="미국산">미국산</option>
 			<option value="스페인">스페인산</option>
@@ -206,38 +199,36 @@ function Number() {
 	</tr>
 	<tr>
 		<td bgcolor="pink">생산지/수입지</td><td align="left">
-		<input type="text" name="ingredient_productimporter" size="10" style="width: 95%;" value="가산동맨" required placeholder="한글만 입력해주세요" onkeydown="koreanChk()"/></td>
+		<form:input path="ingredient_productimporter" size="10" style="width: 95%;" placeholder="생산지/수입지를 적어주세요"/></td>
 	</tr>
-<script type="text/javascript">
-function koreanChk() { 
-	if((event.keyCode < 12592) || (event.keyCode > 12687 )) {
-		alert('한글만 입력해주세요');
+	<tr>
+		<td bgcolor="pink">식재료 중량</td><td align="left">
+		<input type="text" step="10" id="ingredient_weight" name="ingredient_weight" size="10" style="width: 95%;" placeholder="특수문자와 영문은 안됩니다" value="g" onkeypress="weightNum(event)"/>
+		<span>(단위 : 개)</span>
+		</td>
+	</tr>
+<script language="javascript">
+function weightNum() { 
+	if((event.keyCode < 48) || (event.keyCode > 57 )) {
+		alert('숫자만 입력해주세요');
 		event.returnValue = false;
 		return false;	
 	} else {
 		return true;
 	} 
-	}
+}
 </script>
 	<tr>
-		<td bgcolor="pink">식재료 중량</td><td align="left">
-		<input type="text" step="10" id="ingredient_weight" name="ingredient_weight" size="10" style="width: 95%;" value="20" required placeholder="숫자만 입력해주세요" onkeypress="weightNum()"/>
-		<span>(단위 : 개)</span>
-		</td>
-	</tr>
-	<tr>
 		<td bgcolor="pink"><label for="calen">제조년월</label></td><td align="left">								
-		<label for="calen"><input type="date" id="ingredient_mnfctDate" name="ingredient_mnfctDate"  onclick="fn_dateChk()" size="10" style="width: 95%;" required  /></label>	
+		<label for="calen"><input type="date" id="ingredient_mnfctDate" name="ingredient_mnfctDate"  onclick="fn_dateChk()" size="10" style="width: 95%;" required/></label>	
 		</td>
 	</tr>
 	<div class="check"></div>
-	
 <script type="text/javascript">
 function doLife(srcE, targetId)
 {
     var val = srcE.options[srcE.selectedIndex].value;
     var targetE = document.getElementById(targetId);
-    
     removeAll(targetE);
     if(val == '육류')
     {
@@ -325,7 +316,7 @@ function removeAll(e)
 </script>
 	<tr>
 		<td bgcolor="pink" width="70">식재료 유통기한</td><td align="left">
-		<select name="ingredient_life" id="ingredient_life" onChange="doLife(this, 'ingredient_selLife')" required>
+		<select name="ingredient_life" id="ingredient_life" onChange="doLife(this, 'ingredient_selLife')">
       		 <option value="육류">육류</option>
         	 <option value="소고기">소고기</option>
         	 <option value="닭고기">닭고기</option>
@@ -335,9 +326,10 @@ function removeAll(e)
         	 <option value="견과류">견과류</option>
         	 <option value="기타">기타</option>
 		</select>
-		  <select id="ingredient_selLife" name="ingredient_selLife">
-			<option value="default">유통기한 방법</option>			
-		</select>  
+		  <form:select path="ingredient_selLife" id="ingredient_selLife" name="ingredient_selLife">
+			<form:option value="default">유통기한 방법</form:option>		
+			<form:options items="${ingredient_selLife}"/>
+		</form:select>  
 		</td>
 	</tr>
 <script type="text/javascript">
@@ -420,7 +412,7 @@ function removeAll(e)
 </script>	
 	<tr>
 		<td bgcolor="pink">가공방법</td><td align="left">
-		<select name="ingredient_foodType" id="ingredient_foodType" onchange="doFoodType(this, 'ingredient_selFoodType')"  required>
+		<select name="ingredient_foodType" id="ingredient_foodType" onchange="doFoodType(this, 'ingredient_selFoodType')">
 			 <option value="육류">육류</option>
         	 <option value="소고기">소고기</option>
         	 <option value="닭고기">닭고기</option>
@@ -430,9 +422,10 @@ function removeAll(e)
         	 <option value="견과류">견과류</option>
         	 <option value="기타">기타</option>
 		</select>
-		<select id="ingredient_selFoodType" name="ingredient_selFoodType">
-			<option value="default">가공방법</option>	
-		</select> 
+		<form:select path="ingredient_selFoodType" id="ingredient_selFoodType" name="ingredient_selFoodType" >
+			<form:option value="default">가공방법</form:option>	
+			<form:options items="${ingredient_selFoodType}" />
+		</form:select> 
 		</td>
 	</tr>
 <script type="text/javascript">
@@ -518,7 +511,7 @@ function removeAll(e)
 </script>
 	<tr>
 		<td bgcolor="pink">보관방법</td><td align="left">
-		<select name="ingredient_storage" id="ingredient_storage" onchange="doStorage(this, 'ingredient_selStorage')" required>
+		<select name="ingredient_storage" id="ingredient_storage" onchange="doStorage(this, 'ingredient_selStorage')">
       		<option value="육류">육류</option>
         	<option value="소고기">소고기</option>
         	<option value="닭고기">닭고기</option>
@@ -528,14 +521,15 @@ function removeAll(e)
         	<option value="견과류">견과류</option>
         	<option value="기타">기타</option>
 		</select>
-		<select name = "ingredient_selStorage" id="ingredient_selStorage">
-			<option value="default">식재료 보관방법</option>
-		</select> 
+		<form:select path="ingredient_selStorage" name = "ingredient_selStorage" id="ingredient_selStorage">
+			<form:option value="default">식재료 보관방법</form:option>
+			<form:options items="${ingredient_selStorage}"/>
+		</form:select> 
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="pink">포장재질</td><td align="left">
-		<select name="ingredient_pckmtr" id="select1" required>
+		<select name="ingredient_pckmtr" id="select1">
       		<option value="열성형진공포장">열성형진공포장</option>
 			<option value="PE비닐">PE비닐</option>
 			<option value="폴리에틸렌">폴리에틸렌</option>
@@ -549,7 +543,7 @@ function removeAll(e)
 	</tr>
 	<tr>
 		<td bgcolor="pink">영양분</td><td align="left">
-		<select name="ingredient_nutrient" id="select1" required>
+		<select name="ingredient_nutrient" id="select1">
       		<option value="육류100%">육류100%</option>
 			<option value="소고기100%">소고기100%</option>
 			<option value="닭고기100%">닭고기100%</option>
@@ -557,13 +551,13 @@ function removeAll(e)
 			<option value="야채100%">야채100%</option>
 			<option value="과일100%">과일100%</option>			
 			<option value="견과류100%">견과류100%</option>
-			<option value="기타100%">.</option>
+			<option value="기타100%">기타100%</option>
 		</select>
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="pink">알레르기 성분</td><td align="left">
-		<select name="ingredient_allergy" id="select1" required>
+		<select name="ingredient_allergy" id="select1">
       		<option value="소고기 함유">소고기 함유</option>
 			<option value="돼지고기 함유">돼지고기 함유</option>
 			<option value="닭고기 함유">닭고기 함유</option>
@@ -584,7 +578,7 @@ function removeAll(e)
 	<h2>Ingredint 멀티 등록</h2>
 	<tr>
 		<td bgcolor="pink">다중 이미지</td><td align="left">
-		<input type="file" name="ingredient_multi_img"  multiple = "multiple" size="10" style="width: 95%;" value="아무나맨" required placeholder="특수문자는 되지 않습니다" onkeypress="multiImg(event)"/></td>
+		<input type="file" name="ingredient_multi_img"  multiple = "multiple" size="10" style="width: 95%;" value="아무나맨" placeholder="특수문자는 되지 않습니다" onkeypress="multiImg(event)"/></td>
 	</tr>
 <script language="javascript">
 function multiImg(e) { 
@@ -607,7 +601,7 @@ function nAllow(e) {
 		<input type="submit" id="submit" value="등록하깅"/></td>
 	</tr> 
  </table>  
-</form> 
+</form:form> 
 <hr>
 <a href="getBoardList.do">글 목록 가기</a>
 </center>

@@ -3,33 +3,43 @@ package com.shepe.client.ingredient;
 import java.sql.Date;
 import java.util.Arrays;
 
-import org.springframework.stereotype.Repository;
+import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Entity;
 import org.springframework.web.multipart.MultipartFile;
 
-@Repository
+@Entity
 public class IngredientVO {
 	
-	private String ingredient_no;
+	private String ingredient_no;		
+	@NotNull
 	private String ingredient_nm;
 	Ingredient_Categ ingredient_categ;
+	private int ingredient_cntCateg;
 	private int ingredient_price;
+	private int avgPrice;
 	private String ingredient_thumbName;
 	private MultipartFile ingredient_thumbimg;
+	@NotNull
 	private int ingredient_amt;
 	private String ingredient_searchCondition;
 	private String ingredient_searchKeyword;
 	
 	// 디테일 식재료 
-	private int ingredient_codeNum;
 	private String ingredient_country;
+	@NotNull
 	private String ingredient_productimporter;
 	private String ingredient_weight;
 	private Date ingredient_mnfctDate;
 	private String ingredient_life;
+	@NotNull
 	private String ingredient_selLife;
 	private String ingredient_foodType;
+	@NotNull
 	private String ingredient_selFoodType;
 	private String ingredient_storage;
+	@NotNull
 	private String ingredient_selStorage;
 	private String ingredient_pckmtr;
 	private String ingredient_nutrient;
@@ -43,6 +53,19 @@ public class IngredientVO {
 	private int offset;
 	
 	
+	
+	public int getAvgPrice() {
+		return avgPrice;
+	}
+	public void setAvgPrice(int avgPrice) {
+		this.avgPrice = avgPrice;
+	}
+	public int getIngredient_cntCateg() {
+		return ingredient_cntCateg;
+	}
+	public void setIngredient_cntCateg(int ingredient_cntCateg) {
+		this.ingredient_cntCateg = ingredient_cntCateg;
+	}
 	public int getOffset() {
 		return offset;
 	}
@@ -121,22 +144,6 @@ public class IngredientVO {
 	public void setIngredient_nm(String ingredient_nm) {
 		this.ingredient_nm = ingredient_nm;
 	}
-	
-	
-//	public String getIngredient_price() {
-//		return ingredient_price;
-//	}
-//	public void setIngredient_price(String ingredient_price) {
-//		this.ingredient_price = ingredient_price;
-//	}
-	
-	
-//	public int getIngredient_weight() {
-//		return ingredient_weight;
-//	}
-//	public void setIngredient_weight(int ingredient_weight) {
-//		this.ingredient_weight = ingredient_weight;
-//	}
 	public String getIngredient_weight() {
 		return ingredient_weight;
 	}
@@ -149,19 +156,11 @@ public class IngredientVO {
 	public void setIngredient_weight(String ingredient_weight) {
 		this.ingredient_weight = ingredient_weight;
 	}
-	
-	
 	public int getIngredient_amt() {
 		return ingredient_amt;
 	}
 	public void setIngredient_amt(int ingredient_amt) {
 		this.ingredient_amt = ingredient_amt;
-	}
-	public int getIngredient_codeNum() {
-		return ingredient_codeNum;
-	}
-	public void setIngredient_codeNum(int ingredient_codeNum) {
-		this.ingredient_codeNum = ingredient_codeNum;
 	}
 	public String getIngredient_country() {
 		return ingredient_country;
@@ -175,7 +174,6 @@ public class IngredientVO {
 	public void setIngredient_productimporter(String ingredient_productimporter) {
 		this.ingredient_productimporter = ingredient_productimporter;
 	}
-
 	public Date getIngredient_mnfctDate() {
 		return ingredient_mnfctDate;
 	}

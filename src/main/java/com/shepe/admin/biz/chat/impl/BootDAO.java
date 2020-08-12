@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.shepe.admin.biz.chat.BootVO;
 
@@ -14,22 +13,19 @@ public class BootDAO {
 
 	@Autowired
 	private SqlSessionTemplate mybatis;
-	
-	@Transactional
+
 	public void startBoot(String startBootContent) {
 
 		mybatis.update("Boot.startBoot", startBootContent);
 	}
-
-	@Transactional
+	
 	public void selectCountBoot(String selectNum) {
 		System.out.println(selectNum);
 		int Num = Integer.parseInt(selectNum);
 
 		mybatis.update("Boot.selectCountBoot", Num);
 	}	
-	
-	@Transactional
+
 	public void qaBoot(String boot_question, String boot_answer, String boot_choice) {
 
 		int bootchoice = Integer.parseInt(boot_choice);

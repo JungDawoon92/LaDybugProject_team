@@ -5,8 +5,8 @@
  
 <mapper namespace="CartDAO">
 	<insert id="insertCart">
-	 	INSERT INTO CART(member_id, recipe_nm,  ingredient_no, ingredient_nm, ingredient_cnt, ingredient_price, ingredient_thumbName) 
-	 	VALUES(#{member_id}, #{recipe_nm}, #{ingredient_no}, #{ingredient_nm}, #{ingredient_cnt}, #{ingredient_price}, #{ingredient_thumbName}) 
+	 	INSERT INTO CART(member_id, recipe_no, recipe_nm,  ingredient_no, ingredient_nm, ingredient_cnt, ingredient_price, ingredient_thumbName) 
+	 	VALUES(#{member_id}, "0", "기타", #{ingredient_no}, #{ingredient_nm}, #{ingredient_cnt}, #{ingredient_price}, #{ingredient_thumbName}) 
 	</insert>
 
 	<update id="cartCntUpdate">

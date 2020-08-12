@@ -65,7 +65,7 @@ public class LoginApiController {
 		String nimage = (String) response.get("profile_image");
 
 		// 로그인&아웃 하기위한 세션값 주기
-		session.setAttribute("nname", nname);
+		session.setAttribute("member_id", nname);
 		session.setAttribute("nemail", nemail);
 		session.setAttribute("ngender", ngender);
 		session.setAttribute("nbirthday", nbirthday);
@@ -109,7 +109,7 @@ public class LoginApiController {
 			kbirthday = kakao_account.path("birthday").asText();
 			kage = kakao_account.path("age_range").asText();
 			session.setAttribute("kemail", kemail);
-			session.setAttribute("kname", kname);
+			session.setAttribute("member_id", kname);
 			session.setAttribute("kimage", kimage);
 			session.setAttribute("kgender", kgender);
 			session.setAttribute("kbirthday", kbirthday);

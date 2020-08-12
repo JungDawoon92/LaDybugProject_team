@@ -16,11 +16,6 @@ public class IngredientDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-//	public IngredientVO clientDetail (IngredientVO vo) {
-//		System.out.println("===> 클라이언트 식재료 디테일 기능 처리");
-//		return (IngredientVO) mybatis.selectOne("IngredientDAO.clientDetail", vo);
-//	}
-	
 	// 관리자 식재료관련 등록!!!
 	public void adminInsertDetail (IngredientVO vo) {
 		System.out.println("=================");
@@ -46,11 +41,20 @@ public class IngredientDAO {
 		return mybatis.selectList("IngredientDAO.getIngredientList", vo);
 	}
 	
+	// AJAX 더보기 버튼
 	public List<IngredientVO> AjaxAddList(IngredientVO vo) {
 		System.out.println("==================");
-		System.out.println("===>식재료 추가 버튼 페이징 접근!!");
+		System.out.println("===>식재료 추가 버튼 페이징DAO 접근!!");
 		System.out.println("==================");
 		return mybatis.selectList("IngredientDAO.AjaxAddList", vo);
+	}
+	
+	//AJAX 검색 리스트
+	public List<IngredientVO> ajaxIngredientList(IngredientVO vo) {
+		System.out.println("==================");
+		System.out.println("===>식재료 검색 리스트DAO 접근!!");
+		System.out.println("==================");
+		return mybatis.selectList("IngredientDAO.ajaxIngredientList", vo);
 	}
 		
 	// 식재료 디테일!
@@ -161,8 +165,30 @@ public class IngredientDAO {
 		System.out.println("===>식재료 총 데이타 개수 DAO 접근!!");
 		System.out.println("==================");
 		return mybatis.selectList("IngredientDAO.IngredientList", vo);
-		
 	}
+	
+	// AJAX 식재료 그래프 구하기
+	public List<IngredientVO> adminIngredientChart(IngredientVO vo) {
+		System.out.println("==================");
+		System.out.println("===>식재료 차트  DAO 접근!!");
+		System.out.println("==================");
+		return mybatis.selectList("IngredientDAO.adminIngredientChart", vo);
+	}
+	
+	// AJAX 식재료 그래프 구하기
+	public List<IngredientVO> adminIngredientAvgChart(IngredientVO vo) {
+		System.out.println("==================");
+		System.out.println("===>식재료 평균 가격 그래프  DAO 접근!!");
+		System.out.println("==================");
+		return mybatis.selectList("IngredientDAO.adminIngredientAvgChart", vo);
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/* 클라이어트 단 시작!!!
 	 * 
@@ -176,6 +202,23 @@ public class IngredientDAO {
 		System.out.println("===>클라이언트 식재료 리스트 DAO 접근!!");
 		System.out.println("==================");
 		return mybatis.selectList("IngredientDAO.clientList", vo);
+	}
+	
+	// 클라이언트 디테일 더보기 리스트
+	public List<IngredientVO>addList(IngredientVO vo) {
+		System.out.println("==================");
+		System.out.println("===>클라이언트 디테일 더보기 리스트 DAO 접근!!");
+		System.out.println("==================");
+		return mybatis.selectList("IngredientDAO.addList", vo);
+	}
+	
+	// 클라이언트 디테일 식재료 카운트
+	public int count(IngredientVO vo) {
+		System.out.println("==================");
+		System.out.println("===>클라이언트 더보기 DAO 접근!!");
+		System.out.println("==================");
+		int result =  mybatis.selectOne("IngredientDAO.count", vo);
+		return result;
 	}
 	
 	// 클라이언트 디테일 페이지
@@ -217,7 +260,4 @@ public class IngredientDAO {
 		System.out.println("==================");
 		return mybatis.selectOne("IngredientDAO.ing_amtCheck", vo);
 	}
-	
-
-
 }

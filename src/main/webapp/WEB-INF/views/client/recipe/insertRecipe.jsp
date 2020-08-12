@@ -40,23 +40,13 @@
 								</div>
 								
 								<div class="recipe-insert-column">
-								<c:choose>
-									<c:when test="${ member_id != null }">
-										<input type="hidden" name="member_id" value="${member_id}" />
-										<input type="hidden" name="member_nickname" value="${nickname}" />
-									</c:when>
-									<c:when test="${ kname != null }">
-										<input type="hidden" name="member_id" value="${kname}" />
-										<input type="hidden" name="member_nickname" value="${kname}" />
-									</c:when>
-									<c:when test="${ nname != null }">
-										<input type="hidden" name="member_id" value="${nname}" />
-										<input type="hidden" name="member_nickname" value="${nname}" />
-									</c:when>
-								</c:choose>
+								<c:if test="${ member_id != null }">
+									<input type="hidden" name="member_id" value="${member_id}" />
+									<input type="hidden" name="member_nickname" value="${nickname}" />
+								</c:if>
 									레시피 제목
 									<input type="text" class="form-control" name="recipe_nm"
-									 required="required" />
+									 required="required" style="font-size:15px" />
 								</div>
 
 								<div class="recipe-insert-column">

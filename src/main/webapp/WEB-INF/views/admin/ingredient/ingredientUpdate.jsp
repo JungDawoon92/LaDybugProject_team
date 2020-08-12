@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.shepe.client.ingredient.IngredientVO" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@ $(document).ready(function(){
 			$("#regForm").submit();
 		}
 	});
-})
+  })
 
 function fn_idChk(){
 	$.ajax({
@@ -39,13 +39,11 @@ function fn_idChk(){
 		data : { "ingredient_nm" : $("#ingredient_nm").val() },
 		success : function(data){
 			if(data == 1){
-				//alert("중복된 아이디입니다.");
 				$('#nm_check').text("중복된 이름 입니다 ");
 				$('#nm_check').css("color", "red");
 				$("#submit").attr("disabled", true);
 			}else if(data == 0){
 				$("#nm_check").attr("value", "Y");
-				//alert("사용가능한 아이디입니다.");
 				$('#nm_check').text("사용가능한 이름 입니다 ");
 				$('#nm_check').css("color", "red");
 				$("#submit").removeAttr("disabled", false);
@@ -54,67 +52,72 @@ function fn_idChk(){
 	})
 }
 
+
 $(document).ready(function(){ 
-	$("#submit").on("click", function(){
-		if($("#ingredient_thumbimg").val()==""){
-			alert("식재료 썸네일을 올려해주세요.");
-			$("#ingredient_thumbimg").focus();
-			return false;
-		}
-		var thumbChkVal =$("#ingredient_thumbimg").val();
-		if(thumbChkVal == "N"){
-			alert("중복확인 버튼을 눌러주세요.");
-		}else if(thumbChkVal == "Y"){
-			$("#regForm").submit();
-		}
-	});
+
+$("#submit").on("click", function(){
+	if($("#ingredient_thumbimg").val()==""){
+		alert("식재료 썸네일을 올려해주세요.");
+		$("#ingredient_thumbimg").focus();
+		return false;
+	}
+	var thumbChkVal =$("#ingredient_thumbimg").val();
+	if(thumbChkVal == "N"){
+		alert("중복확인 버튼을 눌러주세요.");
+	}else if(thumbChkVal == "Y"){
+		$("#regForm").submit();
+	}
+});
 })
 
-	function fn_thumbChk(){
-		var thumb = $("#ingredient_thumbimg").val().slice(12);
-		console.log(thumb);
-	$.ajax({
-		url : "thumbNm.co",
-		type : "post",
-		dataType : "json",
-		data : { "ingredient_thumbName" : thumb },
-		success : function(data){
-			if(data == 1){
-				//alert("중복된 아이디입니다.");
-				$('#thumb_check').text("중복된 식재료 입니다 ");
-				$('#thumb_check').css("color", "red");
-				$("#submit").attr("disabled", true);
-			}else if(data == 0){
-				$("#thumb_check").attr("value", "Y");
-				//alert("사용가능한 아이디입니다.");
-				$('#thumb_check').text("사용가능한 식재료 입니다 ");
-				$('#thumb_check').css("color", "red");
-				$("#submit").removeAttr("disabled", false);
-			} 
-		}
-	})
+
+function fn_thumbChk(){
+	var thumb = $("#ingredient_thumbimg").val().slice(12);
+	console.log(thumb);
+$.ajax({
+	url : "thumbNm.co",
+	type : "post",
+	dataType : "json",
+	data : { "ingredient_thumbName" : thumb },
+	success : function(data){
+		if(data == 1){
+			$('#thumb_check').text("중복된 식재료 입니다 ");
+			$('#thumb_check').css("color", "red");
+			$("#submit").attr("disabled", true);
+		}else if(data == 0){
+			$("#thumb_check").attr("value", "Y");
+			$('#thumb_check').text("사용가능한 식재료 입니다 ");
+			$('#thumb_check').css("color", "red");
+			$("#submit").removeAttr("disabled", false);
+		} 
+	}
+})
 } 
+
 </script>
+
 </head>
 <body>
 <center>
-<h1>식재료  업데이트 페이지 입니다</h1>
-<a href="logout">Log-out</a>
-<hr>
-<form action="ingredientUpdate.co" method="post" enctype="multipart/form-data">
-<h2>Ingredient 수정 페이지 입니다.</h2>
+<h1>식재료 등록</h1>
+<hr>							
+<form:form commandName="ingredientVO" action="ingredientUpdate.co" method="POST" enctype="multipart/form-data">
+<h2>Ingredient 등록</h2>
 <!--       Ingredient      -->
   <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; height: 502px;">
-		<input type="hidden" name="ingredient_no" style="width: 95%;" readonly="readonly" value="${get.ingredient_no}"/></td>
+  		<input type="hidden" name="ingredient_no" style="width: 95%;" readonly="readonly" value="${get.ingredient_no}"/></td>
 	<tr>
-		<td bgcolor="pink" width="70" style="width: 150px;">식재료 이름</td><td align="left">
-		<input id="ingredient_nm" name="ingredient_nm"  type="text"  style="width: 95%;" required value="${get.ingredient_nm}"><br>
-		<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
-		<div class="check_font" id = "nm_check"></div> </td>
+		<td bgcolor="pink" width="70" style="width: 150px;">식재료 이름</td>
+		<td align="left">
+			<input id="ingredient_nm" name="ingredient_nm" style="width: 95%;" value="${get.ingredient_nm}"><br>
+		 	<span style="color:red;">※식재료 이름을 정확히 기입해 주세요※</span><br>
+			<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
+			<div class="check_font" id = "nm_check"></div> 
+		</td>		
 	</tr>			
 	<tr>
 		<td bgcolor="pink" width="70">카테고리</td><td align="left">
-		<select name="ingredient_categ" id="select1" onChange="checkCateg()" selected required>
+		<select name="ingredient_categ" id="select1" onChange="checkCateg()">
       		<option value="MEAT">육류</option>
 			<option value="BEEF">소고기</option>
 			<option value="CHICKEN">닭고기</option>
@@ -140,8 +143,7 @@ function checkCateg() {
 </script>
 	<tr>
 		<td bgcolor="pink">가격</td><td align="left">
-		<input type="number" name="ingredient_price" size="10" 
-				min="0" max="1000000" step="5000" style="width: 95%;" value="${get.ingredient_price}" required placeholder="숫자만 입력해주세요" onkeypress="priceNum()"/></td>
+		<input type="number" name="ingredient_price" value="${get.ingredient_price}"required style="width: 95%;"  placeholder="숫자만 입력해주세요" onkeypress="priceNum()"/></td>
 	</tr>
 <script language="javascript">
 function priceNum() { 
@@ -155,28 +157,18 @@ function priceNum() {
 }
 </script>
 	<tr>
-		<td bgcolor="pink">식재료 썸네일</td><td align="left">
-		<input type="file" name="ingredient_thumbimg" id="ingredient_thumbimg" size="10" style="width: 95%;" required placeholder="특수문자는 되지 않습니다" />
-		<button  type="button"  onclick="fn_thumbChk();"  value="N">썸네일 중복확인</button>
-		<div class="check_font" id = "thumb_check"></div></td>
+		<td bgcolor="pink">식재료 썸네일</td><td align="left">											
+		<input type="file" name="ingredient_thumbimg"  id ="ingredient_thumbimg" size="10" style="width: 95%;" value="${get.ingredient_thumbimg}"/>
+		<button class="thumbChk" type="button" id="thumbChk" onclick="fn_thumbChk();" value="N">썸네일 중복확인</button>
+		<div class="check_font" id = "thumb_check"></div> 
+		</td>
 	</tr>
 	<tr>
 		<td bgcolor="pink">식재료 양</td><td align="left">
-		<input type="number" name="ingredient_amt" size="10" 
-			min="0" max="1000" step="10" value="100" style="width: 95%;" required placeholder="숫자만 입력해주세요" /></td>
-	</tr>
-</table>
-<hr> 
-
-<!--     식재료 디테일     -->
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; height: 502px;">
-<h2>Ingredeint 디테일 등록</h2>
-	<tr>
-		<td bgcolor="pink" width="70" style="width: 150px;"><label for="Num">식재료 코드번호</label></td><td align="left">
-		<input type="text" id ="Num" name="ingredient_codeNum" style="width: 95%;" value="${get2.ingredient_codeNum}" required placeholder="숫자만 입력해 주시기 바랍니다." autofocus="autofocus" onkeydown="Number()"/></td>
+		<form:input path="ingredient_amt" type="number" value="${get.ingredient_amt}" style="width: 95%;" placeholder="숫자만 입력해주세요" onkeypress="amtNum()"/></td>
 	</tr>
 <script language="javascript">
-function Number() { 
+function amtNum() { 
 	if((event.keyCode < 48) || (event.keyCode > 57 )) {
 		alert('숫자만 입력해주세요');
 		event.returnValue = false;
@@ -185,10 +177,15 @@ function Number() {
 		return true;
 	} 
 }
-</script>	
+</script>
+</table>
+<hr> 
+<!--    				 식재료 디테일      				 		 -->	
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; height: 502px;">
+<h2>Ingredeint 디테일 등록</h2>
 	<tr>
 		<td bgcolor="pink" width="70">식재료 원산지</td><td align="left">
-		<select name="ingredient_country" id="select1" required>
+		<select name="ingredient_country" id="select1">
       		<option value="국산">국산</option>
 			<option value="미국산">미국산</option>
 			<option value="스페인">스페인산</option>
@@ -203,28 +200,29 @@ function Number() {
 	</tr>
 	<tr>
 		<td bgcolor="pink">생산지/수입지</td><td align="left">
-		<input type="" name="ingredient_productimporter" size="10" style="width: 95%;" value="${get2.ingredient_productimporter }" required placeholder="한글만 입력해주세요" onkeydown="koreanChk()"/></td>
+		<form:input path="ingredient_productimporter" size="10" style="width: 95%;" value="${get2.ingredient_productimporter}" placeholder="생산지/수입지를 적어주세요"/></td>
 	</tr>
-<script type="text/javascript">
-function koreanChk() { 
-	if((event.keyCode < 12592) || (event.keyCode > 12687 )) {
-		alert('한글만 입력해주세요');
+	<tr>
+		<td bgcolor="pink">식재료 중량</td><td align="left">
+		<input type="text" step="10" id="ingredient_weight" name="ingredient_weight" value="${get2.ingredient_weight}" style="width: 95%;" placeholder="특수문자와 영문은 안됩니다" value="g" onkeypress="weightNum(event)"/>
+		<span>(단위 : 개)</span>
+		</td>
+	</tr>
+<script language="javascript">
+function weightNum() { 
+	if((event.keyCode < 48) || (event.keyCode > 57 )) {
+		alert('숫자만 입력해주세요');
 		event.returnValue = false;
 		return false;	
 	} else {
 		return true;
 	} 
-	}
+}
 </script>
 	<tr>
-		<td bgcolor="pink">식재료 중량</td><td align="left">
-		<input type="text" step="10" id="ingredient_weight" name="ingredient_weight" size="10" style="width: 95%;" value="${get2.ingredient_weight}" required placeholder="숫자만 입력해주세요" onkeypress="weightNum()"/>
-		<span>(단위: 개)</span>
-		</td>
-	</tr>
-	<tr>
 		<td bgcolor="pink"><label for="calen">제조년월</label></td><td align="left">								
-		<label for="calen"><input type="date" id="calen" name="ingredient_mnfctDate"  value="${get2.ingredient_mnfctDate}" size="10" style="width: 95%;" required  placeholder="한글만 입력해주세요" /></label></td>
+		<label for="calen"><input type="date" id="ingredient_mnfctDate" name="ingredient_mnfctDate"  onclick="fn_dateChk()" size="10" style="width: 95%;" required/></label>	
+		</td>
 	</tr>
 	<div class="check"></div>
 <script type="text/javascript">
@@ -232,7 +230,6 @@ function doLife(srcE, targetId)
 {
     var val = srcE.options[srcE.selectedIndex].value;
     var targetE = document.getElementById(targetId);
-    
     removeAll(targetE);
     if(val == '육류')
     {
@@ -320,7 +317,7 @@ function removeAll(e)
 </script>
 	<tr>
 		<td bgcolor="pink" width="70">식재료 유통기한</td><td align="left">
-		<select name="ingredient_life" id="ingredient_life" onChange="doLife(this, 'ingredient_selLife')" required>
+		<select name="ingredient_life" id="ingredient_life" onChange="doLife(this, 'ingredient_selLife')">
       		 <option value="육류">육류</option>
         	 <option value="소고기">소고기</option>
         	 <option value="닭고기">닭고기</option>
@@ -330,9 +327,10 @@ function removeAll(e)
         	 <option value="견과류">견과류</option>
         	 <option value="기타">기타</option>
 		</select>
-		  <select id="ingredient_selLife" name="ingredient_selLife">
-			<option value="default">유통기한 방법</option>			
-		</select>  
+		  <form:select path="ingredient_selLife" id="ingredient_selLife" name="ingredient_selLife">
+			<form:option value="default">유통기한 방법</form:option>		
+			<form:options items="${ingredient_selLife}"/>
+		</form:select>  
 		</td>
 	</tr>
 <script type="text/javascript">
@@ -415,7 +413,7 @@ function removeAll(e)
 </script>	
 	<tr>
 		<td bgcolor="pink">가공방법</td><td align="left">
-		<select name="ingredient_foodType" id="ingredient_foodType" onchange="doFoodType(this, 'ingredient_selFoodType')"  required>
+		<select name="ingredient_foodType" id="ingredient_foodType" onchange="doFoodType(this, 'ingredient_selFoodType')">
 			 <option value="육류">육류</option>
         	 <option value="소고기">소고기</option>
         	 <option value="닭고기">닭고기</option>
@@ -425,9 +423,10 @@ function removeAll(e)
         	 <option value="견과류">견과류</option>
         	 <option value="기타">기타</option>
 		</select>
-		<select id="ingredient_selFoodType" name="ingredient_selFoodType">
-			<option value="default">가공방법</option>	
-		</select> 
+		<form:select path="ingredient_selFoodType" id="ingredient_selFoodType" name="ingredient_selFoodType" >
+			<form:option value="default">가공방법</form:option>	
+			<form:options items="${ingredient_selFoodType}" />
+		</form:select> 
 		</td>
 	</tr>
 <script type="text/javascript">
@@ -437,22 +436,22 @@ function doStorage(srcE, targetId)
     var targetE = document.getElementById(targetId);
     
     removeAll(targetE);
-    if(val == '육류2')
+    if(val == '육류')
     {
         addOption('-2도 ~ -5도 냉장보관', targetE);
         addOption('-18도이하 냉동보관', targetE);
     }
-    else if(val == '소고기2')
+    else if(val == '소고기')
     {
     	 addOption('-2도 ~ -5도 냉장보관', targetE);
          addOption('-18도이하 냉동보관', targetE);
     }
-    else if(val == '닭고기2')
+    else if(val == '닭고기')
     {
     	 addOption('-2도 ~ -5도 냉장보관', targetE);
          addOption('-18도이하 냉동보관', targetE);
     }
-    else if(val == '해산물2')
+    else if(val == '해산물')
     {
       	addOption('냉동보관', targetE);
         addOption('즉시 섭취 또는 냉동 보관을 권장합니다.', targetE);
@@ -461,7 +460,7 @@ function doStorage(srcE, targetId)
         addOption('받은 후 냉동 3개월까지 보관가능', targetE);
         addOption('냉동보관 10개월', targetE);
     }
-    else if(val == '야채2')
+    else if(val == '야채')
     {
     	addOption('박스를 개봉한 후 서늘한 곳에 보관', targetE);
         addOption('박스를열어 냉장실에 보관하세요. 신선식품 특성상 가급적 빠른섭취 부탁드립니다.', targetE);
@@ -469,7 +468,7 @@ function doStorage(srcE, targetId)
         addOption('냉장보관', targetE);
         addOption('신선식품 특성상 가급적 빠른섭취 권장합니다.', targetE);
     }
-    else if(val == '과일2')
+    else if(val == '과일')
     {
     	addOption('직사광선을 피해 습기없는 서늘한 곳에 보관 ( 박스보관 추천 ) / 냉장보관 권장 (후숙하면서 드시는 과일)', targetE);
         addOption('신선식품 특성상 가급적 빠른섭취권장', targetE);
@@ -477,13 +476,13 @@ function doStorage(srcE, targetId)
         addOption('수령 후 냉장 또는 상온보관', targetE);
         addOption('상온에서 약 5~7일 보관이 가능하나 가급적 신선도 유지를 위해 0~5도씨 냉장보관!.겨울철에는 개봉전 약 1~2시간 정도 상온 보관 후 개봉!', targetE);
     }
-    else if(val == '견과류2')
+    else if(val == '견과류')
     {
     	addOption('차갑고 건조한 곳에 밀봉하여 보관(냉동보관 추천)', targetE);
         addOption('직사광선을 피해 습기없는 서늘한 곳에 보관 ( 박스보관 추천 )', targetE);
         addOption('구매후 냉장,냉동보관 / 장기간 보관시 냉동보관', targetE);
     }
-    else if(val == '기타2')
+    else if(val == '기타')
     {
     	addOption('냉장보관이나 통풍이 잘 되는 실온', targetE);
         addOption('차갑고 건조한 곳에 밀봉하여 보관(냉장/냉동보관 추천)', targetE);
@@ -513,24 +512,25 @@ function removeAll(e)
 </script>
 	<tr>
 		<td bgcolor="pink">보관방법</td><td align="left">
-		<select name="ingredient_storage" id="ingredient_storage" onchange="doStorage(this, 'ingredient_selStorage')" required>
-      		<option value="육류2">육류</option>
-        	<option value="소고기2">소고기</option>
-        	<option value="닭고기2">닭고기</option>
-        	<option value="해산물2">해산물</option>
-        	<option value="야채2">야채</option>
-        	<option value="과일2">과일</option>
-        	<option value="견과류2">견과류</option>
-        	<option value="기타2">기타</option>
+		<select name="ingredient_storage" id="ingredient_storage" onchange="doStorage(this, 'ingredient_selStorage')">
+      		<option value="육류">육류</option>
+        	<option value="소고기">소고기</option>
+        	<option value="닭고기">닭고기</option>
+        	<option value="해산물">해산물</option>
+        	<option value="야채">야채</option>
+        	<option value="과일">과일</option>
+        	<option value="견과류">견과류</option>
+        	<option value="기타">기타</option>
 		</select>
-		<select name = "ingredient_selStorage" id="ingredient_selStorage">
-			<option value="default">식재료 보관방법</option>
-		</select> 
+		<form:select path="ingredient_selStorage" name = "ingredient_selStorage" id="ingredient_selStorage">
+			<form:option value="default">식재료 보관방법</form:option>
+			<form:options items="${ingredient_selStorage}"/>
+		</form:select> 
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="pink">포장재질</td><td align="left">
-		<select name="ingredient_pckmtr" id="select1" required>
+		<select name="ingredient_pckmtr" id="select1">
       		<option value="열성형진공포장">열성형진공포장</option>
 			<option value="PE비닐">PE비닐</option>
 			<option value="폴리에틸렌">폴리에틸렌</option>
@@ -544,29 +544,29 @@ function removeAll(e)
 	</tr>
 	<tr>
 		<td bgcolor="pink">영양분</td><td align="left">
-		<select name="ingredient_nutrient" id="select1" required>
-      		<option value="육류">육류100%</option>
-			<option value="소고기">소고기100%</option>
-			<option value="닭고기">닭고기100%</option>
-			<option value="해산물">해산물100%</option>
-			<option value="야채">야채100%</option>
-			<option value="과일">과일100%</option>			
-			<option value="견과류">견과류100%</option>
-			<option value="기타">.</option>
+		<select name="ingredient_nutrient" id="select1">
+      		<option value="육류100%">육류100%</option>
+			<option value="소고기100%">소고기100%</option>
+			<option value="닭고기100%">닭고기100%</option>
+			<option value="해산물100%">해산물100%</option>
+			<option value="야채100%">야채100%</option>
+			<option value="과일100%">과일100%</option>			
+			<option value="견과류100%">견과류100%</option>
+			<option value="기타100%">.</option>
 		</select>
 		</td>
 	</tr>
 	<tr>
 		<td bgcolor="pink">알레르기 성분</td><td align="left">
-		<select name="ingredient_allergy" id="select1" required>
-      		<option value="소고기">소고기 함유</option>
-			<option value="돼지고기">돼지고기 함유</option>
-			<option value="닭고기">닭고기 함유</option>
-			<option value="해산물">해산물 함유</option>
-			<option value="야채">야채 함유</option>
-			<option value="과일">과일 함유</option>			
-			<option value="견과류">견과류 함유</option>
-			<option value="기타">기타 알레르기</option>
+		<select name="ingredient_allergy" id="select1">
+      		<option value="소고기 함유">소고기 함유</option>
+			<option value="돼지고기 함유">돼지고기 함유</option>
+			<option value="닭고기 함유">닭고기 함유</option>
+			<option value="해산물 함유">해산물 함유</option>
+			<option value="야채 함유">야채 함유</option>
+			<option value="과일 함유">과일 함유</option>			
+			<option value="견과류 함유">견과류 함유</option>
+			<option value="기타 함유">기타 알레르기</option>
 		</select>
 		</td>
 	</tr>
@@ -579,7 +579,7 @@ function removeAll(e)
 	<h2>Ingredint 멀티 등록</h2>
 	<tr>
 		<td bgcolor="pink">다중 이미지</td><td align="left">
-		<input type="file" name="ingredient_multi_img"  multiple size="10" style="width: 95%;" value="아무나맨" required placeholder="특수문자는 되지 않습니다" onkeypress="multiImg(event)"/></td>
+		<input type="file" name="ingredient_multi_img"  multiple = "multiple" size="10" style="width: 95%;" value="아무나맨" placeholder="특수문자는 되지 않습니다" onkeypress="multiImg(event)"/></td>
 	</tr>
 <script language="javascript">
 function multiImg(e) { 
@@ -599,10 +599,10 @@ function nAllow(e) {
 }
 </script>
 		<td bgcolor="pink" colspan="2" align="center">
-		<input type="submit" value="등록하깅" /></td>
+		<input type="submit" id="submit" value="등록하깅"/></td>
 	</tr> 
  </table>  
-</form> 
+</form:form> 
 <hr>
 <a href="getBoardList.do">글 목록 가기</a>
 </center>

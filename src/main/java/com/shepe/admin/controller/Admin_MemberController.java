@@ -39,7 +39,7 @@ public class Admin_MemberController {
 	BCryptPasswordEncoder pwdEncoder;
 	
 	@Autowired
-	private BootService bootservice;
+    private BootService bootservice;
 	
 	// 검색 조건 목록 설정
 	@ModelAttribute("conditionMap")
@@ -59,11 +59,11 @@ public class Admin_MemberController {
         if(logout != null) {
             model.addAttribute("logoutMsg", "You have been logged out successfully");
         }
-        
-		HttpSession session = request.getSession();
+
+        HttpSession session = request.getSession();
 		BootVO vo = bootservice.BootContent();
 		session.setAttribute("BootContentt", vo);
-
+        
         return "/admin/member/admin_login"; // login.jsp(Custom Login Page)
     }
 	

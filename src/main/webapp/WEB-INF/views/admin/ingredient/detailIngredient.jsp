@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -24,46 +24,6 @@
 </style>
 </head>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script type="text/javascript">
-<!-- 식재료 디테일 가격 AJAX -->
-$(document).ready(function(){ 
-	$("#ingredient_amt").click("click", function(){
-		$.ajax({
-			url: "detailIngredient.co",
-			type: "get",
-			data: {"ingredient_amt" : $("#ingredient_amt").val()},
-			success:function(data) {			
-				var total = $("#ingredient_price").val() * $("#ingredient_amt").val();
-				$("#ingredient_price").val(total);
-			}
-		})
-		if($("#ingredient_amt").val() < 1 ){
-			alert("더 이상 내려갈 수 없습니다.");
-			return false;
-		}
-	})
-})
-
-function fn_priceChk(){
-$.ajax({
-	url : "priceCount.co",
-	type : "post",
-	dataType : "json",
-	data : { "ingredient_no" : $("#ingredient_no").val(),
-			 "ingredient_amt" : $("#ingredient_amt").val()},
-	success : function(data){
-		if(data == 1){
-			//alert("중복된 아이디입니다.");
-			url : "detailIngredient.co";
-			$('#ingredient_price').css("color", "red");
-		}else if(data == 0){
-			$("#price_check").text("반환할 데이타가 없습니다.");
-			$('#price_check').css("color", "red");
-		} 
-	}
-})
-} 
-</script>
 <body>
 	<!-- Preloader -->
 	<div id="preloader">
@@ -240,8 +200,8 @@ $.ajax({
 																				alt="${detail.ingredient_nm }" title="${detail.ingredient_nm }" style="width: 100%; height: auto;">
 															</div>
 															<dl>
-																<dt>${detail.ingredient_no}</dt>
-																<dt>${detail.ingredient_nm}</dt>																
+																<dt></dt>
+																<dt></dt>																
 															</dl>
 															<hr>
 															<dl>
@@ -276,10 +236,6 @@ $.ajax({
 											</h6>
 											<div id="collapseTwo" class="accordion-content collapse">
 												<div>
-													<dl>
-														<dt>식재료 번호</dt>
-														<dd>${detailDetail.ingredient_codeNum}</dd>							
-													</dl>
 													<dl>
 														<dt>식재료 원산지</dt>
 														<dd>${detailDetail.ingredient_country}</dd>
@@ -398,30 +354,10 @@ $.ajax({
 									<input type="hidden" id="ingredient_no" name="ingredient_no" value="${detail.ingredient_no }"/><br>
 									<input type="hidden" id="ingredient_nm" name="ingredient_nm" value="${detail.ingredient_nm }"/>
 									<input type="hidden" id="ingredient_amt2" name="ingredient_amt2" value="${detail.ingredient_amt}">
-									<!--<input type="text" name="ingredient_cnt" id="ingredient_cnt" value="1" title="제품수량입력" maxlength="3"/>									
-									<button type="button" id="minus" title="상품수량감소" ><i class="fa fa-minus" aria-hidden="true" onclick="minus()"></i></button>							
-									<button type="button" id="plus" title="상품수량증가" ><i class="fa fa-plus" aria-hidden="true" onclick="plus()"></i></button>								
-									<h3 style="float:right;">총 제품금액:<div id="ing_price" style="display:inline;">${ingredient.ingredient_price}</div>원</h3><br>-->
 									<br>
-									<span>
-										<button id="beforeList" class="btn delicious-btn mt-30">구매하기</button>
-										<div id="amtCheck"></div>
-									</span>			
 							</form>
 							
 						</div>
-						
-						<!-- Widget -->
-						<div class="single-widget mb-80" style="margin-top:10px; top: 10px;">
-							<ul class="list">
-								<li><a href="#">#돼지고기</a></li>
-								<li><a href="#">#맛있는 돼지고기</a></li>
-								<li><a href="#">#해찬 돼지고기</a></li>
-								<li><a href="#">#삼겹살</a></li>
-								<li><a href="#">#녹차먹은 돼지</a></li>
-							</ul>
-						</div>
-
 					</div>
 				</div>
 			</div>

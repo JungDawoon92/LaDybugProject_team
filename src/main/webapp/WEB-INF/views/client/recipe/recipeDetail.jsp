@@ -54,20 +54,6 @@
 											</a>
 										<%} %>
 									<%} %>
-									<%if((session.getAttribute("kname")!=null)&&(request.getAttribute("member_id")!=null) ){%>
-										<% if( session.getAttribute("kname").equals(request.getAttribute("member_id")) ) { %>
-											<a class="btn btn-primary"
-											href="recipeInterceptor/recipeUpdate.re?recipe_no=${ recipe.recipe_no }">수정 하기
-											</a>
-										<%} %>
-									<%} %>
-									<%if((session.getAttribute("nname")!=null)&&(request.getAttribute("member_id")!=null) ){%>
-										<% if( session.getAttribute("nname").equals(request.getAttribute("member_id")) ) { %>
-											<a class="btn btn-primary"
-											href="recipeInterceptor/recipeUpdate.re?recipe_no=${ recipe.recipe_no }">수정 하기
-											</a>
-										<%} %>
-									<%} %>
 									조회수 : ${ recipe.recipe_cnt }
 									<hr>
 								</div>
@@ -165,11 +151,21 @@
 										<input type="hidden" id="check${ index.index }" name="check"
 										 class="checkClass" value="true"/>
 										 
-										<input type="hidden" name="member_id"
-										 class="member_id${ index.index }"  value="${sessionScope.member_id}"/>
-										 
+										<%if (session.getAttribute("member_id") != null) {%>
+											<input type="hidden" name="member_id"
+											 class="member_id${ index.index }"  value="${sessionScope.member_id}"/>
+										<%} else if(session.getAttribute("kname") != null) { %>
+											<input type="hidden" name="member_id"
+											 class="member_id${ index.index }"  value="${sessionScope.kname}"/>
+										<%} else if(session.getAttribute("nname") != null) { %>
+											<input type="hidden" name="member_id"
+											 class="member_id${ index.index }"  value="${sessionScope.nname}"/>
+										<%} %>
 										<input type="hidden" name="recipe_no"
 										 class="recipe_no${ index.index }" value="${recipe.recipe_no}"/>
+										 
+										<input type="hidden" name="recipe_nm"
+										 class="recipe_nm${ index.index }" value="${recipe.recipe_nm}"/>
 										 
 										<input type="hidden" name="ingredient_no"
 										 class="ingredient_no${ index.index }" value="${shopingIngre.ingredient_no}"/>
@@ -188,7 +184,7 @@
 										
 										<hr class="hrSection">
 									</c:forEach>	
-									<input type="hidden" name="orderRecipe" value="">
+									<input type="hidden" name="order" value="">
 									<input type="hidden" name="where" id="where" value="before"/>
 									<div id="totalPrice"></div>
 									<%if ((session.getAttribute("member_id") == null)&&(session.getAttribute("kname") == null)

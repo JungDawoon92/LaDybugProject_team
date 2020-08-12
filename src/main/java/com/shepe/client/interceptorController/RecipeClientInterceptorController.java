@@ -47,13 +47,9 @@ public class RecipeClientInterceptorController {
 		SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss");
 		
 		String iname = (String) session.getAttribute("member_id");
-		String kname = (String) session.getAttribute("kname");
-		String nname = (String) session.getAttribute("nname");
 		
 		String memberId = null;
 		if(iname != null) memberId = (String) session.getAttribute("member_id");
-		else if(kname != null) memberId = (String) session.getAttribute("kname");
-		else if(nname != null) memberId = (String) session.getAttribute("nname");
 		
 		String recipe_no = memberId + fourteen_format.format(date_now);
 		

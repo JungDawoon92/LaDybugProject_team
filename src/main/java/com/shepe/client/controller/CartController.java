@@ -4,6 +4,7 @@ package com.shepe.client.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -36,10 +37,11 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/insertCart", method=RequestMethod.POST)
-	public String insertCart(CartVO cartVO) {
+	public String insertCart(CartVO cartVO, HttpSession session) {
 		logger.info("cart 등록 처리");
-		cartService.insertCart(cartVO);
-		return "client/cart/Cart";
+		System.out.println(cartVO);
+		cartService.insertCart(cartVO, session);
+		return "redirect:/cartList";
 	}
 	
 	@RequestMapping(value= "/updateCartCnt")

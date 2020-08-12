@@ -50,7 +50,7 @@
 									<input type="hidden" name="recipe_no"
 										value="${recipe.recipe_no}" />
 									레시피 제목 <input type="text" class="form-control" name="recipe_nm"
-													value="${recipe.recipe_nm}"/>
+													value="${recipe.recipe_nm}" style="font-size:15px"/>
 								</div>
 
 								<div class="recipe-insert-column">

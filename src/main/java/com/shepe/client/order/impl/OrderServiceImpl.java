@@ -42,9 +42,11 @@ public class OrderServiceImpl implements OrderService{
 		
 		for (int i = 0; i < jsonArray.size(); i++) {
 			CartVO cartVO = new CartVO();
-			if(param.get("orderRecipe") != null) {
-				cartVO.setRecipe_nm(param.get("orderRecipe_nm"));
-				cartVO.setRecipe_no(param.get("orderRecipe_no"));
+			System.out.println(param.get("recipe_no"));
+			System.out.println(param.get("recipe_nm"));
+			if(param.get("recipe_no") != null && param.get("recipe_nm") != null) {
+				cartVO.setRecipe_no(param.get("recipe_no"));
+				cartVO.setRecipe_nm(param.get("recipe_nm"));
 			}
 			else {
 				cartVO.setRecipe_nm("기타");

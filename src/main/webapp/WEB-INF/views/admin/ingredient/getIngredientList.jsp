@@ -44,28 +44,25 @@ img {
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <body>
+<jsp:include page="/WEB-INF/include/adminNav.jsp" />
 	<h1>식재료 리스트페이지 입니다.</h1>
-	<form action="getIngredientList.co" method="post">
+	<a href="ingredientChart.co" class="btn btn-success">그래프 보깅</a>
+	<form id="sexy" onsubmit="return false">  <!--action="getIngredientList.co" method="post"--> 
 		<table>
 			<tr>
 				<td align="right">
-				<select name="ingredient_searchCondition" />
+				<select name="ingredient_searchCondition" id="ingredient_searchCondition"/>
 					<c:forEach items="${conditionMap}" var="option">
 						<option value="${option.value}">${option.key}
 					</c:forEach>
 				</select> 
-				<input name="ingredient_searchKeyword" type="text" /> 
-				<input type="submit" value="검색" /></td>
+				<input name="ingredient_searchKeyword" type="text" id="ingredient_searchKeyword" onkeypress="javascript:if(event.keyCode==13){comeOn();}" /> 
+				<input type="button" value="검색" onclick="comeOn();"/></td>
 			</tr>
 		</table>
 	</form>
+	
 <div class="container">
-	<c:if test="${listCount gt 10}">
-				<div id="more_btn_div" align="center">
-					<a class='btn btn-info' type="button" id="addBtn" href="#addBtn">더보기(More)</a>
-					<a class='btn btn-info' type="button" id="subBtn" href=#listData>감추기(sub)</a>
-				</div>
-			</c:if>
 	<table id="addList" class="table table-bordered">
 		<thead id ="tableHead">총 데이타는${listCount}개 있습니다.
 			<tr>
@@ -78,25 +75,15 @@ img {
 				<th width="150"></th>
 			</tr>
 		</thead>
-		<!--<c:forEach items="${getInsertList}" var="ingredient">-->
 			<tbody id="listData">
-			<!--<tr>
-				<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${ingredient.ingredient_price}" />원</td>
-			<td><img src="<spring:url value='/resources/img/ingredient-img/${ingredient.ingredient_thumbName}'/>"></td>
-				<td><a
-					href="detailIngredient.co?ingredient_no=${ingredient.ingredient_no}">${ingredient.ingredient_no}</a></td>
-				<td>${ingredient.ingredient_nm}</td>
-				<td>${ingredient.ingredient_categ}</td>
-				
-				<td>${ingredient.ingredient_amt }인분</td>
-				<td><input type="button" class="btn btn-info" value="수정"
-					onclick="location.href='getIngredient.co?ingredient_no=${ingredient.ingredient_no}'">
-					<input type="button" class="btn btn-danger"
-					onclick="del(${ingredient.ingredient_no})" value="삭제"></td>  
-			</tr>-->
-			<tbody> 
-		<!--</c:forEach>-->
+			</tbody> 
 	</table>
+	<c:if test="${listCount gt 10}">
+		<div id="more_btn_div" align="center">
+			<a class='btn btn-info' type="button" id="addBtn" href="#addBtn">더보기(More)</a>
+			<a class='btn btn-info' type="button" id="subBtn" href=#listData>감추기(sub)</a>
+		</div>
+	</c:if>
 </div>
 	<br>
 	<a href="adminInsert.co">식재료 등록</a>
@@ -121,11 +108,8 @@ img {
 <script type="text/JavaScript">
 $(document).ready(function() {
 	var page = 1;
-	console.log(typeof(page));
 	listData(page);
 
-	
-	
 	$('#addBtn').click(function() {
 		page++;
 		listData(page);
@@ -138,6 +122,42 @@ $(document).ready(function() {
 	});
 });
 
+function comeOn() {
+	$("#listData").empty();
+	$.ajax({
+		url: "ajaxIngredientList.co",
+		type: "get",
+		dataType: "JSON",
+		data : {ingredient_searchKeyword : $("#ingredient_searchKeyword").val(),
+					ingredient_searchCondition : $("#ingredient_searchCondition").val() },
+		success : function(data) {
+			
+			$.each(data, function(index, value) {
+				var row = "";
+				var price = new Intl.NumberFormat({ maximumSignificantDigits: 3 }).format(value.ingredient_price);
+				var condition = value.ingredient_searchCondition;
+				var keyword = value.ingredient_searchKeyword;
+				console.log(condition);
+				console.log(keyword);
+				row +="<tr>";
+				row += "<td><img src='<spring:url value='/resources/img/ingredient-img/"+value.ingredient_thumbName+"'/>'></td>";
+				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"'>"+value.ingredient_no+"</a></td>";
+				row += "<td>"+value.ingredient_nm+"</td>";
+				row += "<td>"+value.ingredient_categ+"</td>";
+				row += "<td>"+price+"원</td>"; 
+				row += "<td>"+value.ingredient_amt+"개</td>";
+				row += "<td><input type='button' class='btn btn-info' value='수정' onclick='upDate("+value.ingredient_no+")'>";
+				row += "<input type='button' class='btn btn-danger' onclick='del("+value.ingredient_no+")' value='삭제'></td>";		
+				row +="</tr>";
+				$("#listData").append(row);
+			});
+			
+		},error: function(request, status, error) {
+			console.log(error);
+			alert("status : " + status);
+		}
+	});
+};
 
 function listData(page) {
 	$.ajax({
@@ -145,18 +165,18 @@ function listData(page) {
 		type: "post",
 		dataType: "Json",
 		data : {paging : page},
+		
 		success : function(data) {
 			$.each(data, function(index, value) {
 				var row = "";
-				var ar = '<fmt:formatNumber type="number" maxFractionDigits="3" value='+value.ingredient_price+' />';
-				console.log(value.ingredient_price);
+				var price = new Intl.NumberFormat({ maximumSignificantDigits: 3 }).format(value.ingredient_price);
 				row +="<tr>";
 				row += "<td><img src='<spring:url value='/resources/img/ingredient-img/"+value.ingredient_thumbName+"'/>'></td>";
 				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"'>"+value.ingredient_no+"</a></td>";
 				row += "<td>"+value.ingredient_nm+"</td>";
 				row += "<td>"+value.ingredient_categ+"</td>";
-				row += "<td>"+value.ingredient_price+"원</td>"; 
-				row += "<td>"+value.ingredient_amt+"인분</td>";
+				row += "<td>"+price+"원</td>"; 
+				row += "<td>"+value.ingredient_amt+"개</td>";
 				row += "<td><input type='button' class='btn btn-info' value='수정' onclick='upDate("+value.ingredient_no+")'>";
 				row += "<input type='button' class='btn btn-danger' onclick='del("+value.ingredient_no+")' value='삭제'></td>";		
 				row +="</tr>";
@@ -182,6 +202,14 @@ function del(no) {
 function upDate(no) {
 	location.href="getIngredient.co?ingredient_no="+no;
 };
+
+$(function () {
+	var c = $("select[name=ingredient_searchKeyword]").val();
+	console.log(c);
+	
+});
+
+
 
 </script>
 </html>

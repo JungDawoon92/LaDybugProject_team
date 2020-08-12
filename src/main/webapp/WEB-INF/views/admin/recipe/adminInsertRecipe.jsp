@@ -47,7 +47,7 @@
 									 value="${sessionScope.nickname}" required="required" />
 									레시피 제목
 									<input type="text" class="form-control" name="recipe_nm"
-									 required="required" />
+									 required="required" style="font-size:15px" />
 								</div>
 
 								<div class="recipe-insert-column">

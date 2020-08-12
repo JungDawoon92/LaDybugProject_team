@@ -32,8 +32,8 @@ public class OrderController {
 	public String orderForm(@RequestParam Map<String, String> param, HttpSession session, Model model) throws IOException {
 		logger.info("orderForm");
 
-		if(session.getAttribute("member_id") == null)
-			return "redirect:/login.do";
+//		if(session.getAttribute("member_id") == null)
+//			return "redirect:/login.do";
 		MemberAddressVO addrVO = new MemberAddressVO();
 		addrVO.setMember_id((String) session.getAttribute("member_id"));
 		

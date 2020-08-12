@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix ="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 										<c:forEach items="${search_reList}" var="reList">
 											<div class="search-item">
 											<div class="media">
-												<a href="getRecipe.re?recipe_no=${ reList.recipe_no }">
+												<a href="getRecipe.re?recipe_no=${reList.recipe_no }">
 													<img class="d-flex mr-3 img-thumbnail"
 														src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${reList.recipe_complete_img}" height="54"
 														style="width: 250px; height: 210px;">
@@ -94,9 +95,9 @@
 									
 									<c:forEach items="${search_inList}" var="inList">
 									<div class="search-item">
-                                        <h4 class="mb-1"><a href="#">${inList.ingredient_nm}</a></h4>
-                                        <div class="font-13 text-success mb-3">http://localhost:8090/shepe/ingredient_no=${inList.ingredient_no}</div>
-                                        <p class="mb-0 text-muted">인그리sum=${inList.ingredient_sell_sum} 등등 기타등등 여기에 추가한다.</p>
+                                        <h4 class="mb-1"><a href="clientDetail.do?ingredient_no=${inList.ingredient_no}&ingredient_categ=${inList.ingredient_categ}">${inList.ingredient_nm}</a></h4>
+                                        <div class="font-13 text-success mb-3"><a href="clientDetail.do?ingredient_no=${inList.ingredient_no}&ingredient_categ=${inList.ingredient_categ}">http://localhost:8090/shepe/ingredient_no=${inList.ingredient_no}</a></div>
+                                        <p class="mb-0 text-muted">${inList.ingredient_nm}, <fmt:formatNumber type="number" maxFractionDigits="3" value="${inList.ingredient_price}" />원</p>
                                     </div>
 									</c:forEach>
 									

@@ -67,11 +67,14 @@
 		</property>
 	</bean>
 	
-	<!-- Transaction 설정 -->
+	<!-- Transaction 설정 txManager-->
 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
  	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	<!-- Creates the JSR-303 Validator -->
+	<bean id = "validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 	
 	<!-- 스케줄러 설정 -->
 	<task:annotation-driven/>

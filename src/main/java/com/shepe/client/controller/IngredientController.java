@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.shepe.client.ingredient.IngredientService;
 import com.shepe.client.ingredient.IngredientVO;
-import com.shepe.client.ingredient.MemberVO;
 
 @Controller
 @SessionAttributes("ingredient")
@@ -21,52 +21,7 @@ public class IngredientController {
 	
 	@Autowired
 	private IngredientService ingredientService;
-	
-	@RequestMapping("/login.do")
-	public String login(MemberVO vo, Model model) {
-		System.out.println("로그인 접근!");
-		try {
-			if(vo.getId().equals("test") && vo.getPass().equals("test123")) {
-				System.out.println("환영합니다.");
-				
-			}
-			model.addAttribute("id", vo.getId());
-			model.addAttribute("pass", vo.getPass());
-			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			System.out.println(e+"입니다");
-		}
-		return "client/ingredient/clientTest";
-	}
-	// 클라이언트 첫 리스트
-	@RequestMapping("/clientList.do")
-	public String clientList(IngredientVO vo, Model model) {
-		try {
-			System.out.println("클라이언트 리스트 컨트롤러 접근!");
-			model.addAttribute("ingredient", ingredientService.clientList(vo));
-			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			System.out.println(e+"입니다");
-		}
-		return "redirect:/";
-	}
-	
-	// 클라이언트 디테일 리스트
-	@RequestMapping("/clientDetailList.do")
-	public String clientDetailList(IngredientVO vo, Model model) {
-		try {
-			System.out.println("클라이언트 디테일 리스트 컨트롤러 접근!");
-			model.addAttribute("ingredient", ingredientService.clientDetailList(vo));
-			
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			System.out.println(e+"입니다");
-		}
-		return "client/ingredient/clientDetailList";
-	}
-	
+		
 	//클라이언트 디테일
 	@RequestMapping("/clientDetail.do")
 	public String clientDetail(IngredientVO vo, Model model) {
@@ -75,7 +30,8 @@ public class IngredientController {
 			model.addAttribute("ingredient", ingredientService.clientDetail(vo));
 			model.addAttribute("ingredientDetail", ingredientService.clientDetailDetails(vo));
 			model.addAttribute("ingredientMulti", ingredientService.clientDetailMulti(vo));
-			
+			model.addAttribute("addList", ingredientService.addList(vo));
+			model.addAttribute("result", ingredientService.count(vo));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			System.out.println(e+"입니다");
@@ -97,18 +53,4 @@ public class IngredientController {
 		}	
 		return ingredientService.ing_amtCheck(vo);
 	} 
-	
-	@RequestMapping("/orderForm.do")
-	public String orderForm(IngredientVO vo, Model model) {
-		System.out.println("식재료 구매하기 진입");
-		return "client/ingredient/orderForm";
-	}
-	
-	@RequestMapping("/meatPage.do")
-	public String meatPage(IngredientVO vo, Model model) {
-		System.out.println("식재료 구매하기 진입");
-		return "client/ingredient/meatPage";
-	}
-	
-
 }

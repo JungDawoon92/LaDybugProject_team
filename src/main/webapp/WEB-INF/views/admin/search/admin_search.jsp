@@ -28,7 +28,7 @@
 
 </head>
 <body>
-<jsp:include page="/WEB-INF/include/adminNav.jsp"></jsp:include>
+
 <div class="container">
 <div class="d-flex justify-content-around mb-3">
 <div class="chart-container p-2">
