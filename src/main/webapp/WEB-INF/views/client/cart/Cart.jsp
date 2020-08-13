@@ -21,7 +21,7 @@
 		<div class="check_all_box col">
 			<input type="checkbox" id="check_all" class="check_all" onclick="checkAll()" checked>
 			<label for="check_all" class="custom-control-input">상품 전체선택</label>
-			<button type="button" class="check_del btn" onclick="checkDel()">선택삭제</button>
+			<button type="button" class="check_del btn btn-outline-light text-dark" onclick="checkDel()">선택삭제</button>
 		</div>
 		<div class="cart_box col border">
 			<ul>
@@ -44,7 +44,7 @@
 								</div>
 								<div class="item_img border">
 									<img title="상품이미지" alt="상품이미지" width="112" height="112" style="padding-right:10px"
-									src="${pageContext.request.contextPath}/resources/img/cart-img/${list.ingredient_thumbName}" />
+									src="${pageContext.request.contextPath}/resources/img/ingredient-img/${list.ingredient_thumbName}" />
 								</div>
 								<div class="item_body col-6 border">
 									<div class="item_name_box col-12">

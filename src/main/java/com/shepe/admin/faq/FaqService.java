@@ -9,6 +9,8 @@ public interface FaqService {
 	
 	void updateFaq(FaqVO vo);
 	
+	void updateFaqRC(int faq_sq);
+	
 	void deleteFaq(FaqVO vo);
 	
 	// 글 상세
@@ -16,6 +18,8 @@ public interface FaqService {
 	
 	// 글 List 조회
 	List<FaqVO> getFaqList(int pager);
+	
+	List<FaqVO> getFaqRC();
 	
 	// Paging 네이밍되나
 	int getListCount();

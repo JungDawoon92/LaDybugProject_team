@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <title>글 목록</title>
 <style type="text/css">
 body {
@@ -99,9 +100,6 @@ img {
 	<!-- All Plugins js -->
 	<script src="<c:url value ="/resources/js/plugins/plugins.js" />"></script>
 	<!-- Active js -->
-
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </body>
@@ -131,7 +129,6 @@ function comeOn() {
 		data : {ingredient_searchKeyword : $("#ingredient_searchKeyword").val(),
 					ingredient_searchCondition : $("#ingredient_searchCondition").val() },
 		success : function(data) {
-			
 			$.each(data, function(index, value) {
 				var row = "";
 				var price = new Intl.NumberFormat({ maximumSignificantDigits: 3 }).format(value.ingredient_price);
@@ -140,8 +137,8 @@ function comeOn() {
 				console.log(condition);
 				console.log(keyword);
 				row +="<tr>";
-				row += "<td><img src='<spring:url value='/resources/img/ingredient-img/"+value.ingredient_thumbName+"'/>'></td>";
-				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"'>"+value.ingredient_no+"</a></td>";
+				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"&ingredient_categ="+value.ingredient_categ+"'><img src='<spring:url value='/resources/img/ingredient-img/"+value.ingredient_thumbName+"'/>'></a></td>";
+				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"&ingredient_categ="+value.ingredient_categ+"'>"+value.ingredient_no+"</a></td>";
 				row += "<td>"+value.ingredient_nm+"</td>";
 				row += "<td>"+value.ingredient_categ+"</td>";
 				row += "<td>"+price+"원</td>"; 
@@ -168,11 +165,17 @@ function listData(page) {
 		
 		success : function(data) {
 			$.each(data, function(index, value) {
+				var c = value.ingredient_categ;
+				var d = value.ingredient_no;
+				var b = value.ingredient_thumbName;
+				console.log(c);
+				console.log(d);
+				
 				var row = "";
 				var price = new Intl.NumberFormat({ maximumSignificantDigits: 3 }).format(value.ingredient_price);
 				row +="<tr>";
-				row += "<td><img src='<spring:url value='/resources/img/ingredient-img/"+value.ingredient_thumbName+"'/>'></td>";
-				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"'>"+value.ingredient_no+"</a></td>";
+				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"&ingredient_categ="+value.ingredient_categ+"&ingredient_thumbName="+value.ingredient_thumbName+"'><img src='<spring:url value='/resources/img/ingredient-img/"+value.ingredient_thumbName+"'/>'></a></td>";
+				row += "<td><a href='detailIngredient.co?ingredient_no="+value.ingredient_no+"&ingredient_categ="+value.ingredient_categ+"&ingredient_thumbName="+value.ingredient_thumbName+"'>"+value.ingredient_no+"</a></td>";
 				row += "<td>"+value.ingredient_nm+"</td>";
 				row += "<td>"+value.ingredient_categ+"</td>";
 				row += "<td>"+price+"원</td>"; 

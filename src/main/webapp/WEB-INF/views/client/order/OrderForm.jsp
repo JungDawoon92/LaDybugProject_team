@@ -165,7 +165,7 @@
 								<li>
 									<div class="order_pdt">
 										<a href="" class="thumb"><img title="상품이미지" alt="상품이미지" width="112" height="112" style="padding-right:10px"
-													src="${pageContext.request.contextPath}/resources/img/cart-img/${list.ingredient_thumbName}" /></a>
+													src="${pageContext.request.contextPath}/resources/img/ingredient-img/${list.ingredient_thumbName}" /></a>
 										<dl>
 											<dt>
 												<a><span>${list.ingredient_nm }</span>

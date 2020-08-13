@@ -13,17 +13,17 @@
 </head>
 <body>
 	<ul class="pagination pagination-md justify-content-center">
-		<c:if test="${paging.prevPage != 0}">
+		<c:if test="${paging.prevpage != 0}">
 			<li class="page-item">
 				<a class="page-link" href="moveSubChart.rk.ad?page=1#paging">처음</a>
 			</li>
 		</c:if>
-		<c:if test="${paging.prevPage != 0}">
+		<c:if test="${paging.prevpage != 0}">
 			<li class="page-item">
-				<a class="page-link" href="moveSubChart.rk.ad?page=${paging.prevPage}#paging">&lt;</a>
+				<a class="page-link" href="moveSubChart.rk.ad?page=${paging.prevpage}#paging">&lt;</a>
 			</li>
 		</c:if>
-		<c:forEach var="a" begin="${paging.startPage}" end="${paging.endPage}" step="1">
+		<c:forEach var="a" begin="${paging.startpage}" end="${paging.endpage}" step="1">
 			<c:choose>
 				<c:when test="${a eq paging.page}">
 					<li class="page-item active"><a class="page-link" href="moveSubChart.rk.ad?page=${a}#paging">${a}</a></li>
@@ -33,14 +33,14 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
-		<c:if test="${ paging.nextPage !=0 }">
+		<c:if test="${ paging.nextpage !=0 }">
 			<li class="page-item">
-				<a class="page-link" href="moveSubChart.rk.ad?page=${paging.nextPage}#paging">&gt;</a>
+				<a class="page-link" href="moveSubChart.rk.ad?page=${paging.nextpage}#paging">&gt;</a>
 			</li>
 		</c:if>
-		<c:if test="${ paging.nextPage !=0 }">
+		<c:if test="${ paging.nextpage !=0 }">
 			<li class="page-item">
-				<a class="page-link" href="moveSubChart.rk.ad?page=${paging.maxPage}#paging">끝</a>
+				<a class="page-link" href="moveSubChart.rk.ad?page=${paging.maxpage}#paging">끝</a>
 			</li>
 		</c:if>
 		

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="rankSellIngredientRankingDAO">
+ 
+ 	<insert id="insertRankSellIngredientRanking">
+ 		<![CDATA[
+ 			INSERT INTO rank_sell_ingredient_ranking (ingredient_no, ingredient_nm, ingredient_sell_sum, rank_no, rank_ymd)
+			SELECT ingredient_no, ingredient_nm, SUM(ingredient_cnt), 0, now()
+			FROM order_ingredient
+			GROUP BY ingredient_nm
+			ORDER BY ingredient_cnt DESC, ingredient_no
+			LIMIT 100
+ 		]]>
+ 	</insert>
+ 	
+ 	<!-- 등록된 자료에 순위를 업데이트 -->
+ 	<update id="updateRankSellIngredientRanking">
+ 		<![CDATA[
+ 			UPDATE rank_sell_ingredient_ranking
+ 			SET rank_no = #{rank_no}
+ 			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</update>
+ 	
+ 	<select id="getRankSellIngredientRankingCnt" resultType="int">
+		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM rank_sell_ingredient_ranking
+ 			WHERE rank_ymd = curdate()
+ 		]]>
+	</select> 	
+ 	
+ 	<!-- 순위 업데이트를 위해 100개를 불러옴 -->
+ 	<select id="getIngredientRankList" resultType="rankSellIngre">
+ 	 	<![CDATA[
+ 			SELECT ingredient_nm, rank_no
+ 			FROM rank_sell_ingredient_ranking
+ 			WHERE rank_ymd = curdate()
+ 			ORDER BY ingredient_sell_sum DESC
+ 			LIMIT 100
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 누적 식재료 판매량 리스트 -->
+ 	<!-- 나중에 nm 을 no로 변경할 것  -->
+ 	<select id="getRankSellIngredientRankingList" resultType="rankSellIngre">
+ 	 	<![CDATA[
+ 			SELECT rk.ingredient_no, rk.ingredient_nm, rk.ingredient_sell_sum, rk.rank_no, rk.rank_ymd, ing.ingredient_thumbName
+			FROM rank_sell_ingredient_ranking rk
+			INNER JOIN ingredient ing
+			ON rank_ymd = curdate() AND rk.ingredient_nm = ing.ingredient_nm
+			ORDER BY rk.ingredient_sell_sum DESC, rk.rank_no
+			LIMIT 21 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 
+ </mapper>

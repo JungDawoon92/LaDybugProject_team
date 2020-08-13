@@ -12,7 +12,7 @@
 <body>
 <span>
 	<c:choose>
-		<c:when test="${likeCheck.member_like_id eq memberInfo.member_id }">
+		<c:when test="${likeCheck.member_like_id eq member_id }">
 			<button type="button" class="btn btn-danger" id="likeBtn" onclick="checkLike()" disabled="disabled">
 				<span><i class="fa fa-thumbs-o-up" aria-hidden="true">추천중</i></span>
 			</button>
@@ -35,9 +35,9 @@ function checkLike() {
 	}
 }
 function addLike() {
-	var r_no = "${recipeDetail.recipe_no}";
-	var mem_id = "${memberInfo.member_id}";
-	var mem_nick = "${memberInfo.member_nickname}";
+	var r_no = "${recipe.recipe_no}";
+	var mem_id = "${member_id}";
+	var mem_nick = "${member_nick}";
 	var params = {
 		recipe_no : r_no,
 		member_like_id : mem_id,

@@ -7,15 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Patua+One">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/shepe/resources/css/mypage.css" type="text/css">
 	<link rel="stylesheet" href="/shepe/resources/css/member_join.css" type="text/css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<title>회원 비밀번호 변경</title>
 <style>
 #incorrectPWD {
 	font-size: 12pt;
@@ -57,8 +56,13 @@
 			
 			// 취소
 			$(".cencle").on("click", function(){
-				alert("취소하시겠습니까?");
-				location.href = "myPage.do";
+				var result = confirm("취소하시겠습니까?");
+				if (result){
+					location.href = "./memberDetail.do";	
+				} else {
+					location.reload();
+				}
+				
 						    
 			})
 			// 회원 탈퇴 버튼 클릭 시
@@ -109,45 +113,50 @@
 		
 	});
 </script>
+<style>
+.row {
+	justify-content: center;
+}
+</style>
 <body>
 <jsp:include page="/WEB-INF/include/Nav.jsp" />
-	<section>
+	<section>	
 		<div class="container wrapper">
+		  <jsp:include page="/WEB-INF/include/myPageMenu.jsp" />	
 			<div class="row myinfocontents">
-				<div class="col-md-3"><jsp:include page="/WEB-INF/include/myPageMenu.jsp" /></div>
-				<div class="myinfo col-md-9">
-					<div>
+				<div class="myinfo col-md-9 col-md-offset-2" style="padding-top: 50px;">
+					<div class="contact-form">
 						<h3>비밀번호 변경</h3>
-						<form action="../updatePWD.do" method="post" id="changeForm">
-						<input name="member_id" type="hidden" value="${ member_id }">
-						<input name="member_email" type="hidden" value="${ member_email }">
-						<input name="member_email_domain" type="hidden" value="${ member_domain }">											
-							<div class="form-group has-feedback">
-								<label class="control-label" for="userPass">패스워드</label>
-								<input class="form-control" type="password" id="userPass" name="member_password" required="required"/>	
-							<div class="incorrectPWD">
-								<c:if test="${msg == false}"> 비밀번호가 맞지 않습니다. </c:if>
-							</div>
-							</div>
-							<div class="form-group has-feedback">
-								<label class="control-label" for="userName">변경할 패스워드</label>
-								<input class="form-control" type="password" id="member_pw" name="confirm_password" minlength="8" required="required"/>
-								<div class="check_font" id="pw_check"></div>
-							</div>							
-							<div class="form-group has-feedback">
-								<label class="control-label" for="userId">재확인</label> 
-								<input class="form-control" type="password" id="member_pw2" name="confirm_password" minlength="8" required="required"/>
-							</div>
-							<div id="pw2_check"></div>
-							<div class="form-group has-feedback">
-								<button class="btn btn-success" type="submit" id="changeSubmit">변경하기</button>
-								<button class="cencle btn btn-danger" type="button" onclick="location.href='myPageMenu.jsp'">취소</button>
-							</div>
-						</form>
+						<form action="updatePWD.do" method="post" id="changeForm">
+							<input name="member_id" type="hidden" value="${ member_id }">
+							<input name="member_email" type="hidden" value="${ member.member_email }">
+							<input name="member_email_domain" type="hidden" value="${ member.member_email_domain }">								
+								<div class="form-group">
+								<label class="control-label" for="userPass" style="padding-top: 20px;">패스워드</label>
+									<input class="form-control" type="password" id="userPass" name="member_password" required="required" style="width: 350px"/>	
+									<div class="incorrectPWD">
+										<c:if test="${msg == false}"> 비밀번호가 맞지 않습니다. </c:if>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="userName">변경할 패스워드</label>
+									<input class="form-control" type="password" id="member_pw" name="confirm_password" minlength="8" required="required" style="width: 350px"/>
+									<div class="check_font" id="pw_check"></div>
+								</div>					
+								<div class="form-group">
+									<label class="control-label" for="userId">재확인</label> 
+									<input class="form-control" type="password" id="member_pw2" name="confirm_password" minlength="8" required="required" style="width: 350px"/>
+								</div>
+								<div id="pw2_check"></div>
+								<div class="form-group" style="float: right;">
+									<button class="btn btn-success" type="submit" id="changeSubmit" style="font-size: 15px;">변경하기</button>
+									<button class="cencle btn btn-danger" type="button" style="font-size: 15px;">취소</button>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-</body>
+		</section>
+	</body>
 </html>

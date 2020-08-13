@@ -12,14 +12,14 @@
 <body>
 	<h4>레시피 작성자</h4>
 	<div class="media mt-3">
-		<img src="${pageContext.request.contextPath}/resources/img/profileImg/${memberInfo.member_img}" class="align-self-center mr-3" style="width: 60px">
+		<img src="${pageContext.request.contextPath}/resources/img/profileImg/${member_img}" class="align-self-center mr-3" style="width: 60px">
 		<div class="media-body">
-			<h5>${ recipeDetail.member_nickname }</h5>
+			<h5>${ recipe.member_nickname }</h5>
 			<span class="text-left">쉐프와 쉐프의 레시피가 마음에 드신다면 구독과 좋아요를 눌러주세요 :)</span>
-			<c:if test="${ memberInfo.member_id ne recipeDetail.member_id }">
+			<c:if test="${ member_id ne recipe.member_id }">
 				<div class="pull-right">
-					<jsp:include page="rankLike.jsp" />
-					<jsp:include page="rankSubscribe.jsp" />
+					<jsp:include page="../comment/rankLike.jsp" />
+					<jsp:include page="../comment/rankSubscribe.jsp" />
 				</div>
 			</c:if>
 		</div>

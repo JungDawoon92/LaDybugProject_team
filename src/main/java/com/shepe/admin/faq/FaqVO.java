@@ -9,8 +9,14 @@ public class FaqVO {
 	private String member_id;
 	private String faq_contents;
 	private String faq_mtype;
+	private int faq_rc;
 	
-	
+	public int getFaq_rc() {
+		return faq_rc;
+	}
+	public void setFaq_rc(int faq_rc) {
+		this.faq_rc = faq_rc;
+	}
 	public String getFaq_nm() {
 		return faq_nm;
 	}
@@ -50,7 +56,8 @@ public class FaqVO {
 	
 	@Override
 	public String toString() {
-		return "FaqVO [faq_sq=" + faq_sq + ", faq_category=" + faq_category + ", member_id=" + member_id
-				+ ", faq_contents=" + faq_contents + ", faq_mtype=" + faq_mtype + "]";
+		return "FaqVO [faq_sq=" + faq_sq + ", faq_category=" + faq_category + ", faq_nm=" + faq_nm + ", member_id="
+				+ member_id + ", faq_contents=" + faq_contents + ", faq_mtype=" + faq_mtype + ", faq_rc=" + faq_rc
+				+ "]";
 	}
 }

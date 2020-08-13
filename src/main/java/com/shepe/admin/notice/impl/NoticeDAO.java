@@ -29,9 +29,13 @@ public class NoticeDAO {
 		mybatis.delete("NoticeDAO.deleteNotice", vo);
 	}
 	
-	public NoticeVO detailNotice(NoticeVO vo) {
-		System.out.println("NoticeDAO detail" + vo);
-		return (NoticeVO) mybatis.selectOne("NoticeDAO.detailNotice", vo);
+	public NoticeVO detailNotice(int notice_sq) {
+		System.out.println("NoticeDAO detail");
+		return mybatis.selectOne("NoticeDAO.detailNotice", notice_sq);
+	}
+	
+	public void plusRC(int notice_sq) {
+		mybatis.update("NoticeDAO.plusRC", notice_sq);
 	}
 	
 	// Paging	
@@ -41,8 +45,16 @@ public class NoticeDAO {
 		return mybatis.selectList("NoticeDAO.getNoticeList", startpage);
 	}
 	
+	// Paging	
+	public List<NoticeVO> getNoticeListScroll(int page) {
+		System.out.println("NoticeDAO List " + page);
+		return mybatis.selectList("NoticeDAO.getNoticeListScroll", page);
+	}
+	
 	// Paging
 	public int getListCount() {
 		return mybatis.selectOne("NoticeDAO.getListCount");
 	}
+
+	
 }

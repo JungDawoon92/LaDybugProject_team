@@ -16,16 +16,19 @@
 		<div class="row">
 			<c:forEach items="${ajaxingrelist}" var="division">
 			  <div class="card col-lg-3 col-md-3 col-6" style="width:13rem; margin:20px 0 24px 0">
-			  	<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/ingredient-img/${division.ingredient_thumbName}" alt="image" style="width: 255px;height: 350px;">
-			  	<div class="card-body">
-			  		<h4 class="card-title">
-			    		<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}">
-			    			${division.ingredient_nm}
-			    		</a>
-			    	</h4>
-			    	
-			    	<p class="card-text float-right"><i class="fas fa-coins"></i><font size=5> ${division.ingredient_price}원</font></p>
-			  	</div>
+			  	<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}&ingredient_thumbName=${division.ingredient_thumbName}">
+				  	<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/ingredient-img/${division.ingredient_thumbName}" alt="image" style="width: 255px;height: 350px;">
+				  </a>
+				  	<div class="card-body">
+				    	<h4 class="card-title">
+				    		<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}&ingredient_thumbName=${division.ingredient_thumbName}">
+				    			${division.ingredient_nm}
+				    		</a>
+				    	</h4>
+				    	</div>
+				    	<div class="card-body d-flex flex-row-reverse align-items-end">	
+				    	<p class="card-text float-right"><i class="fas fa-coins"></i><font size=5> ${division.ingredient_price}원</font></p>
+				    	</div>
 			  </div>
 			 </c:forEach>
 		</div>
@@ -33,7 +36,7 @@
       <hr>
       
       <div class="container">	
-			<ul class="pagination">
+			<ul class="pagination pagination-sm">
 			<c:if test="${paging.prevpage != 0}">
 				<li class="page-item"><button class="page-link" data-page="${paging.prevpage}">&lt;&lt;</button></li> 
 			</c:if>

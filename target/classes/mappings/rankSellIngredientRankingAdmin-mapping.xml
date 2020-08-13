@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="adrankSellIngredientRankingDAO">
+ 
+ 	<insert id="insertRankSellIngredientRanking">
+ 		<![CDATA[
+ 			INSERT INTO rank_sell_ingredient_ranking (ingredient_no, ingredient_nm, ingredient_sell_sum, rank_no, rank_ymd)
+			SELECT ingredient_no, ingredient_nm, SUM(ingredient_cnt), 0, now()
+			FROM order_ingredient
+			GROUP BY ingredient_nm
+			ORDER BY ingredient_cnt DESC, ingredient_no
+			LIMIT 100
+ 		]]>
+ 	</insert>
+ 	
+ 	<!-- 등록된 자료에 순위를 업데이트 -->
+ 	<update id="updateRankSellIngredientRanking">
+ 		<![CDATA[
+ 			UPDATE rank_sell_ingredient_ranking
+ 			SET rank_no = #{rank_no}
+ 			WHERE ingredient_nm = #{ingredient_nm}
+ 		]]>
+ 	</update>
+ 	
+ 	<select id="getRankSellIngredientRankingCnt" resultType="int">
+		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM rank_sell_ingredient_ranking
+ 			WHERE rank_ymd = curdate()
+ 		]]>
+	</select> 	
+ 	
+ 	<!-- 순위 업데이트를 위해 100개를 불러옴 -->
+ 	<select id="getIngredientRankList" resultType="adrankSellIngre">
+ 	 	<![CDATA[
+ 			SELECT ingredient_nm, rank_no
+ 			FROM rank_sell_ingredient_ranking
+ 			WHERE rank_ymd = curdate()
+ 			ORDER BY ingredient_sell_sum DESC
+ 			LIMIT 100
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 식재료 판매량 차트 -->
+ 	<select id="getSellIngredientChart" resultType="adrankSellIngre">
+ 	 	<![CDATA[
+ 			SELECT rk.rank_no, rk.ingredient_no, rk.ingredient_nm, rk.ingredient_sell_sum, od.order_ymd
+			FROM rank_sell_ingredient_ranking rk, order_info od
+			GROUP BY rk.ingredient_no
+			ORDER BY rk.ingredient_sell_sum DESC, rk.rank_no
+			LIMIT 10 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getMonthTopIngredientChart" resultType="adrankSellIngre">
+ 	 	<![CDATA[
+ 			SELECT oing.ingredient_no, oing.ingredient_nm, SUM(oing.ingredient_cnt) AS ingredient_sell_sum, od.order_ymd
+			FROM order_ingredient oing, order_info od
+			WHERE oing.order_no = od.order_no 
+			  AND od.order_ymd
+				  BETWEEN (SELECT LAST_DAY(#{order_ymd} -INTERVAL 1 MONTH)+ INTERVAL 1 day FROM DUAL)
+				  AND (SELECT LAST_DAY(#{order_ymd})FROM DUAL)
+			GROUP BY oing.ingredient_no
+			ORDER BY ingredient_sell_sum DESC, oing.ingredient_no
+			LIMIT 10
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getWeekTopIngredientChart" resultType="adrankSellIngre">
+ 	 	<![CDATA[
+ 			SELECT oing.ingredient_no, oing.ingredient_nm, SUM(oing.ingredient_cnt) AS ingredient_sell_sum, od.order_ymd
+			FROM order_ingredient oing, order_info od
+			WHERE oing.order_no = od.order_no 
+			  AND od.order_ymd
+				  BETWEEN (SELECT DATE_FORMAT(DATE_SUB(#{order_ymd}, INTERVAL WEEKDAY(#{order_ymd}) DAY), '%Y-%m-%d'))
+				  AND (SELECT DATE_FORMAT(DATE_ADD(#{order_ymd}, INTERVAL (6 - (WEEKDAY(#{order_ymd}))) DAY), '%Y-%m-%d'))
+			GROUP BY oing.ingredient_no
+			ORDER BY ingredient_sell_sum DESC, oing.ingredient_no
+			LIMIT 10
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getDayTopIngredientChart" resultType="adrankSellIngre">
+ 	 	<![CDATA[
+ 			SELECT oing.ingredient_no, oing.ingredient_nm, SUM(oing.ingredient_cnt) AS ingredient_sell_sum, od.order_ymd
+			FROM order_ingredient oing, order_info od
+			WHERE oing.order_no = od.order_no 
+			  AND DATE(od.order_ymd) = #{order_ymd}
+			GROUP BY oing.ingredient_no
+			ORDER BY ingredient_sell_sum DESC, oing.ingredient_no
+			LIMIT 10
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="getRecipeChart" resultType="adrankSellIngre">
+ 		<![CDATA[
+ 			SELECT recipe_nm, COUNT(ingredient_nm) AS ingredient_sell_sum
+ 			FROM order_ingredient 
+ 			WHERE ingredient_no = #{ingredient_no} 
+ 			GROUP BY recipe_no
+ 			LIMIT 10
+ 		]]>
+ 	</select>
+ 
+ </mapper>

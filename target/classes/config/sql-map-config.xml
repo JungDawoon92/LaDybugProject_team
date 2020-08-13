@@ -27,7 +27,10 @@
  		<typeAlias alias="counseling" type="com.shepe.admin.biz.chat.CounselingVO" />
  		<typeAlias alias="search" type="com.shepe.client.biz.division.SearchVO" />
  		<typeAlias alias="searchAdmin" type="com.shepe.admin.biz.search.SearchAdminVO" />
+ 		
+ 		<!-- 도한 -->
  		<typeAlias alias="faq" type="com.shepe.admin.faq.FaqVO" />
+ 		<typeAlias alias="notice" type="com.shepe.admin.notice.NoticeVO" />
 		
 		<!-- 이승우 admin-->
 		<typeAlias alias="adcomment" type="com.shepe.admin.comment.CommentAdminVO" />
@@ -35,7 +38,10 @@
  		<typeAlias alias="adrankSubRanking" type="com.shepe.admin.rank.RankSubscribeRankingAdminVO" />
  		<typeAlias alias="adrankLike" type="com.shepe.admin.rank.RankLikeAdminVO" />
  		<typeAlias alias="adrankSubscribe" type="com.shepe.admin.rank.RankSubscribeAdminVO" />
- 		<typeAlias alias="adrecipetest" type="com.shepe.admin.comment.RecipeAdminVO"/>
+ 		<typeAlias alias="adrankSellIngre" type="com.shepe.admin.rank.RankSellIngredientRankingAdminVO" />
+ 		<typeAlias alias="adrankSellRecipe" type="com.shepe.admin.rank.RankSellRecipeRankingAdminVO" />
+ 		<typeAlias alias="adrankIncome" type="com.shepe.admin.rank.RankIncomeAdminVO" />
+ 		
 		
  		<!-- 이승우 client-->
  		<typeAlias alias="comment" type="com.shepe.client.comment.CommentVO" />
@@ -43,7 +49,8 @@
  		<typeAlias alias="rankSubRanking" type="com.shepe.client.rank.RankSubscribeRankingVO" />
  		<typeAlias alias="rankLike" type="com.shepe.client.rank.RankLikeVO" />
  		<typeAlias alias="rankSubscribe" type="com.shepe.client.rank.RankSubscribeVO" />
- 		<typeAlias alias="recipetest" type="com.shepe.client.comment.RecipeVO"/>
+ 		<typeAlias alias="rankSellIngre" type="com.shepe.client.rank.RankSellIngredientRankingVO" />
+ 		<typeAlias alias="rankSellRecipe" type="com.shepe.client.rank.RankSellRecipeRankingVO" />
  	</typeAliases>
  	
  	
@@ -62,7 +69,10 @@
  		<mapper resource="mappings/boot-mapping.xml" />
  		<mapper resource="mappings/counseling-mapping.xml" />
  		<mapper resource="mappings/search-mapping.xml" />
+ 		
+ 		<!-- 도한 -->
  		<mapper resource="mappings/faq-mapping.xml" />
+ 		<mapper resource="mappings/notice-mapping.xml" />
 		
 		<!-- 이승우 admin-->
 		<mapper resource="mappings/member-mapping.xml" />
@@ -71,7 +81,10 @@
  		<mapper resource="mappings/rankSubscribeRankingAdmin-mapping.xml" />
  		<mapper resource="mappings/rankLikeAdmin-mapping.xml" />
  		<mapper resource="mappings/rankSubscribeAdmin-mapping.xml" />
- 		<mapper resource="mappings/recipeTestAdmin-mapping.xml" />
+ 		<mapper resource="mappings/rankSellIngredientRankingAdmin-mapping.xml" />
+ 		<mapper resource="mappings/rankSellRecipeRankingAdmin-mapping.xml" />
+ 		<mapper resource="mappings/rankIncomeAdmin-mapping.xml" />
+ 		
 		
  		<!-- 이승우 client-->
  		<mapper resource="mappings/comment-mapping.xml" />
@@ -79,6 +92,7 @@
  		<mapper resource="mappings/rankSubscribeRanking-mapping.xml" />
  		<mapper resource="mappings/rankLike-mapping.xml" />
  		<mapper resource="mappings/rankSubscribe-mapping.xml" />
- 		<mapper resource="mappings/recipeTest-mapping.xml" />
+		<mapper resource="mappings/rankSellIngredientRanking-mapping.xml" />
+ 		<mapper resource="mappings/rankSellRecipeRanking-mapping.xml" />
  	</mappers>
  </configuration>
