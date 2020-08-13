@@ -38,6 +38,8 @@ public class RecipeVO {
 	private int categoryIng_cnt;
 	private int categoryHow_cnt;
 	
+	private int offset;
+	
 	public int getCategoryHow_cnt() {
 		return categoryHow_cnt;
 	}
@@ -228,5 +230,11 @@ public class RecipeVO {
 	public void setRecipe_nm(String recipe_nm) {
 		this.recipe_nm = recipe_nm;
 	}
-
+	public int getOffset() {
+		return offset;
+	}
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+	
 }

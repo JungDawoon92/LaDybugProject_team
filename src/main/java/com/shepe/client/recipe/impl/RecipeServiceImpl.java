@@ -120,4 +120,14 @@ public class RecipeServiceImpl implements RecipeService{
 		return recipeDAO.getRecipeChartHow(vo);
 	}
 	
+	/* rank 추가부분 */
+	@Override
+	public int getChefRecipeCnt(RecipeVO recipevo) {
+		return recipeDAO.getChefRecipeCnt(recipevo);
+	}
+
+	@Override
+	public List<RecipeVO> getChefRecipeList(RecipeVO recipevo) {
+		return recipeDAO.getChefRecipeList(recipevo);
+	}
 }

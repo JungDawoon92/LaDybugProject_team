@@ -7,15 +7,23 @@
 <head>
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/shepe/resources/css/mypage.css" type="text/css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- <title>Shepe 회원 정보 수정</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Patua+One">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/shepe/resources/css/member-info.css" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<title>회원 정보 수정</title>
 <script>
 $(document).ready(function() {
     $("#update-btn").click(function(){
-    	alert("회원정보가 변경되었습니다.");
+    	var result = confirm("회원정보를 변경하시겠습니까?");
+    	if (result) {
+    		$("#myinfo").submit();
+    		alert("회원 정보를 변경하였습니다.");
+    	} else {
+    		location.reload();
+    	}
     })
    });
 </script>
@@ -24,6 +32,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$("#member_nickname").blur(function() {
 		var member_nickname = $('#member_nickname').val();
+		console.log(member_nickname);
 		$.ajax({
 			url : '../nickCheck?member_nickname='+ member_nickname,
 			type : 'get',
@@ -54,67 +63,100 @@ $(document).ready(function() {
 		});
 	});
 </script>
+<style type="text/css">
+#pw-Btn {
+    background: #222;
+    border-color: #222;
+    color: white;
+}
+#drop-btn {
+	text-decoration: underline; text-decoration: none; border: black solid; border-width: 0 0 2px 0;
+}
+.row {
+	justify-content: center;
+}
+</style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/include/Nav.jsp" />
 	<section>
 		<div class="container wrapper">
-			<div class="row myinfocontents">
-				<div class="col-md-3"><jsp:include page="/WEB-INF/include/myPageMenu.jsp" /></div>
-				<div class="myinfo col-md-9">
-					<div class="board_header">
-						<h1>회원 정보 변경</h1>
-					</div>
-					<form name="myinfo" action="../memberUpdate.do" method="post">
-					<input name="member_id" type="hidden" value="${ member_id }">
-						<table class="myinfoitem">
-							<tr>
-								<td>아이디</td>
-								<td>${ member_id }</td>
-							</tr>
-							<tr>
-								<td>이&nbsp;&nbsp;&nbsp;름</td>
-								<td>${ member.member_nm }</td>
-							</tr>
-							<tr>
-								<td>닉네임</td>
-								<td><input type="text" name="member_nickname" id="member_nickname" maxlength="20" value="${ member.member_nickname }" required="required"></td>
-								<td id="nickname_check"></td>
-							</tr>
-							<tr>
-								<td>연락처</td>
-								<td><input type="text" name="member_phone" id="member_phone" maxlength="13" value="${ member.member_phone }" required="required"></td>
-								<td id="phone_check"></td>
-							</tr>
-							<tr>
-								<td>이메일</td>
-								<td><input type="text" name="member_email" id="email_Id" value="${ member.member_email }" required="required"></td>
-							</tr>
-							<tr>
-								<td>도메인</td>
-								<td>
-								<input type="text" name="member_email_domain" id="email_Domain" value="${ member.member_email_domain }" required="required">
-								<select style="width: 100px; margin-right: 10px; float: center;" name="selectEmail" id="selectEmail" >
-									<option value="" selected>직접입력</option>
-									<option value="gmail.com">gmail.com</option>
-									<option value="naver.com">naver.com</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="kakao.com">kakao.com</option>
-								</select>
-								</td>
-							</tr>
-						</table>
-						<div class="btn-group  pull-right">
-							<button type="submit" id="update-btn" class="btn btn-primary" title="회원 정보 변경" alt="회원 정보 변경">변경</button>
-							<button type="button" onclick="location.href='./myPage.do'" class="btn btn-danger" title="취소" alt="취소">취소</button>
-						</div>
-					</form>
-				</div>
-			</div>
+		  <jsp:include page="/WEB-INF/include/myPageMenu.jsp" />
+			<div class="row">
+		        <div class="col-md-10 col-md-offset-1">
+		            <div class="contact-form">
+		                <h1>회원 정보 변경</h1>    
+		                <form id="myinfo" action="memberUpdate.do" method="post">
+		                    <div class="row">
+		                        <div class="col-sm-4">
+		                            <div class="form-group">
+									<label class="control-label" for="userId">아이디</label> 
+									<input class="form-control" type="text" id="userId" name="member_id" value="${member_id}" readonly="readonly"/>
+		                            </div>
+		                        </div>                
+		                        <div class="col-sm-4">
+		                            <div class="form-group">
+									<label class="control-label" for="userName">이  름</label> 
+									<input class="form-control" type="text" id="userName" name="member_nm" value="${member.member_nm}" readonly="readonly"/>
+		                            </div>
+		                        </div>
+				                <div class="col-sm-4">
+				                    <div class="form-group">
+									<label class="control-label" for="userEmail">비밀번호</label>
+									<button type="button" id="pw-Btn" class="form-control" onclick="location.href='./changePWD.do'">비밀번호 변경</button>
+								    </div>
+								</div>
+		                        <div class="col-sm-6"> 
+		                            <div class="form-group">                         	
+		                        	<label class="control-label" for="userNickName">닉네임</label>
+									<input class="form-control" type="text" name="member_nickname" id="member_nickname" maxlength="20" value="${ member.member_nickname }" required="required">
+									<div id="nickname_check"></div>							
+		                          	</div>
+		                        </div>
+		                        <div class="col-sm-6"> 
+		                            <div class="form-group">                         	
+		                            <label for="userPhone">연락처</label>
+									<input class="form-control" type="text" name="member_phone" id="member_phone" maxlength="13" value="${ member.member_phone }" required="required">
+		                            <div id="phone_check"></div>
+		                            </div>
+		                         </div>
+		                      	 <div class="col-sm-6"> 
+		                            <div class="form-group">                         	
+		                        	<label class="control-label" for="userEmail">이메일</label>
+									<input class="form-control" type="text" name="member_email" id="email_Id" value="${ member.member_email }" required="required">
+		                          	</div>
+		                        </div>
+		                        <div class="col-sm-6"> 
+		                            <div class="form-group">                         	
+		                            <label class="control-label" for="userDomain">도메인</label>
+									<input class="form-control" type="text" name="member_email_domain" id="email_Domain" value="${ member.member_email_domain }" required="required">
+		                            </div>
+		                        </div>
+		                        <div class="col-sm-12">
+		                          	<div class="form-group" style="float: right;">
+									<select name="selectEmail" id="selectEmail" >	
+		                                <option value="" selected>직접입력</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="naver.com">naver.com</option>
+										<option value="hanmail.net">hanmail.net</option>
+										<option value="kakao.com">kakao.com</option>
+									</select>
+		                            </div>
+		                         </div>
+		                        </div>
+		                    <button type="button" id="update-btn" class="btn btn-primary" style="float: right;"><i class="fa fa-paper-plane" ></i> 변경하기</button>
+		                	<p>더이상 SHEPE를 이용하고 싶지 않다면 &nbsp; <a id="drop-btn" href="memberDeleteView">회원 탈퇴 바로가기</a></p>		             
+		                </form>                
+		            </div>
+		        </div>
+    		</div>
 		</div>
 	</section>
 <!-- 이메일 입력방식 : 직접입력 -->
 <script type="text/javascript">
+	$(document).ready(function () {
+		$("#memberInfo").css('color', 'black');
+	})
 	//이메일 입력방식 선택 
 	$('#selectEmail').change(function() {
 		$("#selectEmail option:selected").each(function() {

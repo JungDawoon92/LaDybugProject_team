@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="FaqDAO">
-
+ 	
  	<insert id="insertFaq">
  		<![CDATA[
  			INSERT INTO FAQ(
@@ -17,6 +17,12 @@
  			UPDATE FAQ SET FAQ_CONTENTS = #{faq_contents}
 			WHERE FAQ_SQ = #{faq_sq}
  		]]>
+ 	</update>
+ 	
+ 	<update id="plusRC" parameterType="int">
+ 	<![CDATA[
+ 		UPDATE FAQ SET FAQ_RC = FAQ_RC + 1 WHERE FAQ_SQ = #{faq_sq}
+ 	]]>
  	</update>
  	
  	<delete id="deleteFaq">
@@ -38,7 +44,6 @@
  		<![CDATA[
  			SELECT * FROM FAQ ORDER BY FAQ_SQ DESC 
  			LIMIT #{startpage}, 10;
- 			
  		]]>
  	</select>
  	
@@ -46,25 +51,19 @@
  		<![CDATA[
  			SELECT * FROM FAQ WHERE FAQ_CATEGORY = #{choice};
  		]]>
- 	</select>  
- 	
+ 	</select>
+ 	 	
  	<!-- Paging -->
  	<select id="getListCount" resultType="int">
  		<![CDATA[
  			SELECT COUNT(*) FROM FAQ ;
  		]]>
  	</select> 
+ 	
+ 	<select id="getFaqTopRC" resultType="faq">
+ 		<![CDATA[
+ 			SELECT * FROM FAQ ORDER BY FAQ_RC DESC LIMIT 0, 10;
+ 		]]>
+ 	</select> 
 
- 	<!--<select id="getBoardList" resultMap="boardResult">
- 		SELECT *
- 		FROM BOARD
- 		WHERE 1 = 1
- 		<if test="searchCondition == 'title'">
- 			AND TITLE LIKE '%'||#{searchKeyword}||'%'
- 		</if>
- 		<if test="searchCondition == 'content'">
- 			AND CONTENT LIKE '%'||#{searchKeyword}||'%'
- 		</if>
- 		ORDER BY SEQ DESC
- 	</select>-->
  </mapper>

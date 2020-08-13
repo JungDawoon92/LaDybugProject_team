@@ -48,7 +48,7 @@
  			FROM rank_subscribe_ranking rk
  			INNER JOIN member me
  			ON rank_ymd = curdate() AND rk.member_id = me.member_id
- 			ORDER BY rk.member_sub_sum DESC
+ 			ORDER BY rk.member_sub_sum DESC, rk.rank_no
  			LIMIT 15 OFFSET #{offset}
  		]]>
  	</select>
@@ -97,7 +97,7 @@
  			SELECT me.member_sq, me.member_id, me.member_nickname, me.member_join, rk.member_sub_sum, rk.rank_no
 			FROM rank_subscribe_ranking rk, member me
 			WHERE rk.member_id = me.member_id AND rk.rank_ymd = curdate()
-			ORDER BY rk.member_sub_sum DESC
+			ORDER BY rk.member_sub_sum DESC, rk.rank_no
 			LIMIT 10 OFFSET #{offset}
  		]]>
  	</select>

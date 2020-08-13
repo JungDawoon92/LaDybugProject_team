@@ -34,14 +34,16 @@ public class CommentController {
 			commentService.updateMemberImg(commentvo);
 		}
 		commentService.insertComment(commentvo);
-		return "redirect:getTestRecipe.re?recipe_no="+commentvo.getRecipe_no();
+		model.addAttribute("recipe_no", commentvo.getRecipe_no());
+		return "redirect:getRecipe.re";
 	}
 
 	@RequestMapping(value="/updateComment.co")
 	public String updateComment(CommentVO commentvo, Model model) {
 		System.out.println("클라꺼 타는지 테스트중 댓글 업데이트");
 		commentService.updateComment(commentvo);
-		return "redirect:getTestRecipe.re?recipe_no="+commentvo.getRecipe_no();
+		model.addAttribute("recipe_no", commentvo.getRecipe_no());
+		return "redirect:getRecipe.re";
 	}
 	
 	@RequestMapping(value="/deleteComment.co")
@@ -51,22 +53,9 @@ public class CommentController {
 			commentvo.setComment_sq(i);
 			commentService.deleteComment(commentvo);
 		}
-		return "redirect:getTestRecipe.re?recipe_no="+commentvo.getRecipe_no();
+		model.addAttribute("recipe_no", commentvo.getRecipe_no());
+		return "redirect:getRecipe.re";
 	}
-
-//	@RequestMapping(value="/getComment.co")
-//	public String getComment(CommentVO commentvo, Model model) {
-//		model.addAttribute("getComment", commentService.getComment(commentvo));
-//		return "admin/comment/commentList";
-//	}
-
-	
-//	 @RequestMapping(value="/getCommentList.co") 
-//	 public String getCommentList(CommentVO commentvo, Model model) { 
-//		 String recipe_no = commentvo.getRecipe_no();
-//		 model.addAttribute("recipeDetail", recipeService.getRecipe(recipe_no));
-//		 model.addAttribute("getCoList", commentService.getCommentList(commentvo));
-//		 return "admin/comment/commentList"; }
 
 	@ResponseBody
 	@RequestMapping(value="/getCommentListAjax.co")

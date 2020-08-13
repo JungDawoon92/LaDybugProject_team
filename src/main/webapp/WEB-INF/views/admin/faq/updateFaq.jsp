@@ -19,7 +19,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/include/Nav.jsp" />
+	<jsp:include page="/WEB-INF/include/adminNav.jsp"></jsp:include>
 	<div class="container">
 		<header>
 			<h1>updateFaQ</h1>

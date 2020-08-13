@@ -20,8 +20,6 @@ import com.shepe.client.member.MemberAddressVO;
 import com.shepe.client.member.MemberService;
 import com.shepe.client.member.MemberVO;
 import com.shepe.client.member.TempKey;
-import com.shepe.client.order.OrderMemberVO;
-
 @Service
 public class MemberServiceImpl implements MemberService {
 	
@@ -60,6 +58,7 @@ public class MemberServiceImpl implements MemberService {
 		String secretPwd = pwdEncoder.encode(pwd);
 		vo.setMember_password(secretPwd);
 		memberDAO.insertMember(vo);
+		
 		// 이메일 전송
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[이메일 인증]");
@@ -126,17 +125,18 @@ public class MemberServiceImpl implements MemberService {
 	// 비밀번호 찾기
 	@Override
 	public void searchPW(MemberVO vo) throws MessagingException, UnsupportedEncodingException {
-		// 임의의 비밀번호 생성
-		String temporaryPWD = tempkey.getKey(10, false);
-		String secretPWD = pwdEncoder.encode(temporaryPWD);
-		// 임시 비밀번호 생성
+		
+		String temporaryPWD = tempkey.getKey(10, false);			// 임의의 비밀번호 생성		
+		String secretPWD = pwdEncoder.encode(temporaryPWD);			// 임시 비밀번호 암호화
 		vo.setMember_password(secretPWD);
+		System.out.println("임시 비밀번호 생성: " + vo.toString());
 		memberDAO.updatePW(vo);
+		
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[비밀번호 찾기]");
 		sendMail.setText(
 				new StringBuffer().append("<h1>임시 비밀번호 발급</h1><br><h3>로그인 후 비밀번호 변경 부탁드립니다.</h3>").append("<b>임시 비밀번호 발급 : " + temporaryPWD + "</b><br>")
-						.append("<a href='http://localhost:8090/shepe/index.jsp")
+						.append("<a href='http://localhost:8090/shepe/login.do")
 						.append("' target='_blenk'>SHEPE에서 로그인 하기</a>").toString());
 		sendMail.setFrom("tjrgus0320@gmail.com", "YPnalaly");
 		sendMail.setTo(vo.getMember_email() + "@" + vo.getMember_email_domain());

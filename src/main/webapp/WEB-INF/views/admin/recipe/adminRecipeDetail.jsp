@@ -14,19 +14,16 @@
 
 <!-- Core Stylesheet -->
 <link href="http://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/style.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/recipeInsert.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/recipeInsert.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 
-	<jsp:include page="/WEB-INF/include/Nav.jsp" />
+	<jsp:include page="/WEB-INF/include/adminNav.jsp" />
 	
 	<div>
 		<section class="background">
@@ -36,6 +33,25 @@
 				<!-- 1 로우 -->
 				<div>
 					
+					<!-- #### 식재료 정보 #### -->
+					<div class="recipe-ingre-back col-md-4 pull-right">
+						<div class="recipe-insert-section">
+							<div class="recipe-detail-column">
+								<div class="recipe-insert-title">
+									재료 (${ recipe.recipe_person } 인분)
+								</div>
+								<c:forEach items="${ recipeIngreList }" var="ingre" varStatus="sq">
+									<div>
+										${ ingre.ingredient_nm }&nbsp;&nbsp;
+										${ ingre.recipeingre_cnt }
+									</div>
+									<input type="hidden" class="recipeIngre_cnt" value="${ sq.index }">
+								</c:forEach>
+							
+							</div>
+						</div>
+					</div>
+					<!-- #### 식재료 정보 #### -->
 					
 					<!-- #### 기본 정보 #### -->
 					<div class="recipe-insert-back col-md-8">
@@ -61,27 +77,7 @@
 						</div>
 					</div>
 					<!-- #### 기본 정보 #### -->
-					
-					<!-- #### 식재료 정보 #### -->
-					<div class="recipe-ingre-back col-md-4">
-						<div class="recipe-insert-section">
-							<div class="recipe-detail-column">
-								<div class="recipe-insert-title">
-									재료 (${ recipe.recipe_person } 인분)
-								</div>
-								<c:forEach items="${ recipeIngreList }" var="ingre" varStatus="sq">
-									<div>
-										${ ingre.ingredient_nm }&nbsp;&nbsp;
-										${ ingre.recipeingre_cnt }
-									</div>
-									<input type="hidden" class="recipeIngre_cnt" value="${ sq.index }">
-								</c:forEach>
-							
-							</div>
-						</div>
-					</div>
 				</div>
-				<!-- #### 식재료 정보 #### -->
 			
 				<!-- 2 로우 -->
 				<div>
@@ -134,6 +130,10 @@
 		</div>
 	</div>
 	<!-- Modal -->
+	
+	<div class="container">
+		<jsp:include page="../comment/adcommentList.jsp" />
+	</div>
 	
 	<script src="<c:url value ="/resources/js/recipe/recipe.js" />"></script>
 	

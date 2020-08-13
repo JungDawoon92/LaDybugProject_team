@@ -45,7 +45,7 @@
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/include/Nav.jsp" />
+	<jsp:include page="/WEB-INF/include/adminNav.jsp"></jsp:include>
 	<div class="container">
 		<section>
 			<h1>공지사항</h1>

@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			alert("네이버 로그인을 완료 했습니다.");
-			location.href = "index.jsp";
+			location.href = "/shepe/";
 		});
 	</script>	
 </body>

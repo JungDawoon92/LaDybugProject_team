@@ -148,4 +148,23 @@
 		 GROUP BY recipe_category_how;
 	</select>
 	
+	<!-- rank 추가부분 -->
+	<select id="getChefRecipeCnt" resultType="int">
+	 	<![CDATA[
+	 		SELECT COUNT(*)
+	 		FROM recipe
+	 		WHERE member_id = #{ member_id }
+	 	]]>
+ 	</select>
+ 	
+ 	<select id="getChefRecipeList" resultType="recipe">
+	 	<![CDATA[
+	 		SELECT recipe_no, recipe_nm, recipe_complete_img
+	 		FROM recipe
+	 		WHERE member_id = #{ member_id }
+	 		ORDER BY recipe_no DESC
+	 		LIMIT 9 OFFSET #{offset}
+	 	]]>
+ 	</select>
+	
 </mapper>

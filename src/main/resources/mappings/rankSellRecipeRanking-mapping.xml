@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="rankSellRecipeRankingDAO">
+ 
+ 	<!-- 매일 정해진 시각에 등록 Scheduler 사용 -->
+ 	<insert id="insertRankSellRecipeRanking">
+ 		<![CDATA[
+ 			INSERT INTO rank_sell_recipe_ranking (recipe_no, recipe_nm, recipe_sell_sum, rank_no, rank_ymd)
+			SELECT recipe_no, recipe_nm, COUNT(recipe_no) AS recipe_sell_sum, 0, now()
+			FROM order_ingredient
+			GROUP BY recipe_no
+			ORDER BY recipe_sell_sum DESC, recipe_no
+			LIMIT 100
+ 		]]>
+ 	</insert>
+ 	
+ 	<!-- 등록된 자료에 순위를 업데이트 -->
+ 	
+ 	<!-- 나중에 recipe_nm을 no로 변경할 것! -->
+
+ 	<update id="updateRankSellRecipeRanking">
+ 		<![CDATA[
+ 			UPDATE rank_sell_recipe_ranking
+ 			SET rank_no = #{rank_no}
+ 			WHERE recipe_nm = #{recipe_nm}
+ 		]]>
+ 	</update>
+ 	
+ 	
+ 	<select id="getRankSellRecipeRankingCnt" resultType="int">
+		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM rank_sell_recipe_ranking
+ 			WHERE rank_ymd = curdate()
+ 		]]>
+	</select> 	
+ 	
+ 	<!-- 순위 업데이트를 위해 100개를 불러옴 -->
+ 	<select id="getRecipeRankList" resultType="rankSellRecipe">
+ 	 	<![CDATA[
+ 			SELECT recipe_nm, rank_no
+ 			FROM rank_sell_recipe_ranking
+ 			WHERE rank_ymd = curdate()
+ 			ORDER BY recipe_sell_sum DESC
+ 			LIMIT 100
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 누적 좋아요 리스트 -->
+ 	<select id="getRankSellRecipeRankingList" resultType="rankSellRecipe">
+ 	 	<![CDATA[
+ 			SELECT rk.recipe_no, rk.recipe_nm, rk.recipe_sell_sum, rk.rank_no, rk.rank_ymd, re.recipe_complete_img
+ 			FROM rank_sell_recipe_ranking rk, recipe re
+ 			WHERE rank_ymd = curdate() AND rk.recipe_no = re.recipe_no
+ 			ORDER BY rk.recipe_sell_sum DESC, rk.rank_no
+ 			LIMIT 9 OFFSET #{offset}
+ 		]]>
+ 	</select>
+ 
+ </mapper>

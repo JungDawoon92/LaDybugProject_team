@@ -47,5 +47,10 @@ public interface RecipeService {
 	List<RecipeVO> getRecipeChartIng(RecipeVO vo);
 
 	List<RecipeVO> getRecipeChartHow(RecipeVO vo);
+	
+	/* rank 추가부분 */
+	int getChefRecipeCnt (RecipeVO recipevo);
+	
+	List<RecipeVO> getChefRecipeList(RecipeVO recipevo);
 
 }

@@ -110,6 +110,8 @@ function orderForm() {
 	href="${pageContext.request.contextPath}/resources/img/core-img/favicon.ico">
 <style type="text/css">
 h3 div{display:inline;}
+.centerImg{text-align:center; }
+.centerImg img{width:85%; }
 </style>
 </head>
 <body>
@@ -281,13 +283,12 @@ h3 div{display:inline;}
 								</h6>
 								<div id="collapseOne" class="accordion-content collapse show">
 									<div>
-										<div>
+										<div class="centerImg">
 											<div>
 												<img
 													src="${pageContext.request.contextPath}/resources/img/ingredient-img/${ingredient.ingredient_thumbName}"
 													alt="${ingredient.ingredient_nm }"
-													title="${ingredient.ingredient_nm }"
-													style="width: 100%; height: auto;">
+													title="${ingredient.ingredient_nm }">
 											</div>
 											<hr>
 											<dl>
@@ -295,8 +296,7 @@ h3 div{display:inline;}
 													<img
 														src="${pageContext.request.contextPath}/resources/img/ingredient-img/${ingredient.ingredient_thumbName}"
 														alt="${ingredient.ingredient_nm }"
-														title="${ingredient.ingredient_nm }"
-														style="width: 100%; height: auto;">
+														title="${ingredient.ingredient_nm }">
 												</dt>
 
 												<c:forEach items="${ingredientMulti}" var="multi">
@@ -304,8 +304,7 @@ h3 div{display:inline;}
 														<img
 															src="${pageContext.request.contextPath}/resources/img/upload/${multi.ingredient_fileName}"
 															alt="${ingredient.ingredient_nm}"
-															title="${ingredient.ingredient_nm}"
-															style="width: 100%; height: auto;">
+															title="${ingredient.ingredient_nm}">
 													</dt>
 												</c:forEach>
 											</dl>
@@ -409,27 +408,28 @@ h3 div{display:inline;}
 							<c:forEach items="${addList}" var="po" varStatus="wdfas">
 								<div class="col-12 col-sm-6 col-lg-4">
 									<div class="single-best-receipe-area mb-30">
-										<img
-											src="${pageContext.request.contextPath}/resources/img/ingredient-img/${po.ingredient_thumbName}" style="height: 253px; width: 350px;">
-										<div class="receipe-content">
-											<a href="receipe-post.html">
-												<h5>
-													<a href="clientDetail.do?ingredient_no=${po.ingredient_no}&ingredient_categ=${po.ingredient_categ}">${po.ingredient_nm}</a>
-													${result}
-												</h5>
-												<h6>
-													<fmt:formatNumber type="number" maxFractionDigits="3"
-														value="${po.ingredient_price}" />원
-												</h6> ${po.ingredient_categ}
-											</a>
-											<div class="ratings">
-												<i class="fa fa-star" aria-hidden="true"></i> <i
-													class="fa fa-star" aria-hidden="true"></i> <i
-													class="fa fa-star" aria-hidden="true"></i> <i
-													class="fa fa-star" aria-hidden="true"></i> <i
-													class="fa fa-star-o" aria-hidden="true"></i>
+										<a href="clientDetail.do?ingredient_no=${po.ingredient_no}&ingredient_categ=${po.ingredient_categ}&ingredient_thumbName=${po.ingredient_thumbName}">
+											<img src="${pageContext.request.contextPath}/resources/img/ingredient-img/${po.ingredient_thumbName}" style="height: 253px; width: 350px;">
+										</a>	
+											<div class="receipe-content">
+												<a href="receipe-post.html">
+													<h5>
+														<a href="clientDetail.do?ingredient_no=${po.ingredient_no}&ingredient_categ=${po.ingredient_categ}">${po.ingredient_nm}</a>
+														${result}
+													</h5>
+													<h6>
+														<fmt:formatNumber type="number" maxFractionDigits="3"
+															value="${po.ingredient_price}" />원
+													</h6> ${po.ingredient_categ}
+												</a>
+												<div class="ratings">
+													<i class="fa fa-star" aria-hidden="true"></i> <i
+														class="fa fa-star" aria-hidden="true"></i> <i
+														class="fa fa-star" aria-hidden="true"></i> <i
+														class="fa fa-star" aria-hidden="true"></i> <i
+														class="fa fa-star-o" aria-hidden="true"></i>
+												</div>
 											</div>
-										</div>
 									</div>
 								</div>
 							</c:forEach>

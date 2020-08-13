@@ -1,5 +1,6 @@
 package com.shepe.client.member.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.shepe.client.member.MemberAddressVO;
 import com.shepe.client.member.MemberVO;
-import com.shepe.client.order.OrderMemberVO;
 
 @Repository
 public class MemberDAOMybatis {
@@ -23,7 +23,6 @@ public class MemberDAOMybatis {
 	
 	// 회원 정보 가져오기
 	public MemberVO getMember(String member_id) {
-		System.out.println("222");
 		return mybatis.selectOne("MemberDAO.getMember", member_id);
 	}
 	
@@ -78,14 +77,19 @@ public class MemberDAOMybatis {
 	}
 	// 아이디 찾기
 	public MemberVO searchID(MemberVO vo){
-		System.out.println("---> mybatis로 searchID() 기능 처리");
 		return (MemberVO) mybatis.selectOne("MemberDAO.searchID",vo);
 	}
 	
 	// 비밀번호 변경
 	public void updatePW(MemberVO vo){
-		System.out.println("---> mybatis로 searchID() 기능 처리");
-		mybatis.update("MemberDAO.updatePW",vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	      map.put("member_id", vo.getMember_id());
+	      map.put("member_password", vo.getMember_password());
+	      map.put("member_email", vo.getMember_email());
+	      map.put("member_email_domain", vo.getMember_email_domain());
+	      
+	      System.out.println(vo.getMember_id() + "," + vo.getMember_password() + "," + vo.getMember_email() + "," + vo.getMember_email_domain());
+		mybatis.update("MemberDAO.updatePW", map);
 	}
 	
 	// 회원 탈퇴 시 컬럼 업뎃
@@ -149,4 +153,5 @@ public class MemberDAOMybatis {
 	public List<MemberAddressVO> getAddress(MemberAddressVO addrVO) {
 		return mybatis.selectList("MemberDAO.getAddress",addrVO);
 	}
+	
 }

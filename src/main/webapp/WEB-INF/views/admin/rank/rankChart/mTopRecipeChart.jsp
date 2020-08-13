@@ -19,10 +19,20 @@
 </head>
 <body>
 <div class="container">
+
+<jsp:include page="/WEB-INF/include/adminNav.jsp" />
+
 	<div class="float-right">
 		<input type="text" id="datePicker" class="form-control" placeholder="날짜를 선택하세요">
 	</div>
 	<ul class="nav nav-tabs" role="tablist">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">매출액 차트</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="moveIncomeSumChart.rk.ad">월별 종합 매출액 차트</a>
+				<a class="dropdown-item" href="moveIncomeDetailChart.rk.ad">매출액 상세 차트</a>
+			</div>
+		</li>
 		<li class="nav-item dropdown">
 			<a class="nav-link dropdown-toggle active" href="#" data-toggle="dropdown">레시피 차트</a>
 			<div class="dropdown-menu">
@@ -40,6 +50,24 @@
 				<a class="dropdown-item" href="moveMonthTopChefChart.rk.ad">월별 top 쉐프 차트</a>
 				<a class="dropdown-item" href="moveWeekTopChefChart.rk.ad">주별 top 쉐프 차트</a>
 				<a class="dropdown-item" href="moveDayTopChefChart.rk.ad">일별 top 쉐프 차트</a>
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">식재료 판매량 차트</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="moveSellIngredientChart.rk.ad">누적 식재료 판매량 차트</a>
+				<a class="dropdown-item" href="moveMonthTopIngredientChart.rk.ad">월별 식재료 판매량 차트</a>
+				<a class="dropdown-item" href="moveWeekTopIngredientChart.rk.ad">주별 식재료 판매량 차트</a>
+				<a class="dropdown-item" href="moveDayTopIngredientChart.rk.ad">일별 식재료 판매량 차트</a>
+			</div>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="" data-toggle="dropdown">레시피 판매량 차트</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="moveSellRecipeChart.rk.ad">누적 레시피 판매량 차트</a>
+				<a class="dropdown-item" href="moveMonthTopSellRecipeChart.rk.ad">월별 레시피 판매량 차트</a>
+				<a class="dropdown-item" href="moveWeekTopSellRecipeChart.rk.ad">주별 레시피 판매량 차트</a>
+				<a class="dropdown-item" href="moveDayTopSellRecipeChart.rk.ad">일별 레시피 판매량 차트</a>
 			</div>
 		</li>
 	</ul>
@@ -88,6 +116,8 @@
 <script>
 $(document).ready(function() {
 	
+	$('.dropdown-toggle').dropdown();
+	
 	window.chartColors = {
 		red: 'rgb(255, 99, 132)',
 		orange: 'rgb(255, 159, 64)',
@@ -99,6 +129,7 @@ $(document).ready(function() {
 		};
 	
 	monthCheck();
+	
 });
 
 
@@ -132,7 +163,7 @@ function monthCheck(date, title) {
 		dataType: "JSON",
 		success: function(result) {
 			$.each(result, function(index, value){
-				topRecipeChartLabels.push(value.recipe_nm);
+				topRecipeChartLabels.push((value.recipe_nm).substring(0, 3)+"...");
 				topRecipeChartData.push(value.recipe_like_sum);
 				
 				var row = "";
@@ -355,5 +386,6 @@ $('#cateModal').on('show.bs.modal', function(event) {
 	// destroy modal
 	$(this).data('bs.modal', null);
 });
+
 </script>
 </html>

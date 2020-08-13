@@ -12,13 +12,13 @@
 <body>
 <span>
 	<c:choose>
-		<c:when test="${subCheck.member_sub_id eq memberInfo.member_id }">
+		<c:when test="${subCheck.member_sub_id eq member_id }">
 			<button type="button" class="btn btn-danger pull-right" id="subscribeBtn" onclick="checkSubscribe('${subCheck.member_id}')" disabled="disabled">
 				<span><i class="fa fa-thumbs-o-up" aria-hidden="true">구독중</i></span>
 			</button>
 		</c:when>
 		<c:otherwise>
-			<button type="button" class="btn btn-outline-warning pull-right" id="subscribeBtn" onclick="checkSubscribe('${recipeDetail.member_id}')">
+			<button type="button" class="btn btn-outline-warning pull-right" id="subscribeBtn" onclick="checkSubscribe('${chef_id}')">
 				<span><i class="fa fa-plus" aria-hidden="true">소식받기</i></span>
 			</button>
 		</c:otherwise>
@@ -36,8 +36,8 @@ function checkSubscribe(member_id) {
 }
 function addSubscribe(m_id) {
 	var mem_id = m_id;
-	var mem_sub_id = "${memberInfo.member_id}";
-	var mem_nick = "${memberInfo.member_nickname}";
+	var mem_sub_id = "${member_id}";
+	var mem_nick = "${member_nick}";
 	var params = {
 		member_id : mem_id,
 		member_sub_id : mem_sub_id,

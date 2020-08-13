@@ -8,7 +8,15 @@ public class DivisionVO {
 	private String recipe_nm;
 	private String recipe_complete_img;
 	private String recipe_info;
+	private String member_nickname;
 	private int recipe_cnt;
+	
+	public String getMember_nickname() {
+		return member_nickname;
+	}
+	public void setMember_nickname(String member_nickname) {
+		this.member_nickname = member_nickname;
+	}
 	
 	public String getRecipe_no() {
 		return recipe_no;

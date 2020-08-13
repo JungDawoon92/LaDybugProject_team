@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.shepe.client.member.MemberVO;
 import com.shepe.client.rank.RankLikeRankingService;
 import com.shepe.client.rank.RankLikeRankingVO;
 import com.shepe.client.rank.RankLikeService;
 import com.shepe.client.rank.RankLikeVO;
+import com.shepe.client.rank.RankSellIngredientRankingService;
+import com.shepe.client.rank.RankSellIngredientRankingVO;
+import com.shepe.client.rank.RankSellRecipeRankingService;
+import com.shepe.client.rank.RankSellRecipeRankingVO;
 import com.shepe.client.rank.RankSubscribeRankingService;
 import com.shepe.client.rank.RankSubscribeRankingVO;
 import com.shepe.client.rank.RankSubscribeService;
@@ -35,32 +38,12 @@ public class RankController {
 	private RankLikeService rankLikeService;
 	@Autowired
 	private RankSubscribeService rankSubscribeService;
+	@Autowired
+	private RankSellRecipeRankingService rankSellRecipeRankingService;
+	@Autowired
+	private RankSellIngredientRankingService rankSellIngredientRankingService;
 	
 	
-	
-	/* 추천 레시피 페이지 */
-	
-	
-//	@RequestMapping(value="/insertRankLikeRanking.rk")
-//	public String insertRankLikeRanking (RankLikeRankingVO likeRankingvo) {
-//		
-//		rankLikeRankingService.insertRankLikeRanking(likeRankingvo);
-//		
-//		Date today = new Date();
-//		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-//		java.sql.Date day = java.sql.Date.valueOf(date.format(today));
-//		likeRankingvo.setRank_ymd(day);
-//		
-//		List<RankLikeRankingVO> likeList = rankLikeRankingService.getLikeRankList(likeRankingvo);
-//		
-//		for(int i=0; i<likeList.size(); i++) {
-//			likeRankingvo.setRank_no(i + 1);
-//			likeRankingvo.setRecipe_no(likeList.get(i).getRecipe_no());
-//			likeList.set(i, likeRankingvo);
-//			rankLikeRankingService.updateRankLikeRanking(likeRankingvo);
-//		}
-//		return "redirect:getRankLikeRankingList.rk";
-//	}
 	
 	/* 좋아요 랭킹 누적 리스트 */
 	@RequestMapping(value="/getRankLikeRankingList.rk") 
@@ -112,15 +95,14 @@ public class RankController {
 		return "client/rank/rankLikeRankingToday";
 	}
 	
-	
 	/* 내가누른 좋아요 랭킹 리스트 */
 	@RequestMapping(value="/getMyLikeList.rk") 
 	public String getMyLikeList(RankLikeRankingVO likeRankingvo, Model model, HttpServletRequest request) {
 		System.out.println("클라꺼 타는지 테스트중 내가누른 좋아요 리스트");
 		
 		HttpSession session = request.getSession();
-		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
-		likeRankingvo.setMember_id(memberInfo.getMember_id());
+		String member =(String)session.getAttribute("member_id");
+		likeRankingvo.setMember_id(member);
 		
 		model.addAttribute("myLikeList", rankLikeRankingService.getMyLikeList(likeRankingvo));
 		return "client/rank/myLikeList";
@@ -133,38 +115,14 @@ public class RankController {
 		System.out.println("클라꺼 타는지 테스트중 내가누른 좋아요 스크롤리스트");
 		
 		HttpSession session = request.getSession();
-		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
-		likeRankingvo.setMember_id(memberInfo.getMember_id());
+		String member =(String)session.getAttribute("member_id");
+		likeRankingvo.setMember_id(member);
 		
 		int offset = (page - 1) * 9;
 		likeRankingvo.setOffset(offset);
 		return rankLikeRankingService.getMyLikeList(likeRankingvo);
 	}
 	
-	
-	/* 구독자 순위 페이지 */
-	
-//	@RequestMapping(value="/insertRankSubscribeRanking.rk")
-//	public String insertRankSubscribeRanking (RankSubscribeRankingVO subRankingvo) {
-//		
-//		rankSubscribeRankingService.insertRankSubscribeRanking(subRankingvo);
-//		
-//				
-//		Date today = new Date();
-//		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-//		java.sql.Date day = java.sql.Date.valueOf(date.format(today));
-//		subRankingvo.setRank_ymd(day);
-//		
-//		List<RankSubscribeRankingVO> subList = rankSubscribeRankingService.getSubscribeRankList(subRankingvo);
-//		
-//		for(int i=0; i<subList.size(); i++) {
-//			subRankingvo.setRank_no(i +1);
-//			subRankingvo.setMember_id(subList.get(i).getMember_id());
-//			subList.set(i, subRankingvo);
-//			rankSubscribeRankingService.updateRankSubscribeRanking(subRankingvo);
-//		}
-//		return "redirect:getRankSubscribeRankingList.rk";
-//	}
 	
 	
 	/* 구독자 순위 누적 리스트 */
@@ -222,8 +180,8 @@ public class RankController {
 		System.out.println("클라꺼 타는지 테스트중 내가 소식받는 쉐프 리스트");
 		
 		HttpSession session = request.getSession();
-		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
-		subRankingvo.setMember_id(memberInfo.getMember_id());
+		String member =(String)session.getAttribute("member_id");
+		subRankingvo.setMember_id(member);
 		
 		model.addAttribute("myChefList", rankSubscribeRankingService.getMyChefList(subRankingvo));
 		return "client/rank/myChefList";
@@ -237,15 +195,58 @@ public class RankController {
 		System.out.println("클라꺼 타는지 테스트중 내가 소식받는 쉐프 스크롤리스트");
 		
 		HttpSession session = request.getSession();
-		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
-		subRankingvo.setMember_id(memberInfo.getMember_id());
+		String member =(String)session.getAttribute("member_id");
+		subRankingvo.setMember_id(member);
 		
 		int offset = (page - 1) * 21;
 		subRankingvo.setOffset(offset);
 		return rankSubscribeRankingService.getRankSubscribeRankingList(subRankingvo);
 	}
 	
+	/* 레피시 판매량 리스트 */
+	@RequestMapping(value="/getRankSellRecipeRankingList.rk")
+	public String getRankSellRecipeRankingList(RankSellRecipeRankingVO recipeRankingvo, Model model) {
+		System.out.println("클라꺼 타는지 테스트중 레시피 판매 리스트");
+		
+		model.addAttribute("recipeRankingList", rankSellRecipeRankingService.getRankSellRecipeRankingList(recipeRankingvo));
+		return "client/rank/rankSellRecipeRanking";
+	}
 	
+	
+	/* 레시피 판매량 스크롤리스트 */
+	@ResponseBody
+	@RequestMapping(value="/getRankSellRecipeRankingListScrollAjax.rk")
+	public List<RankSellRecipeRankingVO> getRankSellRecipeRankingListScrollAjax(@RequestParam(value="pager") int page, RankSellRecipeRankingVO recipeRankingvo) {
+		System.out.println("클라꺼 타는지 테스트중 레시피 판매량 누적스크롤리스트");
+		
+		int offset = (page - 1) * 9;
+		recipeRankingvo.setOffset(offset);
+		return rankSellRecipeRankingService.getRankSellRecipeRankingList(recipeRankingvo);
+	}
+	
+	
+	
+
+	/* 식재료 판매량 리스트 */
+	@RequestMapping(value="/getRankSellIngredientRankingList.rk")
+	public String getRankSellIngredientRankingList(RankSellIngredientRankingVO ingreRankingvo, Model model) {
+		System.out.println("클라꺼 타는지 테스트중 식재료 판매량 리스트");
+		
+		model.addAttribute("ingreRankingList", rankSellIngredientRankingService.getRankSellIngredientRankingList(ingreRankingvo));
+		return "client/rank/rankSellIngredientRanking";
+	}
+	
+	
+	/* 식재료 판매량 스크롤리스트 */
+	@ResponseBody
+	@RequestMapping(value="/getRankSellIngredientRankingListScrollAjax.rk")
+	public List<RankSellIngredientRankingVO> getRankSellIngredientRankingListScrollAjax(@RequestParam(value="pager") int page, RankSellIngredientRankingVO ingreRankingvo) {
+		System.out.println("클라꺼 타는지 테스트중 식재료 판매량 스크롤리스트");
+		
+		int offset = (page - 1) * 21;
+		ingreRankingvo.setOffset(offset);
+		return rankSellIngredientRankingService.getRankSellIngredientRankingList(ingreRankingvo);
+	}
 	
 	
 	

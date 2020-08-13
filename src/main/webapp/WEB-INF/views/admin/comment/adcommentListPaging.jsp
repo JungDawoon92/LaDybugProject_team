@@ -14,18 +14,18 @@
 </head>
 <body>
 	<ul class="pagination pagination-sm">
-	<c:if test="${paging.listCount != 0 }">
-		<c:if test="${paging.prevPage != 0}">
+	<c:if test="${paging.listcount != 0 }">
+		<c:if test="${paging.prevpage != 0}">
 			<li class="page-item">
 				<a class="page-link" href="#paging" onclick="commentList(1);">처음</a>
 			</li>
 		</c:if>
-		<c:if test="${paging.prevPage != 0}">
+		<c:if test="${paging.prevpage != 0}">
 			<li class="page-item">
-				<a class="page-link" href="#paging" onclick="commentList(${paging.prevPage});">&lt;</a>
+				<a class="page-link" href="#paging" onclick="commentList(${paging.prevpage});">&lt;</a>
 			</li>
 		</c:if>
-		<c:forEach var="a" begin="${paging.startPage}" end="${paging.endPage}" step="1">
+		<c:forEach var="a" begin="${paging.startpage}" end="${paging.endpage}" step="1">
 			<c:choose>
 				<c:when test="${a eq paging.page}">
 					<li class="page-item active"><a class="page-link" href="#paging" onclick="commentList(${a});">${a}</a></li>
@@ -35,14 +35,14 @@
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
-		<c:if test="${ paging.nextPage !=0 }">
+		<c:if test="${ paging.nextpage !=0 }">
 			<li class="page-item">
-				<a class="page-link" href="#paging" onclick="commentList(${paging.nextPage});">&gt;</a>
+				<a class="page-link" href="#paging" onclick="commentList(${paging.nextpage});">&gt;</a>
 			</li>
 		</c:if>
-		<c:if test="${ paging.nextPage !=0 }">
+		<c:if test="${ paging.nextpage !=0 }">
 			<li class="page-item">
-				<a class="page-link" href="#paging" onclick="commentList(${paging.maxPage});">끝</a>
+				<a class="page-link" href="#paging" onclick="commentList(${paging.maxpage});">끝</a>
 			</li>
 		</c:if>
 	</c:if>
