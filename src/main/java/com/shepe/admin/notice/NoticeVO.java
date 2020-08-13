@@ -17,8 +17,6 @@ public class NoticeVO {
 	private int notice_mtype;
 	private MultipartFile uploadFile;
 	
-	private int offset;
-	
 	public MultipartFile getUploadFile() {
 		return uploadFile;
 	}
@@ -79,18 +77,11 @@ public class NoticeVO {
 	public void setNotice_mtype(int notice_mtype) {
 		this.notice_mtype = notice_mtype;
 	}
-	public int getOffset() {
-		return offset;
-	}
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
 	@Override
 	public String toString() {
 		return "NoticeVO [notice_sq=" + notice_sq + ", notice_category=" + notice_category + ", notice_nm=" + notice_nm
 				+ ", notice_contents=" + notice_contents + ", member_id=" + member_id + ", notice_img=" + notice_img
 				+ ", notice_ymd=" + notice_ymd + ", notice_rc=" + notice_rc + ", notice_mtype=" + notice_mtype
-				+ ", uploadFile=" + uploadFile + ", offset=" + offset + "]";
+				+ ", uploadFile=" + uploadFile + "]";
 	}
-	
 }

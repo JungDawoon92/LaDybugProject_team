@@ -19,22 +19,6 @@
  		]]>
  	</delete>
  	
- 	<update id="updatePushCheckZero">
- 		<![CDATA[
- 			UPDATE rank_subscribe
- 			SET push_check = 0
- 			WHERE member_sub_id = #{member_sub_id} AND member_id = #{member_id}
- 		]]>
- 	</update>
- 
- 	<update id="updatePushCheckPlus">
- 		<![CDATA[
- 			UPDATE rank_subscribe
- 			SET push_check = push_check + 1
- 			WHERE member_id = #{member_id}
- 		]]>
- 	</update>
- 	
  	<select id="getRankSubscribe" resultType="rankSubscribe">
  		<![CDATA[
  			SELECT *

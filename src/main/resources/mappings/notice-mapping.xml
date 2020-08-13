@@ -3,25 +3,29 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="NoticeDAO">
- 
+ 	<resultMap type="notice" id="noticeResult">
+ 		<id property="notice_sq" column="NOTICE_SQ" />
+ 		<result property="notice_category" column="NOTICE_CATEGORY" />
+ 		<result property="notice_nm" column="NOTICE_NM" />
+ 		<result property="notice_contents" column="NOTICE_CONTENTS" />
+		<result property="notice_img" column="NOTICE_IMG" />
+ 		<result property="member_id" column="MEMBER_ID" />
+ 		<result property="notice_ymd" column="NOTICE_YMD" />
+ 		<result property="notice_rc" column="NOTICE_RC" />
+ 		<result property="notice_mtype" column="NOTICE_MTYPE" />
+ 	</resultMap>
+ 	
  	<insert id="insertNotice">
  		<![CDATA[
  			INSERT INTO NOTICE(NOTICE_NM, MEMBER_ID, NOTICE_CONTENTS, NOTICE_IMG)
 			VALUES (#{notice_nm}, #{member_id}, #{notice_contents}, #{notice_img})
- 		]]>
+ 		]]><!-- file 이름 오는거 그거 하나 추가해야됨 -->
  	</insert>
  	
  	<update id="updateNotice">
  		<![CDATA[
  			UPDATE NOTICE SET NOTICE_CONTENTS = #{notice_contents}
 			WHERE NOTICE_SQ = #{notice_sq}
- 		]]>
- 	</update>
- 	
- 	<!-- 조회수 -->
- 	<update id="plusRC" parameterType="int">
- 		<![CDATA[
- 			UPDATE NOTICE SET NOTICE_RC = NOTICE_RC + 1 WHERE NOTICE_SQ = #{notice_sq}
  		]]>
  	</update>
  	
@@ -40,17 +44,10 @@
  	</select>
  	
  	<!-- Paging -->
- 	 <select id="getNoticeList" resultType="notice">
+ 	 <select id="getNoticeList" resultMap="noticeResult">
  		<![CDATA[
  			SELECT * FROM NOTICE ORDER BY Notice_sq DESC 
  			LIMIT #{startpage}, 10;
- 		]]>
- 	</select>
- 	
- 	<select id="getNoticeListScroll" resultType="notice">
- 		<![CDATA[
- 			SELECT * FROM NOTICE ORDER BY Notice_sq DESC 
- 			LIMIT 10 OFFSET #{offset}
  		]]>
  	</select> 
  	

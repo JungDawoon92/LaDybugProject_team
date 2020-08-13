@@ -19,7 +19,7 @@
     <div class="dropdown-menu">
       <a class="dropdown-item" href="messageBox">Message 리스트</a>
       <a class="dropdown-item" href="messageBoot">Message봇</a>
-      <a class="dropdown-item" href="searchChart">Message 차트</a>
+      <a class="dropdown-item" href="searchChart">Search 차트</a>
     </div>
   </li>
     <li class="nav-item">
@@ -32,13 +32,7 @@
       <a class="nav-link" href="getIngredientList.co">식재료</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="moveIncomeSumChart.rk.ad">통계</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="getFaqList.do">FAQ</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="getNoticeList.do">공지사항</a>
+      <a class="nav-link disabled" href="#">QnA</a>
     </li>
   </ul>
 </div>

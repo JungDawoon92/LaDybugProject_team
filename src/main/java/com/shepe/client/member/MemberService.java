@@ -6,6 +6,7 @@ import java.util.List;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.shepe.client.order.OrderMemberVO;
 
 public interface MemberService {
 		// 회원 정보 가져오기 

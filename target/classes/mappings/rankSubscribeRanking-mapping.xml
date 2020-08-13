@@ -52,7 +52,7 @@
  			FROM rank_subscribe_ranking rk
  			INNER JOIN member me
  			ON rank_ymd = curdate() AND rk.member_id = me.member_id
- 			ORDER BY rk.member_sub_sum DESC, rk.rank_no
+ 			ORDER BY rk.member_sub_sum DESC
  			LIMIT 21 OFFSET #{offset}
  		]]>
  	</select>
@@ -100,7 +100,7 @@
  	<!-- 내가 구독중인 쉐프 리스트 -->
  	<select id="getMyChefList" resultType="rankSubRanking">
  	 	<![CDATA[
- 			SELECT me.member_id, me.member_nickname, (SELECT COUNT(member_sub_id) FROM rank_subscribe WHERE member_id = me.member_id) AS member_sub_sum, me.member_img, rs.push_check
+ 			SELECT me.member_id, me.member_nickname, (SELECT COUNT(member_sub_id) FROM rank_subscribe WHERE member_id = me.member_id) AS member_sub_sum, me.member_img
 			FROM member me
 			INNER JOIN rank_subscribe rs
 			ON me.member_id = rs.member_id AND rs.member_sub_id = #{member_id}

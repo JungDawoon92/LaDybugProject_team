@@ -27,17 +27,6 @@ public class RankSubscribeServiceImpl implements RankSubscribeService {
 		rankSubscribeDAO.deleteRankSubscribe(rankSubscribevo);
 	}
 	
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int updatePushCheckZero(RankSubscribeVO rankSubscribevo) {
-		return rankSubscribeDAO.updatePushCheckZero(rankSubscribevo);
-	}
-
-	@Transactional(rollbackFor = Exception.class)
-	@Override
-	public int updatePushCheckPlus(RankSubscribeVO rankSubscribevo) {
-		return rankSubscribeDAO.updatePushCheckPlus(rankSubscribevo);
-	}
 
 	@Override
 	public RankSubscribeVO getRankSubscribe(RankSubscribeVO rankSubscribevo) {
@@ -48,6 +37,4 @@ public class RankSubscribeServiceImpl implements RankSubscribeService {
 	public List<RankSubscribeVO> getRankSubscribeList(RankSubscribeVO rankSubscribevo) {
 		return rankSubscribeDAO.getRankSubscribeList(rankSubscribevo);
 	}
-
-
 }

@@ -17,14 +17,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.shepe.client.cart.CartVO;
-import com.shepe.client.ingredient.IngredientVO;
-import com.shepe.client.ingredient.impl.IngredientDAO;
 import com.shepe.client.member.MemberVO;
+import com.shepe.client.order.OrderVO;
 import com.shepe.client.order.OrderInfoVO;
 import com.shepe.client.order.OrderIngredientVO;
 import com.shepe.client.order.OrderMemberVO;
 import com.shepe.client.order.OrderService;
-import com.shepe.client.order.OrderVO;
 import com.shepe.client.order.PayType;
 import com.shepe.client.order.PaymentGroup;
 
@@ -32,14 +30,14 @@ import com.shepe.client.order.PaymentGroup;
 public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private OrderDAOMybatis orderDAOMybatis;
-	@Autowired
-	private IngredientDAO ingreDAO;
+//	@Autowired
+//	private IngredientDAO ingreDAO;
 	
 	
 	public List<CartVO> viewOrder(Map<String, String> param) {
 		JsonParser jsonParser = new JsonParser();
 		JsonArray jsonArray = (JsonArray) jsonParser.parse(param.get("order"));
-		IngredientVO ingreVO = new IngredientVO();
+//		IngredientVO ingreVO = new IngredientVO();
 		List<CartVO> orderList = new ArrayList<CartVO>();
 		
 		for (int i = 0; i < jsonArray.size(); i++) {
@@ -57,15 +55,15 @@ public class OrderServiceImpl implements OrderService{
 			JsonObject object = (JsonObject) jsonArray.get(i);
 			String NO = object.get("ingre_no").getAsString();
 			String CNT = object.get("ingre_cnt").getAsString();
-			ingreVO.setIngredient_no(NO);
-			ingreVO = ingreDAO.getIngredient(ingreVO);
+//			ingreVO.setIngredient_no(NO);
+//			ingreVO = ingreDAO.getIngredient(ingreVO);
 			cartVO.setIngredient_no(NO);
 			cartVO.setIngredient_cnt(Integer.parseInt(CNT));
-//			cartVO.setIngredient_nm("mongshell");
-//			cartVO.setIngredient_price(1000);
-			cartVO.setIngredient_nm(ingreVO.getIngredient_nm());
-			cartVO.setIngredient_price(ingreVO.getIngredient_price());
-			cartVO.setIngredient_thumbName(ingreVO.getIngredient_thumbName());
+			cartVO.setIngredient_nm("mongshell");
+			cartVO.setIngredient_price(1000);
+//			cartVO.setIngredient_nm(ingreVO.getIngredient_nm());
+//			cartVO.setIngredient_price(ingreVO.getIngredient_price());
+//			cartVO.setIngredient_thumbimg(ingreVO.getIngredient_thumbName());
 			orderList.add(i, cartVO);
 		}
 		return orderList;

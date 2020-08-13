@@ -9,12 +9,12 @@
 	<link rel="stylesheet" href="/shepe/resources/css/orderHistory.css" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/Nav.jsp" />
+	<jsp:include page="/WEB-INF/include/myPageMenu.jsp" />
 	<div class="container border wrapper">
-      <jsp:include page="/WEB-INF/include/myPageMenu.jsp" />
 		<section>
 			<div>
 				<article>
@@ -54,10 +54,5 @@
 			</div>
 		</section>
 	</div>
-<script type="text/javascript">
-$(document).ready(function () {
-	$("#paymentHistory").css('color', 'black');
-})
-</script>
 </body>
 </html>

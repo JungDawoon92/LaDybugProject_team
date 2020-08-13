@@ -145,7 +145,6 @@ public class MemberController {
                session.setAttribute("BootContent", bo);
                session.setAttribute("member_id", member.getMember_id());
                session.setAttribute("member_nick", member.getMember_nickname());
-               session.setAttribute("member_img", member.getMember_img());
                
                if(prev_url != null) {
                   mav.setViewName("forward:/" + prev_url);
@@ -241,17 +240,15 @@ public class MemberController {
    }
       
    // 회원 정보 수정
-   @RequestMapping(value="/myPage/memberUpdate.do", method = RequestMethod.POST)
+   @RequestMapping(value="/memberUpdate.do", method = RequestMethod.POST)
    public String memberInfoUpdate(MemberVO vo, HttpSession session, Model model) {
-		memberService.memberUpdate(vo);
-		System.out.println("vo 업데이트" + " " + vo.toString());
-		String member_id = (String) session.getAttribute("member_id");
-		model.addAttribute("member", memberService.getMember(member_id));
-		return "/client/member/memberUpdateView";
+      memberService.memberUpdate(vo);
+      model.addAttribute("member", memberService.getMember(vo));
+      return "redirect:/interceptor/memberDetail.do";
    }   
       
    // 회원 탈퇴 수행
-   @RequestMapping(value = "/myPage/memberDelete.do", method = RequestMethod.POST)
+   @RequestMapping(value = "/memberDelete.do", method = RequestMethod.POST)
    public String memberDelete(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
          memberService.delUpdate(vo); // 회원 삭제 여부 컬럼 업데이트
          memberService.delDate(vo);   // 회원 삭제 날짜 insert
@@ -283,7 +280,7 @@ public class MemberController {
    @RequestMapping(value = "/searchPW.do", method = RequestMethod.POST)
    public void searchPW(MemberVO vo) throws MessagingException, UnsupportedEncodingException {
       memberService.searchPW(vo);                              // 임시 비밀번호 생성
-      memberService.accountLockInitialize(vo.getMember_id());  // 계정 잠금 초기화
+      memberService.accountLockInitialize(vo.getMember_id());         // 계정 잠금 초기화   
       
    }   
    

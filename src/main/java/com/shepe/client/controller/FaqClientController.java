@@ -60,21 +60,18 @@ public class FaqClientController {
 		@RequestMapping(value="detailClientFaq.do")
 		public String detailFaq(FaqVO vo, Model model) {
 			System.out.println(vo.getFaq_sq());
-			
 			model.addAttribute("faqClientDetail", faqService.detailFaq(vo));
 			System.out.println("Cl detail controller"+faqService.detailFaq(vo));
 			return "redirect:/getClientFaqList.do";
 		}
 
-		// 채팅 글 상세 조회 
+		// 글 상세 조회 2
 		@ResponseBody
 		@RequestMapping(value="detailChatClientFaq.do")
-		public FaqVO detailChatFaq(FaqVO vo, @RequestParam(value="faq_sq") int faq_sq) {
-			faqService.updateFaqRC(faq_sq);
+		public FaqVO detailChatFaq(FaqVO vo) {
 			//System.out.println(vo.getFaq_sq());
 			//model.addAttribute("faqClientDetail", faqService.detailFaq(vo));
 			//System.out.println("Cl detail controller"+faqService.detailFaq(vo));
-			
 			return faqService.detailFaq(vo);
 		}
 		
@@ -92,15 +89,14 @@ public class FaqClientController {
 			System.out.println("Cl Controller FaqList");
 			model.addAttribute("paging", boardPaging.paging(pager, listcount, po));
 			model.addAttribute("faqList", faqService.getFaqList(pager)); //model 정보저장
-			model.addAttribute("faqRC", faqService.getFaqRC());
-			System.out.println(model.addAttribute("faqRC", faqService.getFaqRC()));
 			return "/client/faq/getClientFaqList";
 		}
 		
 		@ResponseBody
 		@RequestMapping(value="getClientAjaxFaqList.do")
 		public List<FaqVO> getAjaxFaqList(@RequestParam(value="choice", required=false) String choice, FaqVO vo, Model model) {
-			System.out.println("Cl Controller getAjaxFaqList \n chice" + choice + "\n vo"+vo);
+			System.out.println("Cl Controller getAjaxFaqList \n chice" + choice);
+			
 			return faqService.getAjaxFaqList(choice);
 		}
 		
@@ -115,5 +111,4 @@ public class FaqClientController {
 			System.out.println("Cl ListView sq"+ vo.getFaq_sq());
 			return "/client/faq/updateClientFaq";
 		}
-		
 }

@@ -47,7 +47,7 @@ tr, th, td {
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/include/adminNav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/include/Nav.jsp" />
 	<div class="container">
 		<h1 align="center">F A Q</h1>
     	<div class="category" style="margin: 10px; text-align: center">

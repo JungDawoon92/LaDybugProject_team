@@ -33,12 +33,6 @@
 		<li class="nav-item">
 			<a class="nav-link" id="subList" href="getRankSubscribeRankingListToday.rk">쉐프</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="recipeList" href="getRankSellRecipeRankingList.rk">레시피</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="ingredientList" href="getRankSellIngredientRankingList.rk">식재료</a>
-		</li>
 	</ul>
 	<div class="clearfix"></div>
 	<br>
@@ -51,8 +45,8 @@
 	<c:forEach var="mtLikeList" items="${ monthLikeList }" varStatus="status">
 		<div class="col-12 col-sm-6 col-lg-4">
 			<div class="single-best-receipe-area mb-30">
-				<a href='getRecipe.re?recipe_no=${ mtLikeList.recipe_no }'>
-					<img src='${pageContext.request.contextPath}/resources/img/recipe-com-img/${ mtLikeList.recipe_complete_img }' alt='${ mtLikeList.recipe_complete_img }' style='width:350px; height:300px;'>
+				<a href='getTestRecipe.re?recipe_no=${ mtLikeList.recipe_no }'>
+					<img src='${pageContext.request.contextPath}/resources/img/temp-img/${ mtLikeList.recipe_complete_img }' alt='${ mtLikeList.recipe_complete_img }' style='width:350px; height:300px;'>
 				</a>
 				<div class="receipe-content">
 					<h5>No.${status.count} &nbsp;&nbsp;${ mtLikeList.recipe_nm }</h5>

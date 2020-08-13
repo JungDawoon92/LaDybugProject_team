@@ -32,12 +32,6 @@
 		<li class="nav-item">
 			<a class="nav-link" id="subList" href="getRankSubscribeRankingListToday.rk">쉐프</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="recipeList" href="getRankSellRecipeRankingList.rk">레시피</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="ingredientList" href="getRankSellIngredientRankingList.rk">식재료</a>
-		</li>
 	</ul>
 	<div class="clearfix"></div>
 	<br>
@@ -50,8 +44,8 @@
 	<c:forEach var="likeList" items="${ likeRankingList }" varStatus="status">
 		<div class="col-12 col-sm-6 col-lg-4">
 			<div class="single-best-receipe-area mb-30">
-				<a href='getRecipe.re?recipe_no=${ likeList.recipe_no }'>
-					<img src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${ likeList.recipe_complete_img }" alt='${ likeList.recipe_complete_img }' style='width:350px; height:300px;'>
+				<a href='getTestRecipe.re?recipe_no=${ likeList.recipe_no }'>
+					<img src="${pageContext.request.contextPath}/resources/img/temp-img/${ likeList.recipe_complete_img }" alt='${ likeList.recipe_complete_img }' style='width:350px; height:300px;'>
 				</a>
 				<div class="receipe-content">
 					<h5 id="rank_no" data-rank_no="${ likeList.rank_no }">No.${ likeList.rank_no }&nbsp;&nbsp;${ likeList.recipe_nm }</h5>
@@ -83,8 +77,8 @@ $(document).ready(function(){
 						var row = "";
 						row += "<div class='col-12 col-sm-6 col-lg-4'>";
 						row += "<div class='single-best-receipe-area mb-30'>";
-						row += "<a href='getRecipe.re?recipe_no="+value.recipe_no+"'>";
-						row += "<img src='${pageContext.request.contextPath}/resources/img/recipe-com-img/"+value.recipe_complete_img+"' alt='"+value.recipe_complete_img+"'></a>";
+						row += "<a href='getTestRecipe.re?recipe_no="+value.recipe_no+"'>";
+						row += "<img src='${pageContext.request.contextPath}/resources/img/temp-img/"+value.recipe_complete_img+"' alt='"+value.recipe_complete_img+"'></a>";
 						row += "<div class='receipe-content'>";
 						row += "<h5>No."+value.rank_no+"&nbsp;&nbsp;"+value.recipe_nm+"</h5>";
 						row += "<i class='fa fa-thumbs-up font-italic' aria-hidden='true'>"+value.recipe_like_sum+"</i>";

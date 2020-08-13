@@ -26,23 +26,35 @@ public class CommentAdminController {
 	private CommonRankPaging commonpaging;
 	
 
-	@RequestMapping(value="/admin/updateComment.co.ad")
+	@RequestMapping(value="/insertComment.co.ad")
+	public String insertComment(CommentAdminVO commentvo, Model model) throws IOException {
+		System.out.println("어드민 타는지 테스트중 댓글인서트");
+		MultipartFile coUploadFile = commentvo.getCoUploadFile();
+		if(!coUploadFile.isEmpty()) {
+			String fileName = coUploadFile.getOriginalFilename();
+			coUploadFile.transferTo(new File("D:\\commentProfile\\" + fileName));
+			commentvo.setMember_img(fileName);
+			commentService.updateMemberImg(commentvo);
+		}
+		commentService.insertComment(commentvo);
+		return "redirect:getTestRecipe.re.ad?recipe_no="+commentvo.getRecipe_no();
+	}
+
+	@RequestMapping(value="/updateComment.co.ad")
 	public String updateComment(CommentAdminVO commentvo, Model model) {
 		System.out.println("어드민 타는지 테스트중 댓글수정");
 		commentService.updateComment(commentvo);
-		model.addAttribute("recipe_no", commentvo.getRecipe_no());
-		return "redirect:getRecipe.adre";
+		return "redirect:getTestRecipe.re.ad?recipe_no="+commentvo.getRecipe_no();
 	}
 	
-	@RequestMapping(value="/admin/deleteComment.co.ad")
+	@RequestMapping(value="/deleteComment.co.ad")
 	public String deleteComment(@RequestParam(value="arr") List<Integer> arr, CommentAdminVO commentvo, Model model) {
 		System.out.println("어드민 타는지 테스트중 댓글삭제");
 		for(int i : arr) {
 			commentvo.setComment_sq(i);
 			commentService.deleteComment(commentvo);
 		}
-		model.addAttribute("recipe_no", commentvo.getRecipe_no());
-		return "redirect:getRecipe.adre";
+		return "redirect:getTestRecipe.re.ad?recipe_no="+commentvo.getRecipe_no();
 	}
 
 //	@RequestMapping(value="/getComment.co")
@@ -60,7 +72,7 @@ public class CommentAdminController {
 //		 return "admin/comment/commentList"; }
 
 	@ResponseBody
-	@RequestMapping(value="/admin/getCommentListAjax.co.ad")
+	@RequestMapping(value="/getCommentListAjax.co.ad")
 	public List<CommentAdminVO> getCommentListAjax(CommentAdminVO commentvo, PagingVO po, Model model) {
 		System.out.println("어드민 타는지 테스트중 댓글리스트");
 		int pager = 1;

@@ -150,13 +150,4 @@ public class RecipeDAO {
 		return mybatis.selectList("RecipeDAO.getRecipeChartHow", vo);
 	}
 	
-	/* rank 추가부분 */
-	public int getChefRecipeCnt (RecipeVO recipevo) {
-		return mybatis.selectOne("RecipeDAO.getChefRecipeCnt", recipevo);
-	}
-	
-	public List<RecipeVO> getChefRecipeList (RecipeVO recipevo) {
-		return mybatis.selectList("RecipeDAO.getChefRecipeList", recipevo);
-	}
-	
 }

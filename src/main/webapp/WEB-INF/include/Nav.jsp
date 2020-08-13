@@ -6,7 +6,6 @@
 <head>
 	<!-- Core Stylesheet -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" >
 </head>
 
 
@@ -57,20 +56,20 @@
 
 				<!-- Top Social Info -->
 				<div class="col-12 col-sm-6">
-					<div class="top-social-info text-right" style="font-size:15px;">
-						<c:if test="${ sessionScope.member_id == null}">
+					<div class="top-social-info text-right">
+						<c:if test="${ member_id == null && kname == null && nname == null}">
 							<div>
 								<a href="/shepe/login.do">로그인</a>
 								<a href="/shepe/joinOption.do">회원가입</a> 
 								<a href="/shepe/cartList">장바구니</a>
 							</div>
 						</c:if>
-						<c:if test="${ sessionScope.member_id != null}">
+						<c:if test="${ member_id != null || kname != null || nname != null }">
 							<div>
-								${ sessionScope.member_id }님 반갑습니다! &nbsp;&nbsp;&nbsp;
+								${ member_nick }${ kname }${ nname }님 반갑습니다! &nbsp;&nbsp;&nbsp;
 								<a href="/shepe/logout.do">로그아웃</a> 
-								<a href="/shepe/myPage.do"><i class="fa fa-address-book fa-lg"></i></a>
-								<a href="/shepe/cartList"><i class="fas fa-shopping-cart fas-lg"></i></a>
+								<a href="/shepe/myPage.do">마이페이지</a>
+								<a href="/shepe/cartList">장바구니</a>
 							</div>
 						</c:if>
 					</div>
@@ -87,7 +86,7 @@
 				<nav class="classy-navbar justify-content-between" id="deliciousNav">
 
 					<!-- Logo -->
-					<a class="nav-brand" href="${pageContext.request.contextPath}/"><img
+					<a class="nav-brand" href="index.jsp"><img
 						src="${pageContext.request.contextPath}/resources/img/core-img/logo.png"
 						alt=""></a>
 
@@ -110,10 +109,10 @@
 						<div class="classynav">
 							<ul>
 								<li class="active"><a href=/shepe/getDivision_re>레시피</a></li>
-								<li><a href="/shepe/getDivision_ingre">식재료</a></li>
-								<li><a href="/shepe/getRankLikeRankingListToday.rk">랭크</a></li>
-								<li><a href="/shepe/getClientFaqList.do">FAQ</a></li>
-								<li><a href="/shepe/getClientNoticeList.do">공지사항</a></li>
+								<li><a href="getDivision_ingre">식재료</a></li>
+								<li><a href="getRankLikeRankingList.rk">랭크</a></li>
+								<li><a href="getQnaList.do">QnA</a></li>
+								<li><a href="receipe-post.html">공지사항</a></li>
 							</ul>
 							<!-- Newsletter Form -->
 							<div class="search-btn">
@@ -140,7 +139,7 @@
     <script src="<c:url value ="/resources/js/plugins/plugins.js" />"></script>
     <!-- Active js -->
     <script src="<c:url value ="/resources/js/active.js" />"></script>
-     <script>
+    <script>
     $("#myInput").on("keyup", function() {
     	
     	let search_value = $(this).val();

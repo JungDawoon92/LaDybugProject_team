@@ -26,13 +26,9 @@
 			
 			// 취소
 			$(".cencle").on("click", function(){
-				var result = confirm("취소하시겠습니까?");
-				if (result){
-					location.href = "./memberDetail.do";	
-				} else {
-					location.reload();
-				}
-				
+				alert("취소하시겠습니까?");
+				location.href = "myPage.do";
+						    
 			})
 			// 회원 탈퇴 버튼 클릭 시
 			$("#delsubmit").on("click", function(){
@@ -52,7 +48,7 @@
 					if(data==0){
 						console.log("ajax 넘겨 받은 data 값: " + data);
 						alert("패스워드가 틀렸습니다.");
-						$("#incorrectPWD").text("비밀번호를 확인해주세요.");
+						$("#incorrectPWD").text("패스워드를 다시 입력해주세요.");
 						$("#incorrectPWD").css("color", "red");
 						return;
 					} else {
@@ -74,29 +70,40 @@
 <jsp:include page="/WEB-INF/include/Nav.jsp" />
 	<section>
 		<div class="container wrapper">
-		<jsp:include page="/WEB-INF/include/myPageMenu.jsp" />
 			<div class="row myinfocontents">
-				<div class="myinfo col-md-9 col-md-offset-2" style="padding-top: 50px;">
-						<h1>회원 탈퇴</h1>
-						<h3 style="padding-top: 20px;">정말 Shepe에 탈퇴하시겠습니까?</h3>
+				<div class="col-md-3"><jsp:include page="/WEB-INF/include/myPageMenu.jsp" /></div>
+				<div class="myinfo col-md-9">
+					<div>
+						<div class="board_header">
+							<h1>회원 탈퇴</h1>
+						</div>
+						<h3>정말 Shepe에 탈퇴하시겠습니까?</h3>
 						<form:form action="../memberDelete.do" id="delForm" method="post">
-							<div class="form-group">
+							<div class="form-group has-feedback">
 								<label class="control-label" for="userId">아이디</label> 
-								<input class="form-control" type="text" id="userId" name="member_id" value="${member_id}" readonly="readonly" style="width: 350px"/>
+								<input class="form-control" type="text" id="userId" name="member_id" value="${member_id}" readonly="readonly" />
 							</div>
-							<div class="form-group">
+							<div class="form-group has-feedback">
 								<label class="control-label" for="userPass">패스워드</label>
-								<input class="form-control" type="password" id="userPass" name="member_password" style="width: 350px"/>
+								<input class="form-control" type="password" id="userPass" name="member_password" />
 								<div id="incorrectPWD"></div>
 							</div>
-							<div class="form-group" style="float: right;">
-								<button class="btn btn-success" type="button" id="delsubmit" style="font-size: 15px;">회원탈퇴</button>
-								<button class="cencle btn btn-danger" type="button" style="font-size: 15px;">취소</button>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="userName">성명</label>
+								<input class="form-control" type="text" id="userName" name="member_nm" value="${member_nm}" readonly="readonly" />
+							</div>
+							<div class="form-group has-feedback">
+								<button class="btn btn-success" type="button" id="delsubmit">회원탈퇴</button>
+								<button class="cencle btn btn-danger" type="button" onclick="location.href='myPageMenu.jsp'">취소</button>
 							</div>
 						</form:form>
+						<div class="pw_incorrect">
+							<c:if test="${msg == false}"> 비밀번호가 맞지 않습니다. </c:if>
+						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 	</section>
 </body>
 </html>

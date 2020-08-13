@@ -34,7 +34,7 @@ textarea {
 </style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/include/adminNav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/include/Nav.jsp" />
 	<div class="container">
 		<header>
 			<h1>insertFaQ</h1>

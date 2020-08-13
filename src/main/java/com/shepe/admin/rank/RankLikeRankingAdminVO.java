@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class RankLikeRankingAdminVO {
 
-	private int recipe_sq;
 	private String recipe_no;
 	private String recipe_nm;
 	private int recipe_like_sum;
@@ -20,16 +19,6 @@ public class RankLikeRankingAdminVO {
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date recipe_ymd;
 	private String member_id;
-
-	
-	
-	public int getRecipe_sq() {
-		return recipe_sq;
-	}
-
-	public void setRecipe_sq(int recipe_sq) {
-		this.recipe_sq = recipe_sq;
-	}
 
 	public String getRecipe_no() {
 		return recipe_no;

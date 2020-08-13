@@ -22,14 +22,6 @@ public class RankSubscribeDaoMybatis {
 		rankSubscribe.delete("rankSubscribeDAO.deleteRankSubscribe", rankSubscribevo);
 	}
 	
-	public int updatePushCheckZero (RankSubscribeVO rankSubscribevo) {
-		return rankSubscribe.update("rankSubscribeDAO.updatePushCheckZero", rankSubscribevo);
-	}
-	
-	public int updatePushCheckPlus (RankSubscribeVO rankSubscribevo) {
-		return rankSubscribe.update("rankSubscribeDAO.updatePushCheckPlus", rankSubscribevo);
-	}
-	
 	public RankSubscribeVO getRankSubscribe (RankSubscribeVO rankSubscribevo) {
 		return rankSubscribe.selectOne("rankSubscribeDAO.getRankSubscribe", rankSubscribevo);
 	}

@@ -28,16 +28,10 @@
 	
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link" id="likeList" href="getRankLikeRankingListToday.rk">추천 레시피</a>
+			<a class="nav-link" id="likeList" href="getRankLikeRankingListToday.rk">추천레시피</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link active" id="subList" href="getRankSubscribeRankingListToday.rk">쉐프</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="recipeList" href="getRankSellRecipeRankingList.rk">레시피</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="ingredientList" href="getRankSellIngredientRankingList.rk">식재료</a>
 		</li>
 	</ul>
 	<div class="clearfix"></div>

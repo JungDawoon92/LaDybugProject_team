@@ -13,13 +13,16 @@
   <link rel="stylesheet" href="/shepe/resources/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <style>
-	
+	@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 	
     .pagination {
    		justify-content: center;
 	}
-
+	h4,p,li,font {
+		font-family: 'Nanum Pen Script';
+	}
 	
   </style>
 </head>
@@ -56,19 +59,17 @@
 		<div class="row">
 			<c:forEach items="${divisionInList}" var="division">
 			  <div class="card col-lg-3 col-md-3 col-12" style="width:13rem; margin:20px 0 24px 0">
-			  	<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}&ingredient_thumbName=${division.ingredient_thumbName}">
-				  	<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/ingredient-img/${division.ingredient_thumbName}" alt="image" style="width: 255px;height: 350px;">
-				  </a>
-				  	<div class="card-body">
-				    	<h4 class="card-title">
-				    		<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}&ingredient_thumbName=${division.ingredient_thumbName}">
-				    			${division.ingredient_nm}
-				    		</a>
-				    	</h4>
-				    	</div>
-				    	<div class="card-body d-flex flex-row-reverse align-items-end">	
-				    	<p class="card-text float-right"><i class="fas fa-coins"></i><font size=5> ${division.ingredient_price}원</font></p>
-				    	</div>
+			  	<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/ingredient-img/${division.ingredient_thumbName}" alt="image" style="width: 255px;height: 350px;">
+			  	<div class="card-body">
+			  		
+			    	<h4 class="card-title">
+			    		<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}">
+			    			${division.ingredient_nm}
+			    		</a>
+			    	</h4>
+			    	
+			    	<p class="card-text float-right"><i class="fas fa-coins"></i><font size=5> ${division.ingredient_price}원</font></p>
+			  	</div>
 			  </div>
 			 </c:forEach>
 		</div>
@@ -78,7 +79,7 @@
       <!-- 페이징 -->
       
       <div class="container">	
-			<ul class="pagination pagination-sm">
+			<ul class="pagination">
 			<c:if test="${paging.prevpage != 0}">
 				<li class="page-item"><button class="page-link" data-page="${paging.prevpage}">&lt;&lt;</button></li> 
 			</c:if>

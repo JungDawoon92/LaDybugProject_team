@@ -1,14 +1,10 @@
 package com.shepe.client.rank;
 
-import java.sql.Date;
-
 public class RankSubscribeVO {
 
 	private String member_id;
 	private String member_sub_id;
 	private String member_nickname;
-	private Date rank_ymd;
-	private int push_check;
 	
 	
 	public String getMember_id() {
@@ -29,17 +25,10 @@ public class RankSubscribeVO {
 	public void setMember_nickname(String member_nickname) {
 		this.member_nickname = member_nickname;
 	}
-	public Date getRank_ymd() {
-		return rank_ymd;
-	}
-	public void setRank_ymd(Date rank_ymd) {
-		this.rank_ymd = rank_ymd;
-	}
-	public int getPush_check() {
-		return push_check;
-	}
-	public void setPush_check(int push_check) {
-		this.push_check = push_check;
+	@Override
+	public String toString() {
+		return "RankSubscribeVO [member_id=" + member_id + ", member_sub_id=" + member_sub_id + ", member_nickname="
+				+ member_nickname + "]";
 	}
 	
 }

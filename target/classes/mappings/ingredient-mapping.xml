@@ -133,25 +133,21 @@
  		<![CDATA[
  			SELECT *
  			FROM ingredient
- 			WHERE ingredient_no = #{ingredient_no} AND ingredient_categ = #{ingredient_categ}
+ 			WHERE ingredient_no = #{ingredient_no}
  		]]> 
 	</select>
  	<select id="detailIngredeintDetail" resultType="ingredient">
  		<![CDATA[
- 			SELECT B.ingredient_country, B.ingredient_productimporter, B.ingredient_weight,
-				   B.ingredient_mnfctDate, B.ingredient_selLife, B.ingredient_selFoodType,
-				   B.ingredient_selStorage, B.ingredient_pckmtr, B.ingredient_nutrient, B.ingredient_allergy
-			FROM ingredient A join ingredient_details B
-			ON A.ingredient_no = B.ingredient_no
-			WHERE A.ingredient_thumbName=#{ingredient_thumbName} AND A.ingredient_categ=#{ingredient_categ}
+ 			SELECT *
+ 			FROM ingredient_details	
+ 			WHERE ingredient_no = #{ingredient_no}
  		]]>
  	</select>
  	<select id="detailIngredeintMulti" resultType="ingredient">
  		<![CDATA[
- 			SELECT B.ingredient_fileName
-			FROM ingredient A join ingredient_multi B
-			ON A.ingredient_no = B.ingredient_no
-			WHERE A.ingredient_thumbName=#{ingredient_thumbName} AND A.ingredient_no=#{ingredient_no}
+ 			SELECT *
+ 			FROM ingredient_multi
+ 			WHERE ingredient_no = #{ingredient_no}
  		]]>
  	</select>
  	
@@ -232,7 +228,6 @@
  		<![CDATA[
  			SELECT * FROM ingredient
 			WHERE ingredient_categ = #{ingredient_categ} AND NOT ingredient_no = #{ingredient_no}
-			ORDER BY ingredient_price ASC, RAND() 	
 			LIMIT 3
  		]]>
  	</select>
@@ -255,19 +250,17 @@
  	<!--  클라이언트 식재료 디테일디테일  -->
  	<select id="clientDetailDetails" resultType="ingredient">
  		<![CDATA[
- 			SELECT * 
-			FROM ingredient A join ingredient_details B
-			ON A.ingredient_no = B.ingredient_no
-			WHERE A.ingredient_thumbName=#{ingredient_thumbName} AND A.ingredient_no=#{ingredient_no}
+ 			SELECT *
+ 			FROM ingredient_details	
+ 			WHERE ingredient_no = #{ingredient_no}
  		]]>
  	</select>
  	<!--  클라이언트 식재료 디테일 멀티 -->
  	<select id="clientDetailMulti" resultType="ingredient">
  		<![CDATA[
-			SELECT * 
-			FROM ingredient A join ingredient_multi B
-			ON A.ingredient_no = B.ingredient_no
-			WHERE A.ingredient_thumbName=#{ingredient_thumbName} AND A.ingredient_no=#{ingredient_no}
+ 			SELECT *
+ 			FROM ingredient_multi
+ 			WHERE ingredient_no = #{ingredient_no}
  		]]>
  	</select>
  	<!--  가격 식재료 업데이트 Ajax -->
@@ -276,6 +269,64 @@
  			SELECT ingredient_amt
  			FROM ingredient
  			WHERE ingredient_no = #{ingredient_no}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- meatPage이동! -->
+ 	<select id="meatPage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
+ 		]]>
+ 	</select>
+ 		<select id="beefPage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
+ 		]]>
+ 	</select>
+ 		<select id="chickenPage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
+ 		]]>
+ 	</select>
+ 		<select id="seafoodPage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
+ 		]]>
+ 	</select>
+ 		<select id="vegetablePage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
+ 		]]>
+ 	</select>
+ 		<select id="fruitPage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
+ 		]]>
+ 	</select>
+ 		<select id="nutsPage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
+ 		]]>
+ 	</select>
+ 		<select id="etcPage" resultType="ingredient">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ingredient
+ 			WHERE ingredient_categ = #{ingredient_categ}
  		]]>
  	</select>
  </mapper>

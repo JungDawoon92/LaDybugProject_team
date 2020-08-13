@@ -52,7 +52,7 @@
  			SELECT rk.recipe_no, rk.recipe_nm, rk.recipe_like_sum, rk.rank_no, rk.rank_ymd, re.recipe_complete_img
  			FROM rank_like_ranking rk, recipe re
  			WHERE rank_ymd = curdate() AND rk.recipe_no = re.recipe_no
- 			ORDER BY rk.recipe_like_sum DESC, rk.rank_no
+ 			ORDER BY rk.recipe_like_sum DESC
  			LIMIT 9 OFFSET #{offset}
  		]]>
  	</select>

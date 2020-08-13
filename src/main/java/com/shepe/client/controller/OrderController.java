@@ -32,8 +32,8 @@ public class OrderController {
 	public String orderForm(@RequestParam Map<String, String> param, HttpSession session, Model model) throws IOException {
 		logger.info("orderForm");
 
-		if(session.getAttribute("member_id") == null)
-			return "redirect:/login.do";
+//		if(session.getAttribute("member_id") == null)
+//			return "redirect:/login.do";
 		MemberAddressVO addrVO = new MemberAddressVO();
 		addrVO.setMember_id((String) session.getAttribute("member_id"));
 		
@@ -68,6 +68,7 @@ public class OrderController {
 	
 	@RequestMapping(value="/myPage/orderHistory")
 	public String orderHistory(HttpSession session, Model model) {
+		logger.info("myPage/orderHistory");
 		model.addAttribute("orderHistory", orderService.orderHistory(session));
 		return "client/order/OrderHistory";
 	}

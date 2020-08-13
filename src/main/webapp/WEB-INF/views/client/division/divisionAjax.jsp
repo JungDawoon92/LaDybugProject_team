@@ -15,20 +15,17 @@
 	 <div class="container">
 	 	<div class="row">
 			 <c:forEach items="${divisionList}" var="division">
-				 <div class="card col-lg-3 col-md-3 col-12" style="width:13rem; margin:20px 0 24px 0">
-			  	<a href="getRecipe.re?recipe_no=${ division.recipe_no }">
-			  		<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${division.recipe_complete_img}" alt="image" style="width: 255px;height: 280px;">
-			  	</a>
-			  	<div class="card-body row">
-			  		<a href="getRecipe.re?recipe_no=${ division.recipe_no }">
-			    		<h4 class="card-title">${division.recipe_nm}</h4><font class="float-left text-primary">by ${division.member_nickname}</font>
-			    	</a>
-
-			    </div>
-			    <div class="card-body d-flex flex-row-reverse align-items-end">
-			    	<p class="card-text"><i class="far fa-heart">&nbsp;50</i>&nbsp;<i class="far fa-eye"></i>&nbsp;${division.recipe_cnt}</p>
-			  	</div>
-			  </div>
+				 <div class="card col-lg-3 col-md-3 col-12" style="width:13rem;margin:20px 0 24px 0">
+					  <a href="getRecipe.re?recipe_no=${ division.recipe_no }">
+					  	<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${division.recipe_complete_img}" alt="image" style="width: 255px;height: 280px;">
+					  </a>	
+				  	<div class="card-body">
+				    	<a href="getRecipe.re?recipe_no=${ division.recipe_no }">
+					    	<h4 class="card-title">${division.recipe_nm}</h4>
+					    </a>
+				    	<p class="card-text"><p class="card-text float-right"><i class="far fa-heart"></i><i class="far fa-eye"></i>${division.recipe_cnt}</p>
+				  	</div>
+				  </div>
 			</c:forEach> 
 		</div>
       </div>
@@ -36,7 +33,7 @@
       <!-- 페이징 -->
       
       <div class="container">	
-			<ul class="pagination pagination-sm">
+			<ul class="pagination">
 			<c:if test="${paging.prevpage != 0}">
 				<li class="page-item"><button class="page-link" data-page="${paging.prevpage}">&lt;&lt;</button></li> 
 			</c:if>

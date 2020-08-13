@@ -74,57 +74,52 @@ public class LoginApiController {
 		
 		// 네이버 로그인 성공 페이지 View 호출
 		String prev_url = (String)session.getAttribute("prev_url");
-		if(prev_url != null) {
+		if (prev_url != null) {
 			mav.setViewName("forward:/" + prev_url);
-		} else {
-			mav.setViewName("/client/member/loginNaver");			
 		}
 		logger.info("네이버 간편로그인 성공");
 		return mav;
 
 	}
 		
-	// 카카오 로그인
-	@RequestMapping(value = "/kakaoLogin", produces = "application/json", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public ModelAndView kakaoLogin(@RequestParam("code") String code, MemberVO vo, HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		// 결과값을 node에 담아줌
-		JsonNode node = KakaoAccessToken.getAccessToken(code);
-		// accessToken에 사용자의 로그인한 모든 정보가 들어있음
-		JsonNode accessToken = node.get("access_token");
-		// 사용자의 정보
-		JsonNode userInfo = KakaoAccessToken.getKakaoUserInfo(accessToken);
-		String kemail = null;
-		String kname = null;
-		String kgender = null;
-		String kbirthday = null;
-		String kage = null;
-		String kimage = null;
-		// 유저정보 카카오에서 가져오기 Get properties
-		JsonNode properties = userInfo.path("properties");
-		JsonNode kakao_account = userInfo.path("kakao_account");
-		kemail = kakao_account.path("email").asText();
-		kname = properties.path("nickname").asText();
-		kimage = properties.path("profile_image").asText();
-		kgender = kakao_account.path("gender").asText();
-		kbirthday = kakao_account.path("birthday").asText();
-		kage = kakao_account.path("age_range").asText();
-		session.setAttribute("kemail", kemail);
-		session.setAttribute("member_id", kname);
-		session.setAttribute("kimage", kimage);
-		session.setAttribute("kgender", kgender);
-		session.setAttribute("kbirthday", kbirthday);
-		session.setAttribute("kage", kage);
-
-		String prev_url = (String) session.getAttribute("prev_url");
-		if (prev_url != null) {
-			mav.setViewName("forward:/" + prev_url);
-		} else {
-			mav.setViewName("redirect:/");
-		}
-		logger.info("카카오 간편로그인 성공");
-		return mav;
-	}// end kakaoLogin()
+		// 카카오 로그인
+		@RequestMapping(value = "/kakaoLogin", produces = "application/json", method = { RequestMethod.GET,	RequestMethod.POST })
+		public ModelAndView kakaoLogin(@RequestParam("code") String code, MemberVO vo, HttpServletRequest request,
+				HttpServletResponse response, HttpSession session) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			// 결과값을 node에 담아줌
+			JsonNode node = KakaoAccessToken.getAccessToken(code);
+			// accessToken에 사용자의 로그인한 모든 정보가 들어있음
+			JsonNode accessToken = node.get("access_token");
+			// 사용자의 정보
+			JsonNode userInfo = KakaoAccessToken.getKakaoUserInfo(accessToken);
+			String kemail = null;
+			String kname = null;
+			String kgender = null;
+			String kbirthday = null;
+			String kage = null;
+			String kimage = null;
+			// 유저정보 카카오에서 가져오기 Get properties
+			JsonNode properties = userInfo.path("properties");
+			JsonNode kakao_account = userInfo.path("kakao_account");
+			kemail = kakao_account.path("email").asText();
+			kname = properties.path("nickname").asText();
+			kimage = properties.path("profile_image").asText();
+			kgender = kakao_account.path("gender").asText();
+			kbirthday = kakao_account.path("birthday").asText();
+			kage = kakao_account.path("age_range").asText();
+			session.setAttribute("kemail", kemail);
+			session.setAttribute("member_id", kname);
+			session.setAttribute("kimage", kimage);
+			session.setAttribute("kgender", kgender);
+			session.setAttribute("kbirthday", kbirthday);
+			session.setAttribute("kage", kage);
+			
+			String prev_url = (String)session.getAttribute("prev_url");
+			if (prev_url != null) {
+				mav.setViewName("forward:/" + prev_url);
+			}
+			logger.info("카카오 간편로그인 성공");
+			return mav;
+		}// end kakaoLogin()
 }

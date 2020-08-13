@@ -9,19 +9,13 @@ public interface NoticeService {
 	
 	void updateNotice(NoticeVO vo);
 	
-	// 조회수
-	void updateNoticeRC(int notice_sq);
-	
 	void deleteNotice(NoticeVO vo);
 	
 	// 글 상세
-	NoticeVO detailNotice(int notice_sq);
+	NoticeVO detailNotice(NoticeVO vo);
 	
 	// 글 List 조회
 	List<NoticeVO> getNoticeList(int pager);
-	
-	// 글 List 스크롤조회
-	List<NoticeVO> getNoticeListScroll(int pager);
 	
 	// Paging
 	int getListCount();

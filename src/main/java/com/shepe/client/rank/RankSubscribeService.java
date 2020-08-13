@@ -8,10 +8,6 @@ public interface RankSubscribeService {
 	
 	void deleteRankSubscribe(RankSubscribeVO rankSubscribevo);
 	
-	int updatePushCheckZero(RankSubscribeVO rankSubscribevo);
-	
-	int updatePushCheckPlus(RankSubscribeVO rankSubscribevo);
-	
 	RankSubscribeVO getRankSubscribe(RankSubscribeVO rankSubscribevo);
 	
 	List<RankSubscribeVO> getRankSubscribeList(RankSubscribeVO rankSubscribevo);

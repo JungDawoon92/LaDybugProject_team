@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/rank.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -33,10 +34,25 @@
 	<!-- 댓글 리스트 삽입 -->
 	</div>
 
-	<div id="paging" class="pagination justify-content-center">
+	<div id="paging" class="pagination">
 		<jsp:include page='adcommentListPaging.jsp' />
 	</div>	
 	
+	<form id="commentForm" action="insertComment.co.ad" method="post" enctype="multipart/form-data">
+		<input type="hidden" id="recipe_no" name="recipe_no" value="${ recipeDetail.recipe_no }" />
+		<input type="hidden" id="member_id" name="member_id" value="${ memberInfo.member_id }" />
+		<input type="hidden" id="member_nickname" name="member_nickname" value="${ memberInfo.member_nickname }" /><br>
+		<div class="form-group">
+			<div>
+				<textarea class="form-control" rows="5" id="comment_content" name="comment_content" placeholder="후기를 남겨주세요~" required></textarea>
+				<div class="custom-file pmd-custom-file-outline">
+					<input type="file" class="custom-file-input" id="coUploadFile" name="coUploadFile">
+					<label class="custom-file-label" for="coUploadFile">프로필사진</label>
+				</div>
+				<div class="pull-right"><br><button type="submit" class="btn btn-outline-dark">등록</button></div><div class="clearfix" />
+			</div>
+		</div>
+	</form>
 </div>
 <!-- 댓글 수정 modal -->
 <div class="modal fade" id="updateModal" role="dailog">
@@ -52,7 +68,7 @@
 				</div>
 				<div class="form-group">
 					<label for="member_nickname">작성자</label>
-					<span><strong>${ recipe.member_nickname }</strong></span>
+					<span><strong>${ memberInfo.member_nickname }</strong></span>
 				</div>
 				<div class="form-group">
 					<label for="comment_content">댓글 내용</label>
@@ -82,40 +98,33 @@ $(document).ready(function() {
 });
 
 function commentList(npage) {
-	var li_params = { recipe_no : "${recipe.recipe_no}", page : npage }
+	var li_params = { recipe_no : "${recipeDetail.recipe_no}", page : npage }
 	$.ajax({
 		url: "getCommentListAjax.co.ad",
 		type: "POST",
 		data: li_params,
 		dataType: "JSON",
 		success: function(result) {
-			
-			console.log(result);
-			var commentCnt = "${paging.listcount}";
+			var commentCnt = "${paging.listCount}";
 			var row = "";
 			var profile = "";
+			console.log(profile);
 			$("#commentList").empty();
 			$("#commentCnt").empty();
-			
-			if(result.length != 0) {
-				$.each(result, function(index, value){
-					profile = value.member_img;
-					row += "<div class='media border p-3'>";
-					row += "<img src='${pageContext.request.contextPath}/resources/img/profileImg/"+profile+"' alt='"+profile+"' class='mr-3 mt-3 rounded-circle' style='width:60px; height:60px;'>";
-					row += "<div class='media-body'>";
-					row += "<h5>"+value.member_nickname+"<small><i>&nbsp;&nbsp;&nbsp;"+value.comment_ymd+"&nbsp;&nbsp;&nbsp;</i>";
-					row += "<button type='button' class='btn btn-sm btn-outline-warning' data-toggle='modal' data-target='#updateModal' data-comment_sq="+value.comment_sq+" data-comment_content="+value.comment_content+">수정</button>";
-					row += "<div class='right'><input type='checkbox' class='check_one' name='delBtn' id="+value.comment_sq+"></div>"
-					row += "</small></h5><div class='clear'></div>";
-					row += "<pre class='wordbreak'>"+value.comment_content+"</pre>";
-					row += "</div></div>";
-				});
-				$("#commentList").append(row);
-				$("#commentCnt").append(commentCnt);
-			} else {
-				var nrow = "<h4>등록된 후기가 없습니다.</h4>";
-				$("#commentList").append(nrow);
-			}
+			$.each(result, function(index, value){
+				profile = value.member_img;
+				row += "<div class='media border p-3'>";
+				row += "<img src='${pageContext.request.contextPath}/resources/img/profileImg/"+profile+"' alt='"+profile+"' class='mr-3 mt-3 rounded-circle' style='width:60px; height:60px;'>";
+				row += "<div class='media-body'>";
+				row += "<h5>"+value.member_nickname+"<small><i>&nbsp;&nbsp;&nbsp;"+value.comment_ymd+"&nbsp;&nbsp;&nbsp;</i>";
+				row += "<button type='button' class='btn btn-sm btn-outline-warning' data-toggle='modal' data-target='#updateModal' data-comment_sq="+value.comment_sq+" data-comment_content="+value.comment_content+">수정</button>";
+				row += "<div class='right'><input type='checkbox' class='check_one' name='delBtn' id="+value.comment_sq+"></div>"
+				row += "</small></h5><div class='clear'></div>";
+				row += "<pre class='wordbreak'>"+value.comment_content+"</pre>";
+				row += "</div></div>";
+			});
+			$("#commentList").append(row);
+			$("#commentCnt").append(commentCnt);
 			
 		},
 		error: function(request, status, error) {
@@ -128,7 +137,7 @@ function updateCheck() {
 	var c_content = $('.modal-body textarea').val();
 	var c_sq = $('#comment_sq').val();
 	if(confirm('정말로 수정하시겠습니까?')) {
-		location.href='updateComment.co.ad?comment_content='+c_content+'&comment_sq='+c_sq+'&recipe_no='+'${recipe.recipe_no}';
+		location.href='updateComment.co.ad?comment_content='+c_content+'&comment_sq='+c_sq+'&recipe_no='+${recipeDetail.recipe_no};
 	}
 }
 
@@ -153,7 +162,7 @@ function deleteCheck() {
 		alert("삭제할 댓글을 선택하세요.");
 	} else {
 		if(confirm('정말로 삭제하시겠습니까?')) {
-			location.href="deleteComment.co.ad?recipe_no="+'${recipe.recipe_no}'+"&arr="+arr;
+			location.href="deleteComment.co.ad?recipe_no="+${recipeDetail.recipe_no}+"&arr="+arr;
 			$('#check_all').prop('checked', false);
 		}
 	}

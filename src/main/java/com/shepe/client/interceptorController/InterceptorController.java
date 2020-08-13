@@ -45,29 +45,19 @@ public class InterceptorController {
 		return "/client/member/memberUpdateView";
 	}
 	
-//	// 회원 상세 정보 확인 페이지
-//	@RequestMapping(value="/myPage/memberDetail.do", method = RequestMethod.POST)
-//	public String memberDetailPost(MemberVO vo, Model model, HttpSession session) throws Exception {
-//		logger.info("myPage Detail_Update");
-//		String member_id = (String) session.getAttribute("member_id");
-//		model.addAttribute("member", memberService.getMember(member_id));
-//		System.out.println("post"+ vo.toString());
-//		return "/client/member/memberUpdateView";
-//	}
-	
 	// 비밀번호 변경 페이지 이동
-	@RequestMapping(value = "/myPage/changePWD.do", method = RequestMethod.GET)
-	public String changePWD(MemberVO vo, Model model, HttpSession session) {
-		logger.info("myPage changePWD");
-		String member_id = (String) session.getAttribute("member_id");
-		model.addAttribute("member", memberService.getMember(member_id));
-		return "/client/member/changePWD";
-	}
+		@RequestMapping(value = "/myPage/changePWD.do", method = RequestMethod.GET)
+		public String changePWD(MemberVO vo, Model model, HttpSession session) {
+			logger.info("myPage changePWD");
+			String member_id = (String) session.getAttribute("member_id");
+			model.addAttribute("member", memberService.getMember(member_id));
+			return "/client/member/changePWD";
+		}
 
 	// 회원 탈퇴 페이지 이동
-	@RequestMapping(value="/myPage/memberDeleteView", method = RequestMethod.GET)
-	public String memberDeleteView() throws Exception{
-		logger.info("myPage memberDeleteView");
-		return "/client/member/memberDeleteView";
-	}
+		@RequestMapping(value="/myPage/memberDeleteView", method = RequestMethod.GET)
+		public String memberDeleteView() throws Exception{
+			logger.info("myPage memberDeleteView");
+			return "/client/member/memberDeleteView";
+		}
 }

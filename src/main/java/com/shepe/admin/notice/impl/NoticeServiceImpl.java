@@ -31,24 +31,13 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 	
 	@Override
-	public NoticeVO detailNotice(int notice_sq) {
-		System.out.println("SerIm DetailNotice");
-		return noticeDAO.detailNotice(notice_sq);
-	}
-	
-	@Override
-	public void updateNoticeRC(int notice_sq) {
-		noticeDAO.plusRC(notice_sq);
+	public NoticeVO detailNotice(NoticeVO vo) {
+		return noticeDAO.detailNotice(vo);
 	}
 	
 	@Override
 	public List<NoticeVO> getNoticeList(int pager) {
 		return noticeDAO.getNoticeList(pager);
-	}
-
-	@Override
-	public List<NoticeVO> getNoticeListScroll(int pager) {
-		return noticeDAO.getNoticeListScroll(pager);
 	}
 	
 	// Paging

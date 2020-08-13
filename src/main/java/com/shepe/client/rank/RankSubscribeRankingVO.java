@@ -12,8 +12,7 @@ public class RankSubscribeRankingVO {
 	
 	private int offset;
 	private String member_img;
-	private int push_check;
-	
+
 	
 	public String getMember_id() {
 		return member_id;
@@ -71,12 +70,11 @@ public class RankSubscribeRankingVO {
 		this.member_img = member_img;
 	}
 
-	public int getPush_check() {
-		return push_check;
-	}
-
-	public void setPush_check(int push_check) {
-		this.push_check = push_check;
+	@Override
+	public String toString() {
+		return "RankSubscribeRankingVO [member_id=" + member_id + ", member_nickname=" + member_nickname
+				+ ", member_sub_sum=" + member_sub_sum + ", rank_no=" + rank_no + ", rank_ymd=" + rank_ymd + ", offset="
+				+ offset + ", member_img=" + member_img + "]";
 	}
 	
 }

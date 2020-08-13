@@ -14,11 +14,14 @@
 
 <!-- Core Stylesheet -->
 <link href="http://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/recipeInsert.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/style.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/recipeInsert.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -34,7 +37,7 @@
 				<div>
 					
 					<!-- #### 기본 정보 #### -->
-					<div class="recipe-insert-back col-md-8 pull-left">
+					<div class="recipe-insert-back col-md-8">
 						<div class="recipe-insert-section">
 							<div class="recipe-detail-column">
 								<img class="recipe-insert-title comImege" src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${ recipe.recipe_complete_img }"><br>
@@ -44,8 +47,8 @@
 									${fn:replace(recipe.recipe_info, replaceChar, "<br/>")}
 								</div>
 								<div class="alignRight">
-									<%if((session.getAttribute("member_id")!=null)&&("${recipe.member_id}"!=null) ){%>
-										<%if( session.getAttribute("member_id").equals("${recipe.member_id}") ) { %>
+									<%if((session.getAttribute("member_id")!=null)&&(request.getAttribute("member_id")!=null) ){%>
+										<%if( session.getAttribute("member_id").equals(request.getAttribute("member_id")) ) { %>
 											<a class="btn btn-primary"
 											href="recipeInterceptor/recipeUpdate.re?recipe_no=${ recipe.recipe_no }">수정 하기
 											</a>
@@ -60,7 +63,7 @@
 					<!-- #### 기본 정보 #### -->
 					
 					<!-- #### 식재료 정보 #### -->
-					<div class="recipe-ingre-back col-md-4 pull-right">
+					<div class="recipe-ingre-back col-md-4">
 						<div class="recipe-insert-section">
 							<div class="recipe-detail-column">
 								<div class="recipe-insert-title">
@@ -78,7 +81,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="clearfix"></div>
 				<!-- #### 식재료 정보 #### -->
 			
 				<!-- 2 로우 -->
@@ -86,7 +88,7 @@
 					<div>
 						
 						<!--  #### 요리 과정 #### -->
-						<div class="recipe-insert-back col-md-8 pull-left">
+						<div class="recipe-insert-back col-md-8">
 							<div class="recipe-insert-section">
 							
 								<div class="recipe-insert-title">요리 과정</div>
@@ -108,7 +110,7 @@
 						</div>
 						
 						<!--  #### 재료 정보 #### -->
-						<div class="recipe-ingre-back col-md-4 pull-right">
+						<div class="recipe-ingre-back col-md-4">
 							<div class="recipe-insert-section">
 						
 							<div class="recipe-insert-title">쇼핑 하기 <br>
@@ -225,14 +227,6 @@
 				
 			</div>
 		</section>
-	</div>
-	<div class="clearfix"></div>
-	
-	<div class="container">
-		<jsp:include page="../comment/rankInfomation.jsp" />
-	</div>
-	<div>
-		<jsp:include page="../comment/commentList.jsp" />
 	</div>
 
 	<script src="<c:url value ="/resources/js/recipe/recipe.js" />"></script>

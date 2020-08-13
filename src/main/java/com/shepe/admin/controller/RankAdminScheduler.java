@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.shepe.admin.rank.RankLikeRankingAdminService;
 import com.shepe.admin.rank.RankLikeRankingAdminVO;
-import com.shepe.admin.rank.RankSellIngredientRankingAdminService;
-import com.shepe.admin.rank.RankSellIngredientRankingAdminVO;
-import com.shepe.admin.rank.RankSellRecipeRankingAdminService;
-import com.shepe.admin.rank.RankSellRecipeRankingAdminVO;
 import com.shepe.admin.rank.RankSubscribeRankingAdminService;
 import com.shepe.admin.rank.RankSubscribeRankingAdminVO;
 
@@ -22,12 +18,8 @@ public class RankAdminScheduler {
 	private RankLikeRankingAdminService rankLikeRankingService;
 	@Autowired
 	private RankSubscribeRankingAdminService rankSubscribeRankingService;
-	@Autowired
-	private RankSellIngredientRankingAdminService rankSellIngredientRankingService;
-	@Autowired
-	private RankSellRecipeRankingAdminService rankSellRecipeRankingService;
 	
-	@Scheduled(cron="00 46 10 * * *")
+	@Scheduled(cron="00 35 09 * * *")
 	public void insertRankLikeRanking () {
 		System.out.println("좋아요 insert 시작합니다.");
 		
@@ -46,7 +38,7 @@ public class RankAdminScheduler {
 	}
 	
 	
-	@Scheduled(cron="00 46 10 * * *")
+	@Scheduled(cron="00 35 09 * * *")
 	public void insertRankSubscribeRanking () {
 		System.out.println("구독 insert 시작합니다.");
 		
@@ -61,45 +53,6 @@ public class RankAdminScheduler {
 			subRankingvo.setMember_id(subList.get(i).getMember_id());
 			subList.set(i, subRankingvo);
 			rankSubscribeRankingService.updateRankSubscribeRanking(subRankingvo);
-		}
-	}
-	
-	/* 식재료 인서트 */
-	@Scheduled(cron="00 46 10 * * *")
-	public void insertRankSellIngredientRanking () {
-		System.out.println("식재료 insert 시작합니다.");
-		
-		RankSellIngredientRankingAdminVO ingreRankingvo = new RankSellIngredientRankingAdminVO();
-		
-		rankSellIngredientRankingService.insertRankSellIngredientRanking(ingreRankingvo);
-		
-		List<RankSellIngredientRankingAdminVO> ingreList = rankSellIngredientRankingService.getIngredientRankList(ingreRankingvo);
-		
-		for(int i=0; i<ingreList.size(); i++) {
-			ingreRankingvo.setRank_no(i +1);
-			ingreRankingvo.setIngredient_nm(ingreList.get(i).getIngredient_nm());
-			ingreList.set(i, ingreRankingvo);
-			rankSellIngredientRankingService.updateRankSellIngredientRanking(ingreRankingvo);
-		}
-	}
-	
-	
-	/* 레시피 리스트 인서트 */
-	@Scheduled(cron="00 46 10 * * *")
-	public void insertRankSellRecipeRanking () {
-		System.out.println("레시피 insert 시작합니다.");
-		
-		RankSellRecipeRankingAdminVO recipeRankingvo = new RankSellRecipeRankingAdminVO();
-		
-		rankSellRecipeRankingService.insertRankSellRecipeRanking(recipeRankingvo);
-		
-		List<RankSellRecipeRankingAdminVO> recipeList = rankSellRecipeRankingService.getRecipeRankList(recipeRankingvo);
-		
-		for(int i=0; i<recipeList.size(); i++) {
-			recipeRankingvo.setRank_no(i +1);
-			recipeRankingvo.setRecipe_nm(recipeList.get(i).getRecipe_nm());
-			recipeList.set(i, recipeRankingvo);
-			rankSellRecipeRankingService.updateRankSellRecipeRanking(recipeRankingvo);
 		}
 	}
 }

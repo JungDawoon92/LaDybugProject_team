@@ -244,7 +244,7 @@ public class RecipeClientInterceptorController {
 		if (vo.getWhere().equals("recipe")) {
 			return "redirect:/getRecipe.re";
 		} else {
-			return "redirect:/cartList";
+			return "client/recipe/basket";
 		}
 	}
 	

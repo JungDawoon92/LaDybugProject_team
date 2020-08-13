@@ -26,11 +26,6 @@ public class FaqServiceImpl implements FaqService {
 	}
 	
 	@Override
-	public void updateFaqRC(int faq_sq) {
-		faqDAO.plusRC(faq_sq);
-	}
-	
-	@Override
 	public void deleteFaq(FaqVO vo) {
 		faqDAO.deleteFaq(vo);
 	}
@@ -45,11 +40,7 @@ public class FaqServiceImpl implements FaqService {
 		return faqDAO.getFaqList(pager);
 	}
 	
-	public List<FaqVO> getFaqRC(){
-		return faqDAO.getFaqRC();
-		
 	// Paging
-	}
 	public int getListCount() {
 		return faqDAO.getListCount(); 
 	}

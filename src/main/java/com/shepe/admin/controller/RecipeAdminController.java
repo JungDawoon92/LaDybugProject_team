@@ -25,26 +25,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
-import com.shepe.admin.comment.CommentAdminService;
-import com.shepe.admin.comment.CommentAdminVO;
 import com.shepe.admin.recipe.RecipeListVO;
 import com.shepe.admin.recipe.RecipePageMaker;
 import com.shepe.client.recipe.RecipeService;
 import com.shepe.client.recipe.RecipeVO;
-import com.shepe.commons.CommonRankPaging;
-import com.shepe.commons.PagingVO;
 
 @Controller
 public class RecipeAdminController {
 	
 	@Autowired
 	private RecipeService recipeService;
-	
-	/* rank 추가부분 */
-	@Autowired
-	private CommentAdminService commentService;
-	@Autowired
-	private CommonRankPaging commonpaging;
 	
 	// 임시 관리자 로그인 폼
 	@RequestMapping(value="/admin/login.adre", method=RequestMethod.GET)
@@ -86,7 +76,8 @@ public class RecipeAdminController {
 	
 	// 레시피 상세 조회
 	@RequestMapping("/admin/getRecipe.adre")
-	public String getRecipe(RecipeVO vo, CommentAdminVO commentvo, PagingVO po, Model model) throws IllegalStateException, IOException {
+	public String getRecipe(RecipeVO vo, Model model) throws IllegalStateException, IOException {
+		
 		// 카운트 증가
 		recipeService.recipeCntUpdate(vo);
 		
@@ -100,18 +91,6 @@ public class RecipeAdminController {
 		// 과정 리스트
 		model.addAttribute("recipeProcessList", recipeService.getRecipeProcessList(vo));
 		
-		/* rank 추가부분 */
-		
-		int pager = 1;
-		commentvo.setRecipe_no(vo.getRecipe_no());
-		
-		int listCnt = commentService.getCommentCnt(commentvo);
-		commonpaging.setROW_PER_PAGE(10);
-		int offset = (pager - 1) * commonpaging.getROW_PER_PAGE();
-		commentvo.setOffset(offset);
-		
-		model.addAttribute("paging", commonpaging.paging(pager, listCnt, po));
-
 		return "admin/recipe/adminRecipeDetail";
 	}
 	
