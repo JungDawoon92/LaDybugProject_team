@@ -16,11 +16,8 @@ public class OrderDAOMybatis{
 	
 	public void insertOrder(Map<String, Object> map) throws Exception {
 		mybatis.insert("OrderDAO.insertOrderInfo", map.get("orderInfo"));
-		System.out.println(map.get("orderItemList"));
 		mybatis.insert("OrderDAO.insertOrderIngredient", (List<?>) map.get("orderItemList"));	
-		System.out.println("4444");
 		mybatis.insert("OrderDAO.insertOrderMember", map.get("orderMember"));
-		System.out.println("555");
 	}
 	
 	public int updatePaymentCompleted(String order_no) {

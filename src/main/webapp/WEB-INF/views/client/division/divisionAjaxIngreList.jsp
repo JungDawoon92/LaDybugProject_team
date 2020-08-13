@@ -15,7 +15,7 @@
 	 <div class="container">
 		<div class="row">
 			<c:forEach items="${ajaxingrelist}" var="division">
-			  <div class="card col-lg-3 col-md-3 col-6" style="width:13rem; margin:20px 0 24px 0">
+			  <div class="card col-lg-3 col-md-3 col-12" style="width:13rem; margin:20px 0 24px 0">
 			  	<a href="clientDetail.do?ingredient_no=${division.ingredient_no}&ingredient_categ=${division.ingredient_categ}&ingredient_thumbName=${division.ingredient_thumbName}">
 				  	<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/ingredient-img/${division.ingredient_thumbName}" alt="image" style="width: 255px;height: 350px;">
 				  </a>

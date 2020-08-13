@@ -22,7 +22,10 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/adminNav.jsp" />
+	<jsp:include page="/WEB-INF/include/chartNav.jsp" />
 	
+<div class="container">
+
 	<div style="text-align:center; margin-top: 20px;">
 		<canvas id="likeCanvas" style="height: 450px; width: 450px; display: inline-block;"></canvas>
 
@@ -30,6 +33,7 @@
 
 		<canvas id="howCanvas" style="height: 450px; width: 450px; display: inline-block;"></canvas>
 	</div>
+</div>
 </body>
 <!-- 종류별 -->
 <script>

@@ -2,6 +2,31 @@ th, td {
 	padding: 11px 0px 5px !important;
 }
 
+.required em:after {
+	content: "*";
+	color: red;
+}
+
+.code {
+	position:relative;
+	padding-right:80px;
+}
+
+.bt {
+	position: absolute;
+	display: block;
+	top: 0px;
+	right: 0px;
+	height: 35px;
+	border-radius: 2px;
+	text-align: center;
+	padding: 0px 11px;
+	background-color: rgba(0,0,0,0.05);
+	font-size: 13px;
+	color: #fff;
+	line-height: 35px;
+}
+
 .inp_phone li:first-child:before {
 	width: 0px !important;
 	height: 0px !important;

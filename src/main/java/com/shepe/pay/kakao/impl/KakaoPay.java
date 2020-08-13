@@ -120,7 +120,7 @@ public class KakaoPay {
             logger.info("debug ---------" + kakaoPayApprovalVO.toString());
             
             kakaoPayDAO.insertKakaoPay(kakaoPayApprovalVO);
-            new Exception();
+
             return kakaoPayApprovalVO;
         } catch (Exception e) {
         	e.printStackTrace();

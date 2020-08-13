@@ -288,7 +288,7 @@
 						'<img src="/shepe/resources/chatcss/hello.png" class="m-avatar message__avatar" />'+
 		  				'<div class="message__content">' +
 		  				'<span class="message__bubble" style="word-break:break-all;">' +
-		  				'<button type="button" class="btn btn-secondary buttonlock" onclick="replayboot()">메뉴</button><button type="button" class="btn btn-secondary buttonlock" onclick="adminchat()">상담원연결</button>'+
+		  				'<button type="button" class="btn btn-secondary buttonlock" onclick="replayboot()" style=" margin-right: 10px; ">메뉴</button><button type="button" class="btn btn-secondary buttonlock" onclick="adminchat()">상담원연결</button>'+
 		  				'</span>' +
 		  				'<span class="message__author">lady</span>'+
 		  				'</div>' +
@@ -396,7 +396,7 @@ function faq_btnclick(faqselect) {
 			dataType: "JSON",
 			success : function(result) {
 				$.each(result, function(index, value){
-			    	cate += '<button type="button" class="btn btn-secondary" onclick=javascript:faq_detail(\"'+ value.faq_category +'\",\"'+ value.faq_sq +'\",\"'+ value.faq_nm.replace(/ /gi, "&nbsp;") +'\")>' + value.faq_nm + '</button>'
+			    	cate += '<button type="button" class="btn btn-secondary" style="margin-top: 10px;" onclick=javascript:faq_detail(\"'+ value.faq_category +'\",\"'+ value.faq_sq +'\",\"'+ value.faq_nm.replace(/ /gi, "&nbsp;") +'\")>' + value.faq_nm + '</button>'
                 });
 			    	$('.chat__messages').append(
 			        	'<li class="incoming-message message">' + 
@@ -461,13 +461,20 @@ function faq_detail(faq_category,faq_sq, faq_nm) {
 				'<div class="message__content">' +
 				'<span class="message__bubble" style="word-break:break-all;">' +
 				result.faq_contents + '<br>' +
-				'<div text-align: "center"><button type="button" class="btn btn-secondary dodo" onclick="replayboot()">메뉴</button>' +
-				'<button type="button" class="btn btn-secondary" onclick="adminchat()">상담원연결</button></div>' +
 				'</span>' +
 				'<span class="message__author">lady</span>'+
 				'</div>' +
 				'<div class="media-body">' +
-				' </li>' 
+				' </li>' +
+				'<li class="incoming-message message">' + 
+				'<img src="/shepe/resources/chatcss/hello.png" class="m-avatar message__avatar" />'+
+  				'<div class="message__content">' +
+  				'<span class="message__bubble" style="word-break:break-all;">' +
+  				'<button type="button" class="btn btn-secondary buttonlock" onclick="replayboot()" style=" margin-right: 10px; ">메뉴</button><button type="button" class="btn btn-secondary buttonlock" onclick="adminchat()">상담원연결</button>'+
+  				'</span>' +
+  				'<span class="message__author">lady</span>'+
+  				'</div>' +
+  				' </li>'		
 		        );
 
 				$.ajax({

@@ -29,6 +29,9 @@
 </style>
 <body>
 <jsp:include page="/WEB-INF/include/adminNav.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/include/chartNav.jsp" />
+<div class="container">
+
 <div class="joinContainer">
 
 	<div>
@@ -48,6 +51,7 @@
 	<div>
 		<canvas id="ageCanvas" style="height:30vw; width:33vw; margin: auto;"></canvas>
 	</div>
+</div>
 </div>
 </body>
 <script>

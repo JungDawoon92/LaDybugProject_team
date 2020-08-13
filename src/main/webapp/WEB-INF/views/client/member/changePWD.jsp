@@ -101,7 +101,7 @@
 						if(confirm("비밀번호를 변경하시겠습니까?")) {
 							$('#changeSubmit').attr("disabled", false);							
 							$("#changeForm").submit();
-							alert('비밀번호를 변경 하였습니다. 재로그인 부탁드립니다.')
+							alert('비밀번호를 변경 하였습니다. 재로그인 부탁드립니다.');
 						} else {
 							return false;
 						}

@@ -20,16 +20,16 @@
 	
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link" id="likeList" href="getRankLikeRankingListToday.rk">추천 레시피</a>
+			<a class="nav-link" id="likeList" href="getRankLikeRankingListToday.rk">좋아요 TOP 레시피</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="subList" href="getRankSubscribeRankingListToday.rk">쉐프</a>
+			<a class="nav-link" id="subList" href="getRankSubscribeRankingListToday.rk">구독자 TOP 쉐프</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link active" id="recipeList" href="getRankSellRecipeRankingList.rk">레시피</a>
+			<a class="nav-link active" id="recipeList" href="getRankSellRecipeRankingList.rk">판매량 TOP 레시피</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="ingredientList" href="getRankSellIngredientRankingList.rk">식재료</a>
+			<a class="nav-link" id="ingredientList" href="getRankSellIngredientRankingList.rk">판매량 TOP 식재료</a>
 		</li>
 	</ul>
 	<div class="clearfix"></div>

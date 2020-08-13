@@ -207,9 +207,9 @@ h3 div{display:inline;}
 								
 									<div>
 										판매가 :
-										<h5 style="display: inline;">
+										<h6 style="display: inline;">
 											<fmt:formatNumber type="number"  value="${ingredient.ingredient_price}" />원
-										</h5>
+										</h6>
 									</div>
 									<input type="hidden" id="ingredient_price" name="ingredient_price" class="ingredient_price" value="${ingredient.ingredient_price}" readonly="readonly" style="border: 1px"> 
 										<b>카테고리 : ${ingredient.ingredient_categ}류</b> 
@@ -414,7 +414,7 @@ h3 div{display:inline;}
 											<div class="receipe-content">
 												<a href="receipe-post.html">
 													<h5>
-														<a href="clientDetail.do?ingredient_no=${po.ingredient_no}&ingredient_categ=${po.ingredient_categ}">${po.ingredient_nm}</a>
+														<a href="clientDetail.do?ingredient_no=${po.ingredient_no}&ingredient_categ=${po.ingredient_categ}&ingredient_thumbName=${po.ingredient_thumbName}">${po.ingredient_nm}</a>
 														${result}
 													</h5>
 													<h6>
@@ -440,43 +440,7 @@ h3 div{display:inline;}
 					</c:choose>
 					<br><br><br>
 				</div>
-				<div class="row">
-					<div class="col-12">
-						<div class="section-heading text-left">
-							<h3>Leave a comment</h3>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<div class="contact-form-area">
-							<form action="#" method="post">
-								<div class="row">
-									<div class="col-12 col-lg-6">
-										<input type="text" class="form-control" id="name"
-											placeholder="Name">
-									</div>
-									<div class="col-12 col-lg-6">
-										<input type="email" class="form-control" id="email"
-											placeholder="E-mail">
-									</div>
-									<div class="col-12">
-										<input type="text" class="form-control" id="subject"
-											placeholder="Subject">
-									</div>
-									<div class="col-12">
-										<textarea name="message" class="form-control" id="message"
-											cols="30" rows="10" placeholder="Message"></textarea>
-									</div>
-									<div class="col-12">
-										<button class="btn delicious-btn mt-30" type="submit">Post
-											Comments</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+		
 			</div>
 		</div>
 	</div>

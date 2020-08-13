@@ -288,7 +288,7 @@ public class MemberController {
    }   
    
    // 비밀번호 변경
-   @RequestMapping(value = "updatePWD.do", method = RequestMethod.POST)
+   @RequestMapping(value = "/myPage/updatePWD.do", method = RequestMethod.POST)
    public ModelAndView getupdatePWD(MemberVO vo, HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException, MessagingException {      
       ModelAndView mav = new ModelAndView();
       memberService.updatePW(vo, request);

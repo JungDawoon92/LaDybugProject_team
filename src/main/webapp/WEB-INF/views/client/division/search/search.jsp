@@ -95,8 +95,9 @@
 									
 									<c:forEach items="${search_inList}" var="inList">
 									<div class="search-item">
-                                        <h4 class="mb-1"><a href="clientDetail.do?ingredient_no=${inList.ingredient_no}&ingredient_categ=${inList.ingredient_categ}">${inList.ingredient_nm}</a></h4>
-                                        <div class="font-13 text-success mb-3"><a href="clientDetail.do?ingredient_no=${inList.ingredient_no}&ingredient_categ=${inList.ingredient_categ}">http://localhost:8090/shepe/ingredient_no=${inList.ingredient_no}</a></div>
+                                        <h4 class="mb-1"><a href="clientDetail.do?ingredient_no=${inList.ingredient_no}&ingredient_categ=${inList.ingredient_categ}&ingredient_thumbName=${inList.ingredient_thumbName}">${inList.ingredient_nm}</a></h4>
+                                        <div class="font-13 text-success mb-3"><a href="clientDetail.do?ingredient_no=${inList.ingredient_no}&ingredient_categ=${inList.ingredient_categ}&ingredient_thumbName=${inList.ingredient_thumbName}">http://localhost:8090/shepe/
+                                        </a></div>
                                         <p class="mb-0 text-muted">${inList.ingredient_nm}, <fmt:formatNumber type="number" maxFractionDigits="3" value="${inList.ingredient_price}" />원</p>
                                     </div>
 									</c:forEach>

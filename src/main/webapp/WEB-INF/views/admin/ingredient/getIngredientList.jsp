@@ -47,7 +47,6 @@ img {
 <body>
 <jsp:include page="/WEB-INF/include/adminNav.jsp" />
 	<h1>식재료 리스트페이지 입니다.</h1>
-	<a href="ingredientChart.co" class="btn btn-success">그래프 보깅</a>
 	<form id="sexy" onsubmit="return false">  <!--action="getIngredientList.co" method="post"--> 
 		<table>
 			<tr>

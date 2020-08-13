@@ -175,7 +175,7 @@ public class CommonChatDAO {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("userID", userID);
 			map.put("chatroomnum", chatroomnum);
-			return mybatis.selectOne("CommonChatDAO.selectChatroomnum", map);
+			return mybatis.selectOne("CommonChatDAO.selectchatroomDate", map);
 		}
 		
 	}

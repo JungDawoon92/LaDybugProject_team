@@ -43,7 +43,7 @@ $(document).ready(function(){
             },
             success: function(data) {
             	alert('발송된 임시 비밀번호로 로그인 바랍니다.');
-            	location.href = "index.jsp";
+            	location.href = "/shepe/";
             }
         });    //end ajax    
     });    //end on   

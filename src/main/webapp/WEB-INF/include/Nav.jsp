@@ -63,6 +63,7 @@
 								<a href="/shepe/login.do">로그인</a>
 								<a href="/shepe/joinOption.do">회원가입</a> 
 								<a href="/shepe/cartList">장바구니</a>
+								<a href="kakaoPayCancel">qweqwe</a>
 							</div>
 						</c:if>
 						<c:if test="${ sessionScope.member_id != null}">

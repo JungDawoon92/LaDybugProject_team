@@ -18,7 +18,7 @@
 
 .menu-nav ul li {
 	display: inline-block;
-    width: 50%;
+    width: 33.33333%;
     vertical-align: middle;
     white-space: nowrap;
     text-align: center;
@@ -54,6 +54,7 @@
 				<c:if test="${ sessionScope.member_id != null }">
 					<li><a id="paymentHistory" href="/shepe/myPage/orderHistory">구매내역</a></li>				
 					<li><a id="memberInfo" href="/shepe/myPage/memberDetail.do">정보 수정</a></li>
+					<li><a id="memberInfo" href="/shepe/getMyLikeList.rk">나의 활동내역</a></li>
 				</c:if>
 				<c:if test="${ sessionScope.member_id == null }">
 					<li><a id="paymentHistory" href="/shepe/myPage/orderHistory">구매내역</a></li>

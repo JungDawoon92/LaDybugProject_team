@@ -31,14 +31,12 @@
 	 	WHERE order_no = #{order_no} 
 	</update>
 	
-	<delete id="deletePaymentFail" parameterType="String">
-		<if test="order_no != null">
-			DELETE T1, T2, T3 
-			FROM ORDER_INFO T1 INNER JOIN ORDER_INGREDIENT T2 INNER JOIN ORDER_MEMBER T3 
-			ON T1.order_no = T2.order_no 
-			AND T2.order_no = T3.order_no 
-			WHERE T1.order_no = #{order_no}
-		</if>
+	<delete id="deletePaymentFail" parameterType="java.lang.String">
+		DELETE T1, T2, T3 
+		FROM ORDER_INFO T1 INNER JOIN ORDER_INGREDIENT T2 INNER JOIN ORDER_MEMBER T3 
+		ON T1.order_no = T2.order_no 
+		AND T2.order_no = T3.order_no 
+		WHERE T1.order_no = #{order_no}
 	</delete>
 	
 	<resultMap id="order" type="com.shepe.client.order.OrderVO">

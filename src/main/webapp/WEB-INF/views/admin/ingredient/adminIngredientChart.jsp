@@ -26,7 +26,9 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/include/adminNav.jsp" />
+<jsp:include page="/WEB-INF/include/chartNav.jsp" />
 <div class="container">
+
 	<h5>&lt식재료 카테고리별 유입차트&gt</h5>
 	<div>
 		<canvas id="categCanvas" style="height:30vw; width:50vw; margin:auto"></canvas>

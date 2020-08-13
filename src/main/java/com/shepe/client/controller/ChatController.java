@@ -53,7 +53,7 @@ public class ChatController {
 		int a = chatService.selectChatroomnum(userID);
 
 			session.setAttribute("consultRoomNum", a);
-
+			System.out.println(a);
 		return a;
 	}
 	
@@ -163,6 +163,7 @@ public class ChatController {
 	@RequestMapping(value="/chatUnread",produces = "application/text; charset=utf8", method=RequestMethod.POST)
 	@ResponseBody
 	public String chatUnread(@RequestParam String userID) throws IOException {
+		System.out.println("여기타나? 폴링");
 
 		if(userID == null || userID.equals("")) {
 			return "0";

@@ -56,6 +56,8 @@ public class FaqDAO {
 	}
 	
 	public List<FaqVO> getAjaxFaqList(String choice) {
+		
+		choice = choice.substring(0,1);
 		if(choice.equals("1")) {
 			return mybatis.selectList("FaqDAO.getFaqList", 0);
 		}

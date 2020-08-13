@@ -12,6 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/shepe/resources/css/mypage.css" type="text/css">
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -93,13 +94,12 @@ function delSubscribe(member_id) {
 </script>
 </head>
 <body>
-<div class="container">
+<div class="container wrapper">
 
 	<jsp:include page="/WEB-INF/include/Nav.jsp" />
 	
-	<div class="col-md-3"><jsp:include page="/WEB-INF/include/myPageMenu.jsp" /></div>
+	<div><jsp:include page="/WEB-INF/include/myPageMenu.jsp" /></div>
 	
-	<div class="col-md-9">
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item">
 			<a class="nav-link" id="likeList" href="/shepe/getMyLikeList.rk">추천중인 레시피</a>
@@ -140,7 +140,6 @@ function delSubscribe(member_id) {
 			</div>
 		</div>
 		</c:forEach>
-	</div>
 	</div>
 </div>
 </body>

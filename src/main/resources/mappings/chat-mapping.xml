@@ -106,7 +106,13 @@
 		]]>
 	</update>
 	
-	<select id="selectChatroomnum" resultType="String">
+	<select id="selectChatroomnum" resultType="int">
+		<![CDATA[
+			SELECT ifnull(max(chatroomnum),0) FROM chatroom WHERE (userid = #{userID} AND chatcomplete = 0);
+		]]>
+	</select>
+	
+	<select id="selectchatroomDate" resultType="String">
 		<![CDATA[
 			SELECT chatdate FROM chatroom WHERE userid=#{userID} AND chatroomnum = #{chatroomnum}
 		]]>

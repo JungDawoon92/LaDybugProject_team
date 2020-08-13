@@ -69,7 +69,7 @@ public class PaymentController {
         return "api/kakao/pay/KakaoPayHistory";
     }
     
-    @RequestMapping(value="/kakaoPayCancel", method=RequestMethod.POST)
+    @RequestMapping(value="/kakaoPayCancel", method=RequestMethod.GET)
     public String kakaoPayOrderCancel(@RequestParam String order_no, Model model) {
     	logger.info("kakaoPayOrderCancel post............................................");
     	

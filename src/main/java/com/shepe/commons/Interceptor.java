@@ -18,11 +18,9 @@ public class Interceptor extends HandlerInterceptorAdapter {
 //		System.out.println(queryStr);		
 		
 		HttpSession session = request.getSession();
-		String memberVO = (String) session.getAttribute("member_id");
-		String naverVO = (String) session.getAttribute("nname");
-		String kakaoVO = (String) session.getAttribute("kname");
+		String IsLogin = (String) session.getAttribute("member_id");
 
-		if (memberVO == null && kakaoVO == null && naverVO == null) {
+		if (IsLogin == null) {
 //			session.setAttribute("prev_url", path+"?"+queryStr);
 			session.setAttribute("prev_url", path);
 			response.sendRedirect("/shepe/login.do");

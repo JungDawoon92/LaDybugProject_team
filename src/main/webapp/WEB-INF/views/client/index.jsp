@@ -140,7 +140,7 @@
 				<c:forEach var="likeList" items="${ likeRankingList }" varStatus="status" begin="0" end="5">
 					<div class="col-12 col-sm-6 col-lg-4">
 						<div class="single-best-receipe-area mb-30">
-							<a href='getTestRecipe.re?recipe_no=${ likeList.recipe_no }'>
+							<a href='getRecipe.re?recipe_no=${ likeList.recipe_no }'>
 								<img src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${ likeList.recipe_complete_img }" alt='${ likeList.recipe_complete_img }' style='width:350px; height:300px;'>
 							</a>
 							<div class="receipe-content">
@@ -173,7 +173,7 @@
 						</div>
 						<div class="receipe-content">
 							<span style="color: #f50920;">No.${ ingreList.rank_no }</span>
-							<a href='getChefRecipeList.re?member_id=${ ingreList.ingredient_nm }'>
+							<a href='getRankSellIngredientRankingList.rk'>
 							<h5>${ ingreList.ingredient_nm }</h5>
 							</a>
 							<i class="fa fa-fire font-italic" aria-hidden="true">${ ingreList.ingredient_sell_sum }</i>

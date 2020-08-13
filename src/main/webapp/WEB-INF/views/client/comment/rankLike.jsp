@@ -19,7 +19,7 @@
 		</c:when>
 		<c:otherwise>
 			<button type="button" class="btn btn-outline-warning" id="likeBtn" onclick="checkLike()">
-				<span><i class="fa fa-plus" aria-hidden="true">레시피 추천</i></span>
+				<span><i class="fa fa-plus" aria-hidden="true">좋아요</i></span>
 			</button>
 		</c:otherwise>
 	</c:choose>	
