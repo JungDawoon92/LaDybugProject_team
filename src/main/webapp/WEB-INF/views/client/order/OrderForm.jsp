@@ -142,13 +142,13 @@
 					</div>
 				</div>
 				<h3 class="order_title">
-					<a href="#order_info" data-toggle="collapse" data-target="#order_info">주문자<span class="summary">qwer</span></a>
+					<a href="#order_info" data-toggle="collapse" data-target="#order_info">주문자<span class="summary">${member.member_nickname}</span></a>
 				</h3>
 				<div id="order_info" class="collapse">
 					<dl>
-						<dt>${member_nm }</dt>
-						<dd><em>${member_phone }</em></dd>
-						<dd><em>${member_email }@${member_domain }</em></dd>
+						<dt>${member.member_nm }</dt>
+						<dd><em>${member.member_phone }</em></dd>
+						<dd><em>${member.member_email }@${member.member_email_domain }</em></dd>
 					</dl>
 				</div>
 				<h3 class="order_title">

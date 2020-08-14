@@ -13,41 +13,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
-<style>
-	.joinContainer {
-		float:left;
-		width: 33%;
-	}
-	.loginContainer {
-		float:left;
-		width: 33%;
-	}
-	.ageContainer {
-		float:left;
-		width: 33%;
-	}
-</style>
+
 <body>
 <jsp:include page="/WEB-INF/include/adminNav.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/include/chartNav.jsp" />
 <div class="container">
 
-<div class="joinContainer">
-
-	<div>
+<div class="d-flex justify-content-around mb-3">
+	<div class="chart-container p-2">
 		<canvas id="birthCanvas" style="height:30vw; width:33vw; margin: auto;"></canvas>
 	</div>
-</div>
-
-<div class="loginContainer">
-
-	<div>
+	<div class="chart-container p-2">
 		<canvas id="loginCanvas" style="height:30vw; width:33vw; margin: auto;"></canvas>
 	</div>
 </div>
-
 <div class="ageContainer">
-
 	<div>
 		<canvas id="ageCanvas" style="height:30vw; width:33vw; margin: auto;"></canvas>
 	</div>

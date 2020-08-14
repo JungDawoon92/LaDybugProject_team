@@ -78,7 +78,7 @@
 		<li class="nav-item dropdown">
 			<a id="9" class="nav-link dropdown-toggle" href="" data-toggle="dropdown">봇 통계 차트</a>
 			<div class="dropdown-menu">
-				<a class="dropdown-item" href="#">봇 통계 차트 url</a>
+				<a class="dropdown-item" href="bootChart">봇 통계 차트 url</a>
 			</div>
 		</li>
 		<li class="nav-item dropdown">

@@ -46,7 +46,7 @@
 <div class="chart-container p-2">
 	<canvas id="search_week_searchAmount" class="canvases" width="500" height="250"></canvas>
 </div>
-</div>
+</div>	
 
 </div>
 

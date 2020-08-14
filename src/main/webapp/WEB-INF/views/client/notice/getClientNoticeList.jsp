@@ -158,5 +158,15 @@ $(document).ready(function(){
 		</ul>
 	</div>
 	</div>
+	
+	<jsp:include page="../division/chat/chatModule_index.jsp"></jsp:include>
+		
+<script>
+(function() {
+	var hidechat = $("#togglechat");
+	$(hidechat).hide();
+}());
+</script>
+
 </body>
 </html>

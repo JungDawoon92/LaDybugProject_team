@@ -33,9 +33,7 @@
   </style>
 </head>
 <body>
-
 <jsp:include page="/WEB-INF/include/Nav.jsp" />
-<div class="container">
 <div class="container">
   <table class="table">
     <tr>
@@ -104,7 +102,6 @@
     </tr>
 </table>
 <hr>
-</div>
 	<div class="titleRight">
 		<a href="recipeInterceptor/recipeInsert.re">
 			<button class="btn btn-success">레시피 등록</button>
@@ -173,18 +170,15 @@
 			</ul>
 		</div>
      </div>
-     
-<jsp:include page="chat/chatModule_index.jsp"></jsp:include>
+     <jsp:include page="chat/chatModule_index.jsp"></jsp:include>
+	<script>
+		(function() {
+			var hidechat = $("#togglechat");
+			$(hidechat).hide();
+		}());
+	</script>
+</div>
 
-		</div>
-
-<script>
-(function() {
-	var hidechat = $("#togglechat");
-	$(hidechat).hide();
-}());
-</script>
-     
      
      
 <script>

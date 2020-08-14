@@ -38,6 +38,7 @@ public class RecipeClientController {
 	@Autowired
 	private RankSubscribeService rankSubService;
 	
+	
 	// 임시 로그인 폼
 	@RequestMapping(value="/login.re", method=RequestMethod.GET)
 	public String loginForm() {
@@ -82,7 +83,7 @@ public class RecipeClientController {
 		RecipeVO recipeDetail = recipeService.getRecipe(vo);
 		model.addAttribute("recipe", recipeDetail);	
 		
-//		model.addAttribute("member_id", recipeDetail.getMember_id());
+		model.addAttribute("recipe_id", recipeDetail.getMember_id()); //수정버튼용 레시피 아이디 확인
 		
 		// 식재료 리스트
 		List<RecipeVO> ingredient = recipeService.getRecipeIngreList(vo);

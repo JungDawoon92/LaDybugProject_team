@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+import com.shepe.admin.biz.search.SearchAdminVO;
 import com.shepe.admin.board.common.ListPaging;
 import com.shepe.admin.board.common.PagingVO;
 import com.shepe.admin.faq.FaqService;
@@ -101,6 +103,22 @@ public class FaqController {
 			System.out.println("Controller updateFaqView");
 			System.out.println("ListView sq"+ vo.getFaq_sq());
 			return "faq/updateFaq";
+		}
+		
+		@RequestMapping("/admin/bootChart")
+		public String bootChart() {
+			
+			return "/admin/adminchat/bootchart";
+		}
+		
+		
+		@ResponseBody
+		@RequestMapping(value="/admin/boot_totalchart", produces = "application/text; charset=utf8")
+		public String boot_totalchart() {
+			Gson boot_total = new Gson();
+			List<FaqVO> boot_totalchart = faqService.boot_totalchart();
+			
+			return boot_total.toJson(boot_totalchart);
 		}
 		
 		

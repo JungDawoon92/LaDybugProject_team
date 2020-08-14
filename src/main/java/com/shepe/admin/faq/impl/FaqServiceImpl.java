@@ -57,4 +57,8 @@ public class FaqServiceImpl implements FaqService {
 	public List<FaqVO> getAjaxFaqList(String choice) {
 		return faqDAO.getAjaxFaqList(choice);
 	}
+	
+	public List<FaqVO> boot_totalchart() {
+		return faqDAO.boot_totalchart();
+	}
 }

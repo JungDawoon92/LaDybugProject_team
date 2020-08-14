@@ -78,4 +78,8 @@ public class FaqDAO {
 		return mybatis.selectList("FaqDAO.getAjaxFaqList", choice);
 	}
 	
+	public List<FaqVO> boot_totalchart() {
+		return mybatis.selectList("FaqDAO.boot_totalchart");
+	}
+	
 }

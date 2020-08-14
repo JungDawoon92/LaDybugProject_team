@@ -15,7 +15,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/recipeInsert.css">
+	href="${pageContext.request.contextPath}/resources/css/recipeInsert.css">
 	
 </head>
 <body>
@@ -201,11 +201,11 @@
 							<div class="recipe-insert-section">
 								<div class="recipe-insert-column buttonCenter">
 									<div class="row buttonCenter">&nbsp;&nbsp;
-										<button type="button" class="btn btn-success btn-block col-sm-3 add-more">과정 추가</button>
+										<button type="button" class="btn btn-success btn-block col-sm-3 add-more"><font style="font-size: 15px;">과정 추가</font></button>
 										<div class="col-sm-1"></div>
-										<button type="reset" class="btn btn-warning btn-block col-sm-3">초기화</button>
+										<button type="reset" class="btn btn-warning btn-block col-sm-3"><font style="font-size: 15px;">초기화</font></button>
 										<div class="col-sm-1"></div>
-										<button type="submit" class="btn btn-primary btn-block col-sm-3">등록</button>
+										<button type="submit" class="btn btn-primary btn-block col-sm-3"><font style="font-size: 15px;">등록</font></button>
 									</div>
 								</div>
 							</div>

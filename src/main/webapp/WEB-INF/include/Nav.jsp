@@ -25,7 +25,7 @@
 					<button type="submit">
 						<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
-					<table class="table table-bordered">
+					<table class="table table-bordered table-hover" style="cursor:pointer">
 						<tbody id="myTable" style="background-color: white;">
 						</tbody>
 					</table>
@@ -63,7 +63,6 @@
 								<a href="/shepe/login.do">로그인</a>
 								<a href="/shepe/joinOption.do">회원가입</a> 
 								<a href="/shepe/cartList">장바구니</a>
-								<a href="kakaoPayCancel">qweqwe</a>
 							</div>
 						</c:if>
 						<c:if test="${ sessionScope.member_id != null}">
@@ -110,7 +109,7 @@
 						<!-- Nav Start -->
 						<div class="classynav">
 							<ul>
-								<li class="active"><a href=/shepe/getDivision_re>레시피</a></li>
+								<li><a href=/shepe/getDivision_re>레시피</a></li>
 								<li><a href="/shepe/getDivision_ingre">식재료</a></li>
 								<li><a href="/shepe/getRankLikeRankingListToday.rk">랭크</a></li>
 								<li><a href="/shepe/getClientFaqList.do">FAQ</a></li>
@@ -162,7 +161,7 @@
 		success : function(result) {
 	        $.each(result, function(index, value){
 	        	
-	        	search_value_sum +='<tr><td>'+ value.search_data +'</td></tr>';
+	        	search_value_sum +='<tr><td onclick="location.href='+ '\'searchAction?searchValue='+ value.search_data +'\'\">'+ value.search_data +'</td></tr>';
 	        			
 	        });
 	        
@@ -180,8 +179,8 @@
 	      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 	    });
 	  });
-    
-    
+
+       
  
     </script>
 </html>

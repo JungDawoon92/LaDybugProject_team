@@ -14,9 +14,10 @@
 	padding: 0 0;
 }
 .recipe-ingre-back {
-	background-color: #fff6ea;
+	background-color: #fff;
 	margin-top: 15px;
 	border-radius: 5px;
+	border : 1px solid #cfcfcf;
 }
 .recipe-insert-title {
 	margin-top:20px;
@@ -118,8 +119,9 @@
 	margin: 0;
 }
 .color {
-	background-color: #fff6ea;
 	border-radius: 5px;
+	background-color: #fff;
+	border : 1px solid #cfcfcf;
 }
 .recipe-insert-column.image_container img{
 	margin-top:5px;

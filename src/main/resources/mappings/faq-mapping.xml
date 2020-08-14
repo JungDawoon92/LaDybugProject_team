@@ -65,5 +65,12 @@
  			SELECT * FROM FAQ ORDER BY FAQ_RC DESC LIMIT 0, 10;
  		]]>
  	</select> 
+ 	
+ 	
+ 	<select id="boot_totalchart" resultType="faq">
+ 		<![CDATA[
+ 			SELECT faq_category, sum(faq_rc) AS faq_rc FROM FAQ GROUP BY faq_category;
+ 		]]>
+ 	</select> 
 
  </mapper>

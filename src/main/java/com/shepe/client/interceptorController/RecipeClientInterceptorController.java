@@ -248,12 +248,12 @@ public class RecipeClientInterceptorController {
 		}
 	}
 	
-	// 바로 구매하기 테스트
-	@RequestMapping(value= "/orderForm", method=RequestMethod.POST)
-	public String orderForm(@RequestParam Map<?, ?> jsontest, HttpSession session, Model model) {
+	// 인터셉터 태우기
+	@RequestMapping(value= "/intercept")
+	public String orderForm(@RequestParam String recipe_no, RedirectAttributes redirectAttributes) {
 		
-		System.out.println("b   " + jsontest);
-		System.out.println("aa" + jsontest.get("orderRecipe"));
-		return "client/recipe/basket";
+		redirectAttributes.addAttribute("recipe_no", recipe_no);
+		return "redirect:/getRecipe.re";
 	}
+	
 }

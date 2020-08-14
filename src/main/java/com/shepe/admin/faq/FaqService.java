@@ -26,4 +26,6 @@ public interface FaqService {
 	
 	List<FaqVO> getAjaxFaqList(String choice);
 	
+	List<FaqVO> boot_totalchart();
+	
 }

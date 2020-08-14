@@ -144,12 +144,7 @@ tr, th, td {
 		</tbody>
 	</table>
 	</div>
-<script>
-(function() {
-	var hidechat = $("#togglechat");
-	$(hidechat).hide();
-}());
-</script></body>
+<jsp:include page="../division/chat/chatModule_index.jsp"></jsp:include>
 
 <script type="text/javascript">
 $('.btn').click( function() {
@@ -161,6 +156,7 @@ $('.btn').click( function() {
 	}
 })
 </script>
+
 <script type="text/javascript">
 var choice1 = "0";
 
@@ -191,5 +187,11 @@ $(".category > .btn").click(function(){
             });
        }
    });
+   
+   
+(function() {
+	var hidechat = $("#togglechat");
+	$(hidechat).hide();
+}());
 </script>
 </html>

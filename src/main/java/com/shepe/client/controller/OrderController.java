@@ -40,6 +40,7 @@ public class OrderController {
 		model.addAttribute("orderPriceSum", param.get("orderPriceSum"));
 		model.addAttribute("orderList", orderService.viewOrder(param));
 		model.addAttribute("addressList", memberService.getAddress(addrVO));
+		model.addAttribute("member", memberService.getMember((String) session.getAttribute("member_id")));
 		return "client/order/OrderForm";
 	}
 	

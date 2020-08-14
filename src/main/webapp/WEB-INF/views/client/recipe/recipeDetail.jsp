@@ -16,7 +16,7 @@
 <link href="http://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/style.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/recipeInsert.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/recipeInsert.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
@@ -39,15 +39,15 @@
 							<div class="recipe-detail-column">
 								<img class="recipe-insert-title comImege" src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${ recipe.recipe_complete_img }"><br>
 								<div class="recipe-complete-title">${ recipe.recipe_nm } </div>
-								<input type="hidden" value="${ recipe.member_id }">
+								<input type="hidden" class="updateCheck" value="${ recipe.member_id }">
 								<div class="recipe-complete-info">
 									${fn:replace(recipe.recipe_info, replaceChar, "<br/>")}
 								</div>
 								<div class="alignRight">
-									<%if((session.getAttribute("member_id")!=null)&&("${recipe.member_id}"!=null) ){%>
-										<%if( session.getAttribute("member_id").equals("${recipe.member_id}") ) { %>
+									<%if(session.getAttribute("member_id")!=null){%>
+										<%if( session.getAttribute("member_id").equals( request.getAttribute("recipe_id") )) { %>
 											<a class="btn btn-primary"
-											href="recipeInterceptor/recipeUpdate.re?recipe_no=${ recipe.recipe_no }">수정 하기
+												href="recipeInterceptor/recipeUpdate.re?recipe_no=${ recipe.recipe_no }">수정 하기
 											</a>
 										<%} %>
 									<%} %>
@@ -114,13 +114,12 @@
 							<div class="recipe-insert-title">쇼핑 하기 <br>
 								<span class="recipe_person">(${ recipe.recipe_person } 인분)</span>
 								<input type="hidden" class="original_person" value="${ recipe.recipe_person }">
-								<button type="button" class="btn btn-success btn-sm" title="인원수 늘리기"
-									onclick="personUp()">
-									<span class="glyphicon glyphicon-plus"></span>
+								
+								<button type="button" class="btn btn-success btn-sm" title="인원수 늘리기" onclick="personUp()">
+									<i class="fas fa-plus"></i>
 								</button>
-								<button type="button" class="btn btn-success btn-sm" title="인원수 내리기"
-									onclick="personDown()">
-									<span class="glyphicon glyphicon-minus"></span>
+								<button type="button" class="btn btn-success btn-sm" title="인원수 내리기" onclick="personDown()">
+									<i class="fas fa-minus"></i>
 								</button>
 							</div>
 								<div class="recipe-process-column">
@@ -152,12 +151,6 @@
 										<%if (session.getAttribute("member_id") != null) {%>
 											<input type="hidden" name="member_id"
 											 class="member_id${ index.index }"  value="${sessionScope.member_id}"/>
-										<%} else if(session.getAttribute("kname") != null) { %>
-											<input type="hidden" name="member_id"
-											 class="member_id${ index.index }"  value="${sessionScope.kname}"/>
-										<%} else if(session.getAttribute("nname") != null) { %>
-											<input type="hidden" name="member_id"
-											 class="member_id${ index.index }"  value="${sessionScope.nname}"/>
 										<%} %>
 										<input type="hidden" name="recipe_no"
 										 class="recipe_no${ index.index }" value="${recipe.recipe_no}"/>
@@ -185,11 +178,15 @@
 									<input type="hidden" name="order" value="">
 									<input type="hidden" name="where" id="where" value="before"/>
 									<div id="totalPrice"></div>
-									<%if ((session.getAttribute("member_id") == null)&&(session.getAttribute("kname") == null)
-											&&(session.getAttribute("nname") == null)) {%>
+									<%if (session.getAttribute("member_id") == null) {%>
 									<div class="pagingCenter">
-										<input type="button" class="orderRecipeButton" value="장바구니 담기">
-										<input type="button" class="orderRecipeButton" value="바로 구매하기">
+										<a href="recipeInterceptor/intercept?recipe_no=${ recipe.recipe_no }">
+											<button type="button" class="intercept">장바구니 담기</button>
+										</a>
+										${ recipe.recipe_no }${ recipe.recipe_no }${ recipe.recipe_no }
+										<a href="recipeInterceptor/intercept?recipe_no=${ recipe.recipe_no }">
+											<button type="button" class="intercept">바로 구매하기</button>
+										</a>
 									</div>
 									<%} else { %>
 									<div class="pagingCenter">
@@ -198,6 +195,26 @@
 									</div>
 									<%} %>
 									<!-- Modal -->
+									<div class="modal fade" id="myModal" role="dialog">
+										<div class="modal-dialog">
+											<!-- Modal content-->
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">×</button>
+												</div>
+												<div class="modal-body">
+													<p>장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?</p>
+												</div>
+												<div class="modal-footer">
+													<input type="button" onclick="moveBasket()" value="예"/>
+													<input type="button" onclick="moveRecipe()" value="아니오"/>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- Modal -->
+									
+									<!-- 로그인 Modal -->
 									<div class="modal fade" id="myModal" role="dialog">
 										<div class="modal-dialog">
 											<!-- Modal content-->
