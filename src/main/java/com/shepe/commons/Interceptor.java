@@ -14,21 +14,18 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String path = request.getServletPath();
-//		String queryStr = request.getQueryString(); // 파라미터가 있는지 없는지
-//		System.out.println(queryStr);		
+		String queryStr = request.getQueryString(); // 파라미터가 있는지 없는지
 		
 		HttpSession session = request.getSession();
 		String IsLogin = (String) session.getAttribute("member_id");
 
 		if (IsLogin == null) {
-//			session.setAttribute("prev_url", path+"?"+queryStr);
-			session.setAttribute("prev_url", path);
+			session.setAttribute("prev_url", path+"?"+queryStr);
+//			session.setAttribute("prev_url", queryStr);
 			response.sendRedirect("/shepe/login.do");
-			System.out.println("prev_url: " + " " + path);
-//			System.out.println("prev_url의 path: " + path);
 			return false;
 		} else {
-			session.setAttribute("prev_url", path);
+			session.setAttribute("prev_url", queryStr);
 		}
 		return true;
 	}

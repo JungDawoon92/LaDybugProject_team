@@ -249,7 +249,7 @@ public class RecipeClientInterceptorController {
 	}
 	
 	// 인터셉터 태우기
-	@RequestMapping(value= "/intercept")
+	@RequestMapping(value= "/intercept",produces = "application/text; charset=utf8")
 	public String orderForm(@RequestParam String recipe_no, RedirectAttributes redirectAttributes) {
 		
 		redirectAttributes.addAttribute("recipe_no", recipe_no);

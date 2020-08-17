@@ -63,6 +63,12 @@
 			          
 			          <label for="sel1">상담주제:</label>
 			          <select class="form-control" id="sel1" name="h_subject">
+			          	<option  value="회원/로그인">회원/로그인</option>
+			          	<option  value="상품">상품</option>
+			          	<option  value="주문/결제">주문/결제</option>
+			          	<option  value="배송/조회">배송/조회</option>
+			          	<option  value="취소/환불">취소/환불</option>
+			          	<option  value="교환/반품">교환/반품</option>
 			            <c:forEach var="i" begin="0" end="${BootContentt.butNum - 1}"> 
 			            		<c:set var="fname1" value="q${i}" />
 								<option id="a${i}" value="${BootContentt[fname1]}">${BootContentt[fname1]}</option>
@@ -106,8 +112,9 @@
         <div class="chat_list">
           <div class="chat_people">
             <div class="chat_ib">
-              <h5>${c_list.h_subject} <span class="chat_date">${c_list.h_date}</span></h5>
+              <h5>${c_list.h_subject}</h5>
               <p>${c_list.h_content}</p>
+              <span class="chat_date"><font class="text-secondary" style="font-size: 12px;">${c_list.h_date}</font></span>
             </div>
           </div>
         </div>

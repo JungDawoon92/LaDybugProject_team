@@ -172,8 +172,6 @@ public class KakaoPay {
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         
         Map<String, ?> cancelDataMap = kakaoPayDAO.cancelKakaoPay(order_no);
-        System.out.println(cancelDataMap.get("cid"));
-        System.out.println(cancelDataMap.get("tid"));
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", (String)cancelDataMap.get("cid"));

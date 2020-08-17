@@ -64,7 +64,8 @@
 		ON T1.order_no = T2.order_no 
 		WHERE T1.order_no IN (SELECT order_no FROM ORDER_MEMBER 
 							WHERE member_id = #{member_id}) 
-		GROUP BY T1.order_no, T2.recipe_no  
+		GROUP BY T1.order_no, T2.recipe_no 
+		ORDER BY T1.order_ymd desc 
 	</select>
 	
 	<select id="getOrderHistory_ingredient" resultType="orderIngredient" parameterType="String">

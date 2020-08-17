@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService{
 		return orderList;
 	}
 	@Transactional(rollbackFor={Exception.class})
-	public Map<String, Object> insertOrder(Map<String, String> param, MemberVO memberVO) throws Exception {
+	public Map<String, Object> insertOrder(Map<String, String> param, MemberVO memberVO, HttpSession session) throws Exception {
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 		String order_no = format.format(new Date());
 		JsonParser jsonParser = new JsonParser();
@@ -100,18 +100,26 @@ public class OrderServiceImpl implements OrderService{
 		orderInfoVO.setPaymentType(PaymentGroup.findByPayType(PayType.valueOf(param.get("payType"))));
 		orderInfoVO.setPayType(PayType.valueOf(param.get("payType")));
 		
+		
 		OrderMemberVO orderMemberVO = new OrderMemberVO();
 		orderMemberVO.setOrder_no(order_no);
-		orderMemberVO.setMember_sq(memberVO.getMember_sq());
-		orderMemberVO.setMember_id(memberVO.getMember_id());
-		orderMemberVO.setMember_nm(memberVO.getMember_nm());
-		orderMemberVO.setMember_email(memberVO.getMember_email());
-		orderMemberVO.setMember_email_domain(memberVO.getMember_email_domain());
+		System.out.println(session.getAttribute("apiLogin"));
+		
+		if(session.getAttribute("apiLogin").equals("true") ) {
+			orderMemberVO.setMember_id((String) session.getAttribute("member_id"));
+		}
+		else {
+			orderMemberVO.setMember_id(memberVO.getMember_id());
+			orderMemberVO.setMember_nm(memberVO.getMember_nm());
+			orderMemberVO.setMember_email(memberVO.getMember_email());
+			orderMemberVO.setMember_email_domain(memberVO.getMember_email_domain());
+		}
+		
 		orderMemberVO.setMember_address1(param.get("address"));
 		orderMemberVO.setMember_address2(param.get("detail_address"));
 		orderMemberVO.setMember_phone(param.get("phone_first").concat(param.get("phone_second")).concat(param.get("phone_third")));
 		orderMemberVO.setMember_reciever(param.get("receiver"));
-
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orderInfo", orderInfoVO);
 		map.put("orderMember", orderMemberVO);

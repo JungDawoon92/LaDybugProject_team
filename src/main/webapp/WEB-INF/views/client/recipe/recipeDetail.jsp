@@ -181,11 +181,10 @@
 									<%if (session.getAttribute("member_id") == null) {%>
 									<div class="pagingCenter">
 										<a href="recipeInterceptor/intercept?recipe_no=${ recipe.recipe_no }">
-											<button type="button" class="intercept">장바구니 담기</button>
+											<button type="button" class="intercept btn btn-info">장바구니 담기</button>
 										</a>
-										${ recipe.recipe_no }${ recipe.recipe_no }${ recipe.recipe_no }
 										<a href="recipeInterceptor/intercept?recipe_no=${ recipe.recipe_no }">
-											<button type="button" class="intercept">바로 구매하기</button>
+											<button type="button" class="intercept btn btn-success">바로 구매하기</button>
 										</a>
 									</div>
 									<%} else { %>

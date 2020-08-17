@@ -71,6 +71,7 @@ public class LoginApiController {
 		session.setAttribute("nbirthday", nbirthday);
 		session.setAttribute("nage", nage);
 		session.setAttribute("nimage", nimage);
+		session.setAttribute("apiLogin", "true");
 		
 		// 네이버 로그인 성공 페이지 View 호출
 		String prev_url = (String)session.getAttribute("prev_url");
@@ -117,6 +118,7 @@ public class LoginApiController {
 		session.setAttribute("kgender", kgender);
 		session.setAttribute("kbirthday", kbirthday);
 		session.setAttribute("kage", kage);
+		session.setAttribute("apiLogin", "true");
 
 		String prev_url = (String) session.getAttribute("prev_url");
 		if (prev_url != null) {

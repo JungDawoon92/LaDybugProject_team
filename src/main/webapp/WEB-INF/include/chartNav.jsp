@@ -19,6 +19,15 @@
 			</div>
 		</li>
 		<li class="nav-item dropdown">
+			<a id="4" class="nav-link dropdown-toggle" href="" data-toggle="dropdown">식재료 판매량 차트</a>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" href="moveSellIngredientChart.rk.ad">누적 식재료 판매량 차트</a>
+				<a class="dropdown-item" href="moveMonthTopIngredientChart.rk.ad">월별 식재료 판매량 차트</a>
+				<a class="dropdown-item" href="moveWeekTopIngredientChart.rk.ad">주별 식재료 판매량 차트</a>
+				<a class="dropdown-item" href="moveDayTopIngredientChart.rk.ad">일별 식재료 판매량 차트</a>
+			</div>
+		</li>
+		<li class="nav-item dropdown">
 			<a id="2" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">레시피 차트</a>
 			<div class="dropdown-menu">
 				<a class="dropdown-item" href="moveLikeChart.rk.ad">누적 레시피 차트</a>
@@ -37,15 +46,7 @@
 				<a class="dropdown-item" href="moveDayTopChefChart.rk.ad">일별 top 쉐프 차트</a>
 			</div>
 		</li>
-		<li class="nav-item dropdown">
-			<a id="4" class="nav-link dropdown-toggle" href="" data-toggle="dropdown">식재료 판매량 차트</a>
-			<div class="dropdown-menu">
-				<a class="dropdown-item" href="moveSellIngredientChart.rk.ad">누적 식재료 판매량 차트</a>
-				<a class="dropdown-item" href="moveMonthTopIngredientChart.rk.ad">월별 식재료 판매량 차트</a>
-				<a class="dropdown-item" href="moveWeekTopIngredientChart.rk.ad">주별 식재료 판매량 차트</a>
-				<a class="dropdown-item" href="moveDayTopIngredientChart.rk.ad">일별 식재료 판매량 차트</a>
-			</div>
-		</li>
+		
 		<li class="nav-item dropdown">
 			<a id="5" class="nav-link dropdown-toggle" href="" data-toggle="dropdown">레시피 판매량 차트</a>
 			<div class="dropdown-menu">

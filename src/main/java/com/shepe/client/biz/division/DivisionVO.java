@@ -9,8 +9,15 @@ public class DivisionVO {
 	private String recipe_complete_img;
 	private String recipe_info;
 	private String member_nickname;
+	private int recipe_like_sum;
 	private int recipe_cnt;
 	
+	public int getRecipe_like_sum() {
+		return recipe_like_sum;
+	}
+	public void setRecipe_like_sum(int recipe_like_sum) {
+		this.recipe_like_sum = recipe_like_sum;
+	}
 	public String getMember_nickname() {
 		return member_nickname;
 	}

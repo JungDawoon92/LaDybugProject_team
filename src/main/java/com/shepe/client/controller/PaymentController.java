@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shepe.client.order.OrderService;
 import com.shepe.pay.kakao.KakaoPayApprovalVO;
+import com.shepe.pay.kakao.KakaoPayCancelVO;
 import com.shepe.pay.kakao.impl.KakaoPay;
 
 @Controller
@@ -53,8 +54,13 @@ public class PaymentController {
     		if(orderService.deletePaymentFail((String) ob) != true) {
     			logger.info("order table 데이터 삭제 실패");
     		}
-    		if(kakaoPay.kakaoPayOrderCancel((String) ob) == null) {
+    		
+    		KakaoPayCancelVO kakaoPayCancelVO = kakaoPay.kakaoPayOrderCancel((String) ob);
+    		if(kakaoPayCancelVO == null) {
     			logger.info("결제에러로 인한 결제 취소 실패");
+    		}
+    		else {
+    			model.addAttribute("Cancel", kakaoPayCancelVO);
     		}
     	}
     	

@@ -21,11 +21,11 @@
       <a class="dropdown-item" href="messageBoot">Message봇</a>
     </div>
   </li>
-    <li class="nav-item">
-      <a class="nav-link" href="recipeList.adre">레시피</a>
+  <li class="nav-item">
+      <a class="nav-link" href="getIngredientList.co">식재료</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="getIngredientList.co">식재료</a>
+      <a class="nav-link" href="recipeList.adre">레시피</a>
     </li>
     <li class="nav-item">
       <a id="ChartButton" class="nav-link" href="moveIncomeSumChart.rk.ad">통계</a>

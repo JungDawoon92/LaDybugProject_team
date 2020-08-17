@@ -13,7 +13,7 @@ public interface OrderService {
 	
 	List<CartVO> viewOrder(Map<String, String> param);
 	
-	Map<String, Object> insertOrder(Map<String, String> param, MemberVO memberVO) throws Exception;
+	Map<String, Object> insertOrder(Map<String, String> param, MemberVO memberVO, HttpSession session) throws Exception;
 
 	public List<OrderVO> orderHistory(HttpSession session);
 	

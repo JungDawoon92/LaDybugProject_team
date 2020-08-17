@@ -6,7 +6,8 @@
 
 	<select id="getDivisionList" resultType="division">
 		<![CDATA[
-			SELECT * FROM RECIPE ORDER BY RECIPE_CNT DESC LIMIT #{startpage}, 8;
+			SELECT R.recipe_no,R.recipe_category_kind,R.recipe_category_ing,R.recipe_category_how,R.recipe_nm,R.recipe_complete_img,R.recipe_info,R.member_nickname,R.recipe_cnt,ifnull(I.recipe_like_sum,0)as recipe_like_sum   FROM recipe R INNER join rank_like_ranking I
+            on R.recipe_no = I.recipe_no ORDER BY RECIPE_CNT DESC LIMIT 0, 8;
 		]]>
 	</select>
 	

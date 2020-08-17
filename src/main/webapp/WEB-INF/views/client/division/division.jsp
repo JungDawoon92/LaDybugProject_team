@@ -123,7 +123,7 @@
 
 			    </div>
 			    <div class="card-body d-flex flex-row-reverse align-items-end">
-			    	<p class="card-text"><i class="far fa-heart">&nbsp;50</i>&nbsp;<i class="far fa-eye"></i>&nbsp;${division.recipe_cnt}</p>
+			    	<p class="card-text"><i class="far fa-heart">&nbsp;${division.recipe_like_sum}</i>&nbsp;<i class="far fa-eye"></i>&nbsp;${division.recipe_cnt}</p>
 			  	</div>
 			  </div>
 			 </c:forEach>

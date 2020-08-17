@@ -30,7 +30,7 @@ public class OrderController {
 
 	@RequestMapping(value= "/orderForm", method=RequestMethod.POST)
 	public String orderForm(@RequestParam Map<String, String> param, HttpSession session, Model model) throws IOException {
-		logger.info("orderForm");
+		logger.debug("orderForm");
 
 		if(session.getAttribute("member_id") == null)
 			return "redirect:/login.do";
@@ -40,32 +40,23 @@ public class OrderController {
 		model.addAttribute("orderPriceSum", param.get("orderPriceSum"));
 		model.addAttribute("orderList", orderService.viewOrder(param));
 		model.addAttribute("addressList", memberService.getAddress(addrVO));
-		model.addAttribute("member", memberService.getMember((String) session.getAttribute("member_id")));
 		return "client/order/OrderForm";
 	}
 	
 	@RequestMapping(value="/insertOrder")
 	public String insertOrder(@RequestParam Map<String, String> param, HttpSession session, Model model) throws Exception {
-		logger.info("insertOrder");
+		logger.debug("insertOrder");
 		String uri = null;
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMember_id((String) session.getAttribute("member_id"));
 		memberVO = memberService.getMember(memberVO);
 		
-		model.addAttribute("map", orderService.insertOrder(param, memberVO));
+		model.addAttribute("map", orderService.insertOrder(param, memberVO, session));
 		if(param.get("payType").equals("KAKAO_PAY")) {
 			uri = "kakaoPay";
 		}
-		System.out.println(uri);
 		return "forward:/" + uri;
 	}
-	
-//	@RequestMapping(value="/paymentCancel")
-//	public String deleteOrderFail(OrderBindVO vo) {
-//		logger.info("deleteOrderFail");
-//		orderService.deleteOrderFail(vo);
-//		return null;
-//	}
 	
 	@RequestMapping(value="/myPage/orderHistory")
 	public String orderHistory(HttpSession session, Model model) {

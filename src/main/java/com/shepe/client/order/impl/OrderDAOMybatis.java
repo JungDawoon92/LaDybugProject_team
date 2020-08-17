@@ -30,9 +30,6 @@ public class OrderDAOMybatis{
 	
 	public List<OrderVO> orderHistory(String member_id) {
 		List<OrderVO> orderList = mybatis.selectList("getOrderHistory", member_id);
-		for(OrderVO vo : orderList) {
-			System.out.println(vo);
-		}
 		return orderList;
 	}
 }
