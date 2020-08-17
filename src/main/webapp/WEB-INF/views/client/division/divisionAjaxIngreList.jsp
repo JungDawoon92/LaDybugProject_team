@@ -27,7 +27,7 @@
 				    	</h4>
 				    	</div>
 				    	<div class="card-body d-flex flex-row-reverse align-items-end">	
-				    	<p class="card-text float-right"><i class="fas fa-coins"></i><font size=5> ${division.ingredient_price}원</font></p>
+				    	<p class="card-text float-right"><i class="fa fa-krw"></i><font style="font-size:15px"> ${division.ingredient_price}원</font></p>
 				    	</div>
 			  </div>
 			 </c:forEach>
