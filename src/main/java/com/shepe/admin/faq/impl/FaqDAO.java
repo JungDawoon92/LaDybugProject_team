@@ -74,7 +74,7 @@ public class FaqDAO {
 		} else if(choice.equals("7")) {
 			choice  ="교환/반품";
 		} 
-		System.out.println("FaqDAO AjaxList " + choice);
+		System.out.println("FaqDAO clientAjaxList " + choice);
 		return mybatis.selectList("FaqDAO.getAjaxFaqList", choice);
 	}
 	
