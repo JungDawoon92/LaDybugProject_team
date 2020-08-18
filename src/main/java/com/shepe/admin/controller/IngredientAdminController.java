@@ -77,7 +77,6 @@ public class IngredientAdminController {
 	
 	@RequestMapping(value="/admin/getIngredientList.co")
 	public String getIngredientList(IngredientVO vo, Model model) throws Exception {		
-		System.out.println("여기타나?");
 		model.addAttribute("getInsertList", ingredientAdminService.getIngredientList(vo));	
 		model.addAttribute("listCount", ingredientAdminService.IngredientListCnt(vo));
 		return "admin/ingredient/getIngredientList";
@@ -86,7 +85,6 @@ public class IngredientAdminController {
 	@ResponseBody
 	@RequestMapping(value="/admin/ajaxIngredientList.co")
 	public List<IngredientVO>/*String*/ ajaxIngredientList(IngredientVO vo, Model model) throws Exception {
-		
 		if(vo.getIngredient_searchCondition()== null) vo.setIngredient_searchCondition("ingredient_nm");
 		if(vo.getIngredient_searchKeyword() == null) vo.setIngredient_searchKeyword("");
 		System.out.println("글 목록 검색 처리");	

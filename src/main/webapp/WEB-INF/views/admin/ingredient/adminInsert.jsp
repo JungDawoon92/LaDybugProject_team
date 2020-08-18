@@ -3,57 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>식재료 등록</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.9.95/css/materialdesignicons.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
-<style>
-body{
-    margin-top:20px;
-}
-.job-detail {
-    border: 1px solid #ececec;
-    border-radius: 6px;
-    background-color:#fff;
-}
-.form-button .nice-select {
-    width: 100%;
-    height: 39px;
-    line-height: 37px;
-    color: #6b757d;
-    margin-bottom: 1rem;
-    border: solid 1px #e9e9e9;
-}
-
-.resume-user {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    font-size: 66px;
-    border-radius: 50px;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    background-color: #e9e9e9;
-    color: #ff4f6c;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-    text-align: center;
-}
-</style>
-
+<meta charset="UTF-8">
+<title>식재료 등록</title>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#ingredient_nm").keyup(function() {
@@ -139,338 +94,43 @@ $.ajax({
 })
 } 
 
-
-
 </script>
+
 </head>
 <body>
-<jsp:include page="/WEB-INF/include/adminNav.jsp" />
-
-<div class="container">
-	<h1>식재료 등록</h1>
-	<hr>							
-	<form:form commandName="ingredientVO" action="adminInsertDetail.co" method="POST" enctype="multipart/form-data">
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="text-dark">식재료 정보</h3>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="job-detail mt-2 p-4">
-                <div class="custom-form">
-                   
-                        <div class="row">
-                        	<div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="General" class="text-muted">카테고리</label>
-                                    <div class="form-button">
-                                        <select name="ingredient_categ" id="categ" class="form-control resume" onChange="checkCateg()" selected>
-                                            <option value="MEAT">육류</option>
-											<option value="BEEF">소고기</option>
-											<option value="CHICKEN">닭고기</option>
-											<option value="SEAFOOD">해산물</option>
-											<option value="VEGETABLE">야채</option>
-											<option value="FRUIT">과일</option>
-											<option value="NUTS">견과류</option>
-											<option value="ETC">기타</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                            </div>
-							
-                            <div class="col-md-8">
-                            	<label for="frist-name" class="text-muted">식재료 이름</label>
-                            	<div class="row">
-	                                <div class="form-group app-label col-md-9">
-	                                    <form:input id="frist-name" type="text" path="ingredient_nm" class="form-control resume" />
-	                                    <span style="color:red;">※식재료 이름을 정확히 기입해 주세요※</span><br>
-	                                </div>
-	                                <div class="col-md-3">
-	                                    <button class="idChk btn btn-outline-info" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
-	                                    <div class="check_font" id = "nm_check"></div> 
-	                            	</div>
-	                            </div>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="surname-name" class="text-muted">가격</label>
-                                    <input id="surname-name" type="number" class="form-control resume" 
-                                    name="ingredient_price" onkeypress="priceNum()" placeholder="숫자만 입력해주세요">
-                                </div>
-                            </div>
-							
-                            <div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="date-of-birth" class="text-muted">식재료 양</label>
-                                    <form:input id="date-of-birth" type="number" path="ingredient_amt" class="form-control resume" 
-                                    			onkeypress="amtNum()" placeholder="숫자만 입력해주세요" />
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="marital-status" class="text-muted">식재료 썸네일</label>
-                                    <div class="custom-file">
-        								<input type="file" id="ingredient_thumbimg" name="filename2">
-         
-                                      <button class="thumbChk btn btn-outline-info" type="button" id="thumbChk" onclick="fn_thumbChk();" value="N">썸네일 중복확인</button>
-									  <div class="check_font" id="thumb_check"></div> 
-                                    </div>
-                                </div>
-                            </div>                       
-                        </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="text-dark mt-5">식재료 상세정보</h3>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="job-detail mt-2 p-4">
-                <div class="custom-form">
-                 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">식재료 원산지</label>
-                                    <div class="form-button">
-										<select name="ingredient_country" id="select1" class="nice-select">
-								      		<option data-display="국산">국산</option>
-											<option value="미국산">미국산</option>
-											<option value="스페인">스페인산</option>
-											<option value="필리핀">필리핀산</option>
-											<option value="태국">태국산</option>
-											<option value="중국산">중국산</option>
-											<option value="영국">영국산</option>
-											<option value="핀란드">핀란드산</option>
-											<option value="인도">인도산</option>
-										</select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="state" class="text-muted">생산지/수입지</label>
-                                    <form:input id="state" path="ingredient_productimporter" class="form-control resume" placeholder="생산지/수입지를 적어주세요"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="ingredient_weight" class="text-muted">식재료 중량</label>
-                                    <input type="text" step="10" id="ingredient_weight" name="ingredient_weight" size="10" 
-                                    		class="form-control resume" placeholder="특수문자와 영문은 안됩니다" value="g" onkeypress="weightNum(event)"/>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="phone" class="text-muted">제조년월</label>
-                                    <input id="phone" type="date" id="ingredient_mnfctDate" name="ingredient_mnfctDate" class="form-control resume" size="10" required/>
-                                    <div class="check"></div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                            	<label for="ingredient_life" class="text-muted">식재료 유통기한</label>
-                            	<div class="row border">
-	                                <div class="col-md-6">
-	                                	<div class="form-group app-label">
-		                                    <select name="ingredient_life" id="ingredient_life" class="nice-select" onChange="doLife(this, 'ingredient_selLife')">
-								      		 <option value="육류">육류</option>
-								        	 <option value="소고기">소고기</option>
-								        	 <option value="닭고기">닭고기</option>
-								        	 <option value="해산물">해산물</option>
-								        	 <option value="야채">야채</option>
-								        	 <option value="과일">과일</option>
-								        	 <option value="견과류">견과류</option>
-								        	 <option value="기타">기타</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group app-label">
-											<form:select path="ingredient_selLife" id="ingredient_selLife" name="ingredient_selLife" class="form-control resume">
-												<form:option value="default">유통기한 방법</form:option>		
-												<form:options items="${ingredient_selLife}"/>
-											</form:select>
-										</div>
-	                                </div>
-	                            </div>
-	                        </div>
-                            
-                            <div class="col-md-4">
-								<label for="ingredient_foodType" class="text-muted">가공방법</label>
-								<div class="row border">
-									<div class="col-md-6">
-										<div class="form-group app-label">
-											<select name="ingredient_foodType" id="ingredient_foodType" class="form-control resume" 
-													onchange="doFoodType(this, 'ingredient_selFoodType')">
-												 <option value="육류">육류</option>
-									        	 <option value="소고기">소고기</option>
-									        	 <option value="닭고기">닭고기</option>
-									        	 <option value="해산물">해산물</option>
-									        	 <option value="야채">야채</option>
-									        	 <option value="과일">과일</option>
-									        	 <option value="견과류">견과류</option>
-									        	 <option value="기타">기타</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group app-label">
-											<form:select path="ingredient_selFoodType" id="ingredient_selFoodType" 
-														name="ingredient_selFoodType" class="form-control resume">
-												<form:option value="default">가공방법</form:option>	
-												<form:options items="${ingredient_selFoodType}" />
-											</form:select>
-										</div>
-									</div>
-								</div>
-							</div>
-	
-							<div class="col-md-4">
-								<div class="form-group app-label">
-									<label for="website" class="text-muted">보관방법</label>
-									<div class="row border">
-										<div class="col-md-6">
-											<div class="form-group app-label">
-												<select name="ingredient_storage" id="ingredient_storage" 
-														class="form-control resume" onchange="doStorage(this, 'ingredient_selStorage')">
-										      		<option value="육류">육류</option>
-										        	<option value="소고기">소고기</option>
-										        	<option value="닭고기">닭고기</option>
-										        	<option value="해산물">해산물</option>
-										        	<option value="야채">야채</option>
-										        	<option value="과일">과일</option>
-										        	<option value="견과류">견과류</option>
-										        	<option value="기타">기타</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group app-label">
-												<form:select path="ingredient_selStorage" name = "ingredient_selStorage" 
-															id="ingredient_selStorage" class="form-control resume">
-													<form:option value="default">식재료 보관방법</form:option>
-													<form:options items="${ingredient_selStorage}"/>
-												</form:select>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">포장재질</label>
-                                    <select name="ingredient_pckmtr" id="select1" class="form-control resume">
-							      		<option value="열성형진공포장">열성형진공포장</option>
-										<option value="PE비닐">PE비닐</option>
-										<option value="폴리에틸렌">폴리에틸렌</option>
-										<option value="(내면):용기:PP,상단필름:PE">(내면):용기:PP,상단필름:PE</option>
-										<option value="PP,PE(내면)">PP,PE(내면)</option>
-										<option value="PP(내면)">PP(내면)</option>
-										<option value="용기-PP, 소스파우치-PE(내면)">용기-PP, 소스파우치-PE(내면)</option>
-										<option value="용기-PP, 투명원형용기-PET , 참기름파우치-PE">용기-PP, 투명원형용기-PET , 참기름파우치-PE</option>
-									</select>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">영양분</label>
-                                    <select name="ingredient_nutrient" id="select1" class="form-control resume">
-							      		<option value="육류100%">육류100%</option>
-										<option value="소고기100%">소고기100%</option>
-										<option value="닭고기100%">닭고기100%</option>
-										<option value="해산물100%">해산물100%</option>
-										<option value="야채100%">야채100%</option>
-										<option value="과일100%">과일100%</option>			
-										<option value="견과류100%">견과류100%</option>
-										<option value="기타100%">기타100%</option>
-									</select>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">알레르기 성분</label>
-                                    <select name="ingredient_allergy" id="select1" class="form-control resume">
-							      		<option value="소고기 함유">소고기 함유</option>
-										<option value="돼지고기 함유">돼지고기 함유</option>
-										<option value="닭고기 함유">닭고기 함유</option>
-										<option value="해산물 함유">해산물 함유</option>
-										<option value="야채 함유">야채 함유</option>
-										<option value="과일 함유">과일 함유</option>			
-										<option value="견과류 함유">견과류 함유</option>
-										<option value="기타 함유">기타 알레르기</option>
-									</select>
-                                </div>
-                            </div>
-						</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="text-dark mt-5">이미지 등록</h3>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="job-detail mt-2 p-4">
-                <div class="custom-form">
-                   
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="marital-status" class="text-muted">이미지</label>
-                                <div class="custom-file">
-                                <input type="file" id="ingredient_multi_img" name="ingredient_multi_img" multiple = "multiple" onkeypress="multiImg(event)"/>
-                                  
-                                 
-                                </div>
-                            </div>
-                        </div>
-                  
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="job-detail mt-2 p-4">
-                <div class="custom-form">
-				    <div class="button_area row">
-						<div class="col-6"><button type="submit" class="btn btn-outline-success btn-block">등록하기</button></div>
-						<div class="col-6"><button type="button" class="btn btn-outline-info btn-block" onclick="location.href='/getBoardList.do'">글 목록 가기</button></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-    </form:form>
-</div>
-<script type="text/javascript">
+<center>
+<h1>식재료 등록</h1>
+<hr>							
+<form:form commandName="ingredientVO" action="adminInsertDetail.co" method="POST" enctype="multipart/form-data">
+<h2>Ingredient 등록</h2>
+<!--       Ingredient      -->
+  <table border="1" cellpadding="0" cellspacing="0" style="width: 100%; height: 502px;">
+	<tr>
+		<td bgcolor="pink" width="70" style="width: 150px;">식재료 이름</td>
+		<td align="left">
+			<form:input path="ingredient_nm" style="width: 95%;"/><br>
+		 	<span style="color:red;">※식재료 이름을 정확히 기입해 주세요※</span><br>
+			<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
+			<div class="check_font" id = "nm_check"></div> 
+		</td>		
+	</tr>			
+	<tr>
+		<td bgcolor="pink" width="70">카테고리</td><td align="left">
+		<select name="ingredient_categ" id="select1" onChange="checkCateg()" selected>
+      		<option value="MEAT">육류</option>
+			<option value="BEEF">소고기</option>
+			<option value="CHICKEN">닭고기</option>
+			<option value="SEAFOOD">해산물</option>
+			<option value="VEGETABLE">야채</option>
+			<option value="FRUIT">과일</option>
+			<option value="NUTS">견과류</option>
+			<option value="ETC">기타</option>
+		</select>
+		</td>
+	</tr>
+<script language="javascript">
 function checkCateg() {
-	var x = document.getElementById("categ").value;
+	var x = document.getElementById("select1").value;
 	if(x == "MEAT" || x == "NUTS" || x == "BEEF" || x == "CHICKEN") {
 		document.getElementById("ingredient_weight").value ="g";
 	} else if (x == "SEAFOOD") {
@@ -479,7 +139,12 @@ function checkCateg() {
 		document.getElementById("ingredient_weight").value ="개";
 	} 
 }
-
+</script>
+	<tr>
+		<td bgcolor="pink">가격</td><td align="left">
+		<input type="number" name="ingredient_price" size="10" required style="width: 95%;"  placeholder="숫자만 입력해주세요" onkeypress="priceNum()"/></td>
+	</tr>
+<script language="javascript">
 function priceNum() { 
 	if((event.keyCode < 48) || (event.keyCode > 57 )) {
 		alert('숫자만 입력해주세요');
@@ -489,7 +154,60 @@ function priceNum() {
 		return true;
 	} 
 }
-
+</script>
+	<tr>
+		<td bgcolor="pink">식재료 썸네일</td><td align="left">											
+		<input type="file" name="ingredient_thumbimg"  id ="ingredient_thumbimg" size="10" style="width: 95%;"/>
+		<button class="thumbChk" type="button" id="thumbChk" onclick="fn_thumbChk();" value="N">썸네일 중복확인</button>
+		<div class="check_font" id = "thumb_check"></div> 
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="pink">식재료 양</td><td align="left">
+		<form:input path="ingredient_amt" type="number" value="100" style="width: 95%;" placeholder="숫자만 입력해주세요" onkeypress="amtNum()"/></td>
+	</tr>
+<script language="javascript">
+function amtNum() { 
+	if((event.keyCode < 48) || (event.keyCode > 57 )) {
+		alert('숫자만 입력해주세요');
+		event.returnValue = false;
+		return false;	
+	} else {
+		return true;
+	} 
+}
+</script>
+</table>
+<hr> 
+<!--    				 식재료 디테일      				 		 -->	
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; height: 502px;">
+<h2>Ingredeint 디테일 등록</h2>
+	<tr>
+		<td bgcolor="pink" width="70">식재료 원산지</td><td align="left">
+		<select name="ingredient_country" id="select1">
+      		<option value="국산">국산</option>
+			<option value="미국산">미국산</option>
+			<option value="스페인">스페인산</option>
+			<option value="필리핀">필리핀산</option>
+			<option value="태국">태국산</option>
+			<option value="중국산">중국산</option>
+			<option value="영국">영국산</option>
+			<option value="핀란드">핀란드산</option>
+			<option value="인도">인도산</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="pink">생산지/수입지</td><td align="left">
+		<form:input path="ingredient_productimporter" size="10" style="width: 95%;" placeholder="생산지/수입지를 적어주세요"/></td>
+	</tr>
+	<tr>
+		<td bgcolor="pink">식재료 중량</td><td align="left">
+		<input type="text" step="10" id="ingredient_weight" name="ingredient_weight" size="10" style="width: 95%;" placeholder="특수문자와 영문은 안됩니다" value="g" onkeypress="weightNum(event)"/>
+		<span>(단위 : 개)</span>
+		</td>
+	</tr>
+<script language="javascript">
 function weightNum() { 
 	if((event.keyCode < 48) || (event.keyCode > 57 )) {
 		alert('숫자만 입력해주세요');
@@ -499,74 +217,14 @@ function weightNum() {
 		return true;
 	} 
 }
-function doFoodType(srcE, targetId)
-{
-    var val = srcE.options[srcE.selectedIndex].value;
-    var targetE = document.getElementById(targetId);
-    
-    removeAll(targetE);
-    if(val == '육류')
-    {
-    	addOption('가공육', targetE);
-        addOption('포장육', targetE);
-        addOption('냉동육', targetE);       
-    }
-    else if(val == '소고기')
-    {
-    	addOption('가공육', targetE);
-        addOption('포장육', targetE);
-        addOption('냉동육', targetE);
-    }
-    else if(val == '닭고기')
-    {
-    	functionName('가공육', targetE);
-    	functionName('포장육', targetE);
-    	functionName('냉동육', targetE);
-    	functionName('냉장육', targetE);
-    }
-    else if(val == '해산물')
-    {
-    	addOption('가공육', targetE);
-        addOption('포장육', targetE);
-        addOption('냉동육', targetE);
-        addOption('냉장육', targetE);
-    }
-    else if(val == '야채')
-    {
-    	addOption('없음', targetE);
-    }
-    else if(val == '과일')
-    {
-    	addOption('없음', targetE);
-    }
-    else if(val == '견과류')
-    {
-    	addOption('없음', targetE);
-    }
-    else if(val == '기타')
-    {
-    	addOption('없음', targetE);
-    	addOption('정제', targetE);
-    }
-}
-
-var functionName = function addOption2(value, e)
-{
-	console.log(value);
-    var o = new Option(value);
-    
-    try
-    {
-        e.add(o);
-        console.log(e);
-    }
-    catch(ee)
-    {
-        e.add(o, null);
-        console.log("222");
-    }
-}
-
+</script>
+	<tr>
+		<td bgcolor="pink"><label for="calen">제조년월</label></td><td align="left">								
+		<label for="calen"><input type="date" id="ingredient_mnfctDate" name="ingredient_mnfctDate"  onclick="fn_dateChk()" size="10" style="width: 95%;" required/></label>	
+		</td>
+	</tr>
+	<div class="check"></div>
+<script type="text/javascript">
 function doLife(srcE, targetId)
 {
     var val = srcE.options[srcE.selectedIndex].value;
@@ -655,7 +313,122 @@ function removeAll(e)
         e.remove(1);
     }
 }
+</script>
+	<tr>
+		<td bgcolor="pink" width="70">식재료 유통기한</td><td align="left">
+		<select name="ingredient_life" id="ingredient_life" onChange="doLife(this, 'ingredient_selLife')">
+      		 <option value="육류">육류</option>
+        	 <option value="소고기">소고기</option>
+        	 <option value="닭고기">닭고기</option>
+        	 <option value="해산물">해산물</option>
+        	 <option value="야채">야채</option>
+        	 <option value="과일">과일</option>
+        	 <option value="견과류">견과류</option>
+        	 <option value="기타">기타</option>
+		</select>
+		  <form:select path="ingredient_selLife" id="ingredient_selLife" name="ingredient_selLife">
+			<form:option value="default">유통기한 방법</form:option>		
+			<form:options items="${ingredient_selLife}"/>
+		</form:select>  
+		</td>
+	</tr>
+<script type="text/javascript">
+function doFoodType(srcE, targetId)
+{
+    var val = srcE.options[srcE.selectedIndex].value;
+    var targetE = document.getElementById(targetId);
+    
+    removeAll(targetE);
+    if(val == '육류')
+    {
+    	addOption('가공육', targetE);
+        addOption('포장육', targetE);
+        addOption('냉동육', targetE);       
+    }
+    else if(val == '소고기')
+    {
+    	addOption('가공육', targetE);
+        addOption('포장육', targetE);
+        addOption('냉동육', targetE);
+    }
+    else if(val == '닭고기')
+    {
+    	functionName('가공육', targetE);
+    	functionName('포장육', targetE);
+    	functionName('냉동육', targetE);
+    	functionName('냉장육', targetE);
+    }
+    else if(val == '해산물')
+    {
+    	addOption('가공육', targetE);
+        addOption('포장육', targetE);
+        addOption('냉동육', targetE);
+        addOption('냉장육', targetE);
+    }
+    else if(val == '야채')
+    {
+    	addOption('없음', targetE);
+    }
+    else if(val == '과일')
+    {
+    	addOption('없음', targetE);
+    }
+    else if(val == '견과류')
+    {
+    	addOption('없음', targetE);
+    }
+    else if(val == '기타')
+    {
+    	addOption('없음', targetE);
+    	addOption('정제', targetE);
+    }
+    
+    console.log("444");
+}
 
+var functionName = function addOption2(value, e)
+{
+	console.log(value);
+    var o = new Option(value);
+    
+    try
+    {
+        e.add(o);
+        console.log(e);
+    }
+    catch(ee)
+    {
+        e.add(o, null);
+        console.log("222");
+    }
+}
+function removeAll(e)
+{
+    for(var i = 0, limit = e.options.length; i < limit - 1; ++i)
+    {
+        e.remove(1);
+    }
+}
+</script>	
+	<tr>
+		<td bgcolor="pink">가공방법</td><td align="left">
+		<select name="ingredient_foodType" id="ingredient_foodType" onchange="doFoodType(this, 'ingredient_selFoodType')">
+			 <option value="육류">육류</option>
+        	 <option value="소고기">소고기</option>
+        	 <option value="닭고기">닭고기</option>
+        	 <option value="해산물">해산물</option>
+        	 <option value="야채">야채</option>
+        	 <option value="과일">과일</option>
+        	 <option value="견과류">견과류</option>
+        	 <option value="기타">기타</option>
+		</select>
+		<form:select path="ingredient_selFoodType" id="ingredient_selFoodType" name="ingredient_selFoodType" >
+			<form:option value="default">가공방법</form:option>	
+			<form:options items="${ingredient_selFoodType}" />
+		</form:select> 
+		</td>
+	</tr>
+<script type="text/javascript">
 function doStorage(srcE, targetId)
 {
     var val = srcE.options[srcE.selectedIndex].value;
@@ -735,7 +508,79 @@ function removeAll(e)
         e.remove(1);
     }
 }
-
+</script>
+	<tr>
+		<td bgcolor="pink">보관방법</td><td align="left">
+		<select name="ingredient_storage" id="ingredient_storage" onchange="doStorage(this, 'ingredient_selStorage')">
+      		<option value="육류">육류</option>
+        	<option value="소고기">소고기</option>
+        	<option value="닭고기">닭고기</option>
+        	<option value="해산물">해산물</option>
+        	<option value="야채">야채</option>
+        	<option value="과일">과일</option>
+        	<option value="견과류">견과류</option>
+        	<option value="기타">기타</option>
+		</select>
+		<form:select path="ingredient_selStorage" name = "ingredient_selStorage" id="ingredient_selStorage">
+			<form:option value="default">식재료 보관방법</form:option>
+			<form:options items="${ingredient_selStorage}"/>
+		</form:select> 
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="pink">포장재질</td><td align="left">
+		<select name="ingredient_pckmtr" id="select1">
+      		<option value="열성형진공포장">열성형진공포장</option>
+			<option value="PE비닐">PE비닐</option>
+			<option value="폴리에틸렌">폴리에틸렌</option>
+			<option value="(내면):용기:PP,상단필름:PE">(내면):용기:PP,상단필름:PE</option>
+			<option value="PP,PE(내면)">PP,PE(내면)</option>
+			<option value="PP(내면)">PP(내면)</option>
+			<option value="용기-PP, 소스파우치-PE(내면)">용기-PP, 소스파우치-PE(내면)</option>
+			<option value="용기-PP, 투명원형용기-PET , 참기름파우치-PE">용기-PP, 투명원형용기-PET , 참기름파우치-PE</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="pink">영양분</td><td align="left">
+		<select name="ingredient_nutrient" id="select1">
+      		<option value="육류100%">육류100%</option>
+			<option value="소고기100%">소고기100%</option>
+			<option value="닭고기100%">닭고기100%</option>
+			<option value="해산물100%">해산물100%</option>
+			<option value="야채100%">야채100%</option>
+			<option value="과일100%">과일100%</option>			
+			<option value="견과류100%">견과류100%</option>
+			<option value="기타100%">기타100%</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="pink">알레르기 성분</td><td align="left">
+		<select name="ingredient_allergy" id="select1">
+      		<option value="소고기 함유">소고기 함유</option>
+			<option value="돼지고기 함유">돼지고기 함유</option>
+			<option value="닭고기 함유">닭고기 함유</option>
+			<option value="해산물 함유">해산물 함유</option>
+			<option value="야채 함유">야채 함유</option>
+			<option value="과일 함유">과일 함유</option>			
+			<option value="견과류 함유">견과류 함유</option>
+			<option value="기타 함유">기타 알레르기</option>
+		</select>
+		</td>
+	</tr>
+<hr>
+  </table> 
+  
+<!--    식재료 멀티       -->
+  <table border="1" cellpadding="0" cellspacing="0" style="width:100%; height: 502px;">
+<hr>
+	<h2>Ingredint 멀티 등록</h2>
+	<tr>
+		<td bgcolor="pink">다중 이미지</td><td align="left">
+		<input type="file" name="ingredient_multi_img"  multiple = "multiple" size="10" style="width: 95%;" value="아무나맨" placeholder="특수문자는 되지 않습니다" onkeypress="multiImg(event)"/></td>
+	</tr>
+<script language="javascript">
 function multiImg(e) { 
 	var code= (window.event) ? event.keyCode : e.which;
 	if ((event.keyCode > 32) && (event.keyCode < 48 ))  nAllow(e); 	
@@ -752,5 +597,13 @@ function nAllow(e) {
 	}
 }
 </script>
+		<td bgcolor="pink" colspan="2" align="center">
+		<input type="submit" id="submit" value="등록하깅"/></td>
+	</tr> 
+ </table>  
+</form:form> 
+<hr>
+<a href="getBoardList.do">글 목록 가기</a>
+</center>
 </body>
 </html>

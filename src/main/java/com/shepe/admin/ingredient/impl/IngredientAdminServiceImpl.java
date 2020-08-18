@@ -30,7 +30,7 @@ public class IngredientAdminServiceImpl implements IngredientAdminService {
 		MultipartFile thumbUpload = vo.getIngredient_thumbimg();
 		if(!thumbUpload.isEmpty()) {
 			String ingredient_thumbimg = thumbUpload.getOriginalFilename();
-			thumbUpload.transferTo(new File("E:\\swork\\sharecipe\\src\\main\\webapp\\resources\\img\\ingredient-img\\" + ingredient_thumbimg));
+			thumbUpload.transferTo(new File("D:\\swork\\shepe_V305\\src\\main\\webapp\\resources\\img\\ingredient-img\\" + ingredient_thumbimg));
 			vo.setIngredient_thumbName(ingredient_thumbimg);
 		}
 			ingredientDAO.adminInsertDetail(vo);
@@ -42,7 +42,7 @@ public class IngredientAdminServiceImpl implements IngredientAdminService {
 		List<String> imgNames = new ArrayList();
 		for(int i=0; i < imageUpload.length; i++) {
 			String ingredient_multi_img = imageUpload[i].getOriginalFilename();
-			imageUpload[i].transferTo(new File("E:\\swork\\sharecipe\\src\\main\\webapp\\resources\\img\\upload\\" + ingredient_multi_img));
+			imageUpload[i].transferTo(new File("D:\\swork\\shepe_V305\\src\\main\\webapp\\resources\\img\\upload\\" + ingredient_multi_img));
 			imgNames.add(ingredient_multi_img);		
 			vo.setIngredient_fileName(ingredient_multi_img);
 			ingredientDAO.imageInsert(vo);
@@ -99,14 +99,14 @@ public class IngredientAdminServiceImpl implements IngredientAdminService {
 		
 		for(int i=0; i < imageUpload.length; i++) {
 			String ingredient_multi_img = imageUpload[i].getOriginalFilename();
-			imageUpload[i].transferTo(new File("E:\\swork\\sharecipe\\src\\main\\webapp\\resources\\img\\upload\\" + ingredient_multi_img));
+			imageUpload[i].transferTo(new File("D:\\swork\\shepe_V305\\src\\main\\webapp\\resources\\img\\upload\\" + ingredient_multi_img));
 			vo.setIngredient_fileName(ingredient_multi_img);
 			System.out.println(ingredient_multi_img);
 		}
 
 		if(!thumbUpload.isEmpty()) {
 			String ingredient_thumbimg = thumbUpload.getOriginalFilename();
-			thumbUpload.transferTo(new File("E:\\swork\\sharecipe\\src\\main\\webapp\\resources\\img\\ingredient-img\\" + ingredient_thumbimg));
+			thumbUpload.transferTo(new File("D:\\swork\\shepe_V305\\src\\main\\webapp\\resources\\img\\ingredient-img\\" + ingredient_thumbimg));
 			vo.setIngredient_thumbName(ingredient_thumbimg);
 		}
 		ingredientDAO.ingredientUpdate(vo);

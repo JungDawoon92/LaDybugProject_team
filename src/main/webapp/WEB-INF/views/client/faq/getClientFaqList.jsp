@@ -37,9 +37,10 @@ tr, th, td {
 	<jsp:include page="/WEB-INF/include/Nav.jsp" />
 	
 	<div class="container">
-	<div class="faqList float-left">F A Q</div>
+	
     	<div class="category" style="margin: 10px; text-align: center">
-	    	<div class="category1 float-right" style="margin:30px;">
+			<div class="faqList float-left">F A Q</div>
+	    	<div class="float-right" style="margin:30px;">
 	    		<button type="button" id="1" class="btn btn-outline-primary btnall">전체</button>
 		   		<button type="button" id="2" class="btn btn-outline-primary">회원/로그인</button>
 	      		<button type="button" id="3" class="btn btn-outline-primary">상품</button>
@@ -159,8 +160,8 @@ $('.btn').click( function() {
 <script type="text/javascript">
 var choice1 = "0";
 
-$(".category1 > .btn").click(function(){
-    $(".category1 > .btn").removeClass("active");
+$(".category > .btn").click(function(){
+    $(".category > .btn").removeClass("active");
     $(this).addClass("active");
     choice1 = this.id;
     

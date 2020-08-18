@@ -189,8 +189,8 @@
 									</div>
 									<%} else { %>
 									<div class="pagingCenter">
-										<input type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" value="장바구니 담기">
-										<input type="button" class="orderRecipeButton btn btn-success" value="바로 구매하기">
+										<input type="button" data-toggle="modal" data-target="#myModal" value="장바구니 담기">
+										<input type="button" class="orderRecipeButton" value="바로 구매하기">
 									</div>
 									<%} %>
 									<!-- Modal -->

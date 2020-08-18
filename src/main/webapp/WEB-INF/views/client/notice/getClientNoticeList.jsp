@@ -31,6 +31,9 @@ tr, th, td {
        display: none;
      }
 }
+.btn {
+	margin : 10px;
+}
 
 .faqList{
 	margin:15px;

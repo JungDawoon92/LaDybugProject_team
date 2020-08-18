@@ -59,7 +59,7 @@ public class RecipeClientInterceptorController {
 		MultipartFile uploadCompleteImege = vo.getRecipe_complete_img_file();
 		if(!uploadCompleteImege.isEmpty()) {
 			String completeImegeName = fourteen_format.format(date_now) + uploadCompleteImege.getOriginalFilename();
-			uploadCompleteImege.transferTo(new File("E:\\Swork\\sharecipe\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
+			uploadCompleteImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
 			vo.setRecipe_complete_img(completeImegeName);
 		}
 		
@@ -79,7 +79,7 @@ public class RecipeClientInterceptorController {
 			// 이미지 업로드
 			if(!uploadProcessImege.isEmpty()) {
 				String processImegeName = fourteen_format.format(date_now) + uploadProcessImege.getOriginalFilename();
-				uploadProcessImege.transferTo(new File("E:\\Swork\\sharecipe\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
+				uploadProcessImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
 				vo.setRecipe_process_img(processImegeName);
 			}
 			recipeService.processInsert(vo);
@@ -131,7 +131,7 @@ public class RecipeClientInterceptorController {
 		MultipartFile uploadCompleteImege = vo.getRecipe_complete_img_file();
 		if(!uploadCompleteImege.isEmpty()) {
 			String completeImegeName = fourteen_format.format(date_now) + uploadCompleteImege.getOriginalFilename();
-			uploadCompleteImege.transferTo(new File("E:\\Swork\\sharecipe\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
+			uploadCompleteImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-com-img\\" + completeImegeName));
 			vo.setRecipe_complete_img(completeImegeName);
 			
 			recipeService.recipeUpdateImg(vo);
@@ -161,7 +161,7 @@ public class RecipeClientInterceptorController {
 			// 이미지 업로드
 			if(!uploadProcessImege.isEmpty()) {
 				String processImegeName = fourteen_format.format(date_now) + uploadProcessImege.getOriginalFilename();
-				uploadProcessImege.transferTo(new File("E:\\Swork\\sharecipe\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
+				uploadProcessImege.transferTo(new File("D:\\Swork\\Shepe_V1304(2020-08-06)\\src\\main\\webapp\\resources\\img\\recipe-pro-img\\" + processImegeName));
 				vo.setRecipe_process_img(processImegeName);
 				recipeService.processUpdateImg(vo);
 			} else if(uploadProcessImege.isEmpty()) {

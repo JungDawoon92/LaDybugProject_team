@@ -105,7 +105,7 @@ public class OrderServiceImpl implements OrderService{
 		orderMemberVO.setOrder_no(order_no);
 		System.out.println(session.getAttribute("apiLogin"));
 		
-		if(session.getAttribute("apiLogin") != null && session.getAttribute("apiLogin").equals("true")) {
+		if(session.getAttribute("apiLogin").equals("true") ) {
 			orderMemberVO.setMember_id((String) session.getAttribute("member_id"));
 		}
 		else {
