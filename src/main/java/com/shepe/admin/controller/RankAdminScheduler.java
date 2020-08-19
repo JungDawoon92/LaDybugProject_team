@@ -27,7 +27,7 @@ public class RankAdminScheduler {
 	@Autowired
 	private RankSellRecipeRankingAdminService rankSellRecipeRankingService;
 	
-	@Scheduled(cron="00 36 11 * * *")
+	@Scheduled(cron="00 56 09 * * *")
 	public void insertRankLikeRanking () {
 		System.out.println("좋아요 insert 시작합니다.");
 		
@@ -46,7 +46,7 @@ public class RankAdminScheduler {
 	}
 	
 	
-	@Scheduled(cron="00 36 11 * * *")
+	@Scheduled(cron="00 56 09 * * *")
 	public void insertRankSubscribeRanking () {
 		System.out.println("구독 insert 시작합니다.");
 		
@@ -65,7 +65,7 @@ public class RankAdminScheduler {
 	}
 	
 	/* 식재료 인서트 */
-	@Scheduled(cron="00 36 11 * * *")
+	@Scheduled(cron="00 56 09 * * *")
 	public void insertRankSellIngredientRanking () {
 		System.out.println("식재료 insert 시작합니다.");
 		
@@ -85,7 +85,7 @@ public class RankAdminScheduler {
 	
 	
 	/* 레시피 리스트 인서트 */
-	@Scheduled(cron="00 36 11 * * *")
+	@Scheduled(cron="00 56 09 * * *")
 	public void insertRankSellRecipeRanking () {
 		System.out.println("레시피 insert 시작합니다.");
 		

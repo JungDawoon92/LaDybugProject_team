@@ -278,7 +278,7 @@
 	</script>
 	<script>
 
-var url = "ws://localhost:8090/shepe/broadsocket/";
+var url = "ws://192.168.219.121:8090/shepe/broadsocket/";
 url += '${member_id}';
 
 var id = '${member_id}';

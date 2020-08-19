@@ -178,7 +178,7 @@
 </div>
 
 <script>
-var webSocket = new WebSocket("ws://localhost:8090/shepe/chatAdmin");
+var webSocket = new WebSocket("ws://192.168.219.121:8090/shepe/chatAdmin");
 
 		webSocket.onopen = function(message) {
 		};
@@ -245,7 +245,6 @@ function sendMessage() {
 		
 		if("connect" === (sessionStorage.getItem("clientconnect"))){
 			chatread = 1;
-			alert(chatread);
 		}
 		
 		webSocket.send(fromID + "#####" + chatContent);

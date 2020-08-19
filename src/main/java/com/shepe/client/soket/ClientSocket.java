@@ -21,6 +21,7 @@ public class ClientSocket {
 		 
         for (K key : map.keySet()) {
             if (value.equals(map.get(key))) {
+            	System.out.println(key);
                 return key;
             }
         }
@@ -30,6 +31,7 @@ public class ClientSocket {
 // browser에서 웹 소켓으로 접속하면 호출되는 함수
 	@OnOpen
 	public void handleOpen(Session userSession, @PathParam("userID") String userID) {
+			System.out.println(userID);
 			clientMap.put(userID, userSession);
 	}
 

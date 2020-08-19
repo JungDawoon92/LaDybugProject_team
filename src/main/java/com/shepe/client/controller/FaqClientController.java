@@ -100,6 +100,10 @@ public class FaqClientController {
 		@ResponseBody
 		@RequestMapping(value="getClientAjaxFaqList.do")
 		public List<FaqVO> getAjaxFaqList(@RequestParam(value="choice", required=false) String choice, FaqVO vo, Model model) {
+			
+			System.out.println("여기타나?");
+			System.out.println(choice);
+			
 			System.out.println("Cl Controller getAjaxFaqList \n chice" + choice + "\n vo"+vo);
 			return faqService.getAjaxFaqList(choice);
 		}

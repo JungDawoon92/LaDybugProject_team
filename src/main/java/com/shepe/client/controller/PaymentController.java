@@ -60,7 +60,7 @@ public class PaymentController {
     			logger.info("결제에러로 인한 결제 취소 실패");
     		}
     		else {
-    			model.addAttribute("Cancel", kakaoPayCancelVO);
+    			model.addAttribute("cancel", kakaoPayCancelVO);
     		}
     	}
     	

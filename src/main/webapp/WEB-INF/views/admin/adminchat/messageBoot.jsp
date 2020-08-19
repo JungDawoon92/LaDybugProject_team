@@ -39,6 +39,8 @@ div.col-8 div {
 
 <script>
 function submitcheck(i){
+	var submitche = "#" + "add" + i;
+	$(submitche).fadeIn(100);
 	var formsubmit = "#" + "bootsubject" + i;
 	
 	var formData = $(formsubmit).serialize();
@@ -88,6 +90,7 @@ function submitcheck(i){
 						<label for="uname">Comment:</label> <input type="text"
 							class="form-control" id="startBoot" placeholder="인사" name="startBoot"
 							required minlength="3" maxlength="40"> <br>
+							<font id="add11" class="text-success" style="display: none;">등록되었습니다.</font>
 						<button id="button1" type="submit"
 							class="btn btn-primary float-right"
 							onclick="location.href='#section2'">Submit</button>
@@ -110,7 +113,8 @@ function submitcheck(i){
 						</button>
 						<button id="button2" type="submit"
 							class="btn btn-primary float-right"
-							onclick="location.href='#section3'">Submit</button>
+							onclick="location.href='#section3'">Submit</button><br>
+							<font id="add12" class="text-success" style="display: none;">등록되었습니다.</font>
 					</div>
 				</div>
 
@@ -140,7 +144,7 @@ function submitcheck(i){
 	  				}
 		    });
 				
-				
+				$('#add11').fadeIn(100);
 				$('#section2').fadeIn(2000);
 			});
 
@@ -156,7 +160,7 @@ function submitcheck(i){
 	  				}
 				});
 				
-				
+				$('#add12').fadeIn(100);
 				$('#section3').fadeIn(2000);
 				$('#bootWriteList').empty();
 				
@@ -171,7 +175,8 @@ function submitcheck(i){
 			  				'<label>봇 답변</label>' +
 			  				'<textarea class="form-control" rows="3" name="boot_answer"></textarea>' +
 			  				'<small class="form-text text-muted">위의 버튼을 누르면 사용자가 받는 답변입니다.</small>'+
-			  				'<button type="button" class="btn btn-primary float-right" onclick="submitcheck('+ i +');">Submit</button>' +	
+			  				'<button type="button" class="btn btn-primary float-right" onclick="submitcheck('+ i +');">Submit</button>' +
+			  				'<br><font id="add'+ i +'" class="text-success" style="display: none;">등록되었습니다.</font>'+
 			  				'<br><br><hr>'+
 			  				'</form>'
 			  				);

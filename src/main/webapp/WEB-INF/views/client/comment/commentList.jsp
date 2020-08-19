@@ -55,6 +55,10 @@
 
 </body>
 <script type="text/javascript">
+$(window).scroll(function() {
+	sessionStorage.scrollTop = $(this).scrollTop();
+});
+
 $(document).ready(function() {
 	var page = 1;
 	commentList(page);
@@ -68,7 +72,12 @@ $(document).ready(function() {
 		page = 1;
 		commentList(page);
 	});
+	
+	if (sessionStorage.scrollTop != "undefined") {
+	    $(window).scrollTop(sessionStorage.scrollTop);
+	}
 });
+
 
 function commentList(page) {
 	var li_params = { 
