@@ -13,7 +13,7 @@
 <!-- Search Wrapper -->
 <div class="search-wrapper">
 	<!-- Close Btn -->
-	<div class="close-btn">
+	<div id="search-close" class="close-btn">
 		<i class="fa fa-times" aria-hidden="true"></i>
 	</div>
 
@@ -25,8 +25,8 @@
 					<button type="submit">
 						<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
-					<table class="table table-bordered table-hover" style="cursor:pointer">
-						<tbody id="myTable" style="background-color: white;">
+					<table id="searchTable" class="table table-bordered table-hover" style="cursor:pointer">
+						<tbody id="myTable" style="background-color: white;" style="display:none;">
 						</tbody>
 					</table>
 				</form>
@@ -34,6 +34,13 @@
 		</div>
 	</div>
 </div>
+<script>
+	$('#search-close').click(function(){
+		$("#myTable").replaceWith('<tbody id="myTable" style ="background-color : white;"></tbody>');
+	});
+	
+	
+</script>
 
 <!-- ##### Header Area Start ##### -->
 <header class="header-area">

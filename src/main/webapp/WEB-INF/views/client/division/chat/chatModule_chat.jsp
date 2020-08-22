@@ -213,10 +213,8 @@
 				
 				if ("mobile" === sessionStorage.getItem("SessionCheckMobile")) {
 					$( '#chatContent' ).css( "top", "580px;" );
-					alert("chat모바일");
 	
 				} else {
-					alert("chatpc");
 					$( '#chatContent' ).css( "top", "780px;" );
 				}
 				
@@ -423,7 +421,6 @@ function faq_btnclick(faqselect) {
 			        $('#togglechat').scrollTop($('#togglechat')[0].scrollHeight);
 			},
 				error: function(request, status, error) {
-			    	alert("오류");
 			    }
 		});
 
@@ -502,7 +499,6 @@ function faq_detail(faq_category,faq_sq, faq_nm) {
 			
 		     },
 			error: function(request, status, error) {
-				alert("오류");
 		    	}
 		});
 	});

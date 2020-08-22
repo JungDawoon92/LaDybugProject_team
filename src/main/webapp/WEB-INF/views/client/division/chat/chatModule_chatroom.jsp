@@ -249,10 +249,8 @@
 		$(document).ready(function() {
 			if ("mobile" === sessionStorage.getItem("SessionCheckMobile")) {
 				$( '#chatContent' ).css( "top", "580px;" );
-				alert("chat모바일");
 
 			} else {
-				alert("chatpc");
 				$( '#chatContent' ).css( "top", "780px;" );
 			}
 			

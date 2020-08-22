@@ -300,11 +300,9 @@ if(id != 'null') {
 
 <script>
 	if (jQuery.browser.mobile == true) {
-		alert("모바일");
 		sessionStorage.setItem("SessionCheckMobile", "mobile");
 		$( '.checkMobile' ).css( "top", "80px" );
 	} else {
-		alert("pc");
 		sessionStorage.setItem("SessionCheckMobile", "pc");
 		$( '.checkMobile' ).css( "top", "280px" );
 	}

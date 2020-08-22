@@ -40,7 +40,7 @@
 	</update>
 	
 	<select id="searchInputAction" resultType="search">
-			SELECT search_data,sum(search_data_cnt) as search_data_cnt FROM search WHERE search_data LIKE CONCAT(#{search_value}, '%') GROUP BY search_data  ORDER BY search_data_cnt DESC ;
+			SELECT search_data,sum(search_data_cnt) as search_data_cnt FROM search WHERE search_data LIKE CONCAT(#{search_value}, '%') GROUP BY search_data  ORDER BY search_data_cnt DESC LIMIT  0, 10 ;
 	</select>
 	<select id="searchChart_total" resultType="searchAdmin">
 		SELECT search_data,sum(search_data_cnt) as search_data_cnt FROM search GROUP BY search_data ORDER BY search_data_cnt DESC LIMIT 0 , 10
