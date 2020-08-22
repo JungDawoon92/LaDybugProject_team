@@ -162,9 +162,22 @@ $.ajax({
                 <div class="custom-form">
                    
                         <div class="row">
+                        	  <div class="col-md-8">
+                            	<label for="frist-name" class="text-muted">식재료 이름</label>
+                            	<div class="row">
+	                                <div class="form-group app-label col-md-9">
+	                                    <form:input id="frist-name" type="text" name="ingredient_nm" path="ingredient_nm" class="form-control resume" />
+	                                    <span style="color:red;">※식재료 이름을 정확히 기입해 주세요※</span><br>
+	                                </div>
+	                                <div class="col-md-3">
+	                                    <button class="idChk btn btn-outline-info" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
+	                                    <div class="check_font" id ="nm_check"></div> 
+	                            	</div>
+	                            </div>
+                            </div>
                         	<div class="col-md-4">
                                 <div class="form-group app-label">
-                                    <label for="General" class="text-muted">카테고리</label>
+                                    <label for="categ" class="text-muted">카테고리</label>
                                     <div class="form-button">
                                         <select name="ingredient_categ" id="categ" class="form-control resume" onChange="checkCateg()" selected>
                                             <option value="MEAT">육류</option>
@@ -181,28 +194,24 @@ $.ajax({
                                 </div>
                             </div>
 							
-                            <div class="col-md-8">
-                            	<label for="frist-name" class="text-muted">식재료 이름</label>
-                            	<div class="row">
-	                                <div class="form-group app-label col-md-9">
-	                                    <form:input id="frist-name" type="text" path="ingredient_nm" class="form-control resume" />
-	                                    <span style="color:red;">※식재료 이름을 정확히 기입해 주세요※</span><br>
-	                                </div>
-	                                <div class="col-md-3">
-	                                    <button class="idChk btn btn-outline-info" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
-	                                    <div class="check_font" id = "nm_check"></div> 
-	                            	</div>
-	                            </div>
-                            </div>
-                            
-                            <div class="col-md-4">
+                          	 <div class="col-md-4">
                                 <div class="form-group app-label">
                                     <label for="surname-name" class="text-muted">가격</label>
-                                    <input id="surname-name" type="number" class="form-control resume" 
-                                    name="ingredient_price" onkeypress="priceNum()" placeholder="숫자만 입력해주세요">
+                                    <input id="surname-name" type="number" class="form-control resume" name="ingredient_price" onkeypress="priceNum()" placeholder="숫자만 입력해주세요">
                                 </div>
                             </div>
-							
+                            <div class="col-md-4">
+                                <div class="form-group app-label">
+                                    <label for="ingredient_thumbimg" class="text-muted">식재료 썸네일</label>
+                                    <div class="custom-file">
+        								<input type="file" id="ingredient_thumbimg" name="ingredient_thumbimg">
+         
+                                      <button class="thumbChk btn btn-outline-info" type="button" id="thumbChk" onclick="fn_thumbChk();" value="N">썸네일 중복확인</button>
+									  <div class="check_font" id="thumb_check"></div> 
+                                    </div>
+                                </div>
+                            </div>                       
+                          
                             <div class="col-md-4">
                                 <div class="form-group app-label">
                                     <label for="date-of-birth" class="text-muted">식재료 양</label>
@@ -211,17 +220,7 @@ $.ajax({
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group app-label">
-                                    <label for="marital-status" class="text-muted">식재료 썸네일</label>
-                                    <div class="custom-file">
-        								<input type="file" id="ingredient_thumbimg" name="filename2">
-         
-                                      <button class="thumbChk btn btn-outline-info" type="button" id="thumbChk" onclick="fn_thumbChk();" value="N">썸네일 중복확인</button>
-									  <div class="check_font" id="thumb_check"></div> 
-                                    </div>
-                                </div>
-                            </div>                       
+                            
                         </div>
                     
                 </div>
@@ -243,9 +242,9 @@ $.ajax({
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">식재료 원산지</label>
+                                    <label for="ingredient_country" class="text-muted">식재료 원산지</label>
                                     <div class="form-button">
-										<select name="ingredient_country" id="select1" class="nice-select">
+										<select name="ingredient_country" id="ingredient_country" class="nice-select">
 								      		<option data-display="국산">국산</option>
 											<option value="미국산">미국산</option>
 											<option value="스페인">스페인산</option>
@@ -262,8 +261,8 @@ $.ajax({
 
                             <div class="col-md-3">
                                 <div class="form-group app-label">
-                                    <label for="state" class="text-muted">생산지/수입지</label>
-                                    <form:input id="state" path="ingredient_productimporter" class="form-control resume" placeholder="생산지/수입지를 적어주세요"/>
+                                    <label for="ingredient_productimporter" class="text-muted">생산지/수입지</label>
+                                    <form:input id="ingredient_productimporter" path="ingredient_productimporter" class="form-control resume" placeholder="생산지/수입지를 적어주세요"/>
                                 </div>
                             </div>
 
@@ -277,8 +276,8 @@ $.ajax({
 
                             <div class="col-md-3">
                                 <div class="form-group app-label">
-                                    <label for="phone" class="text-muted">제조년월</label>
-                                    <input id="phone" type="date" id="ingredient_mnfctDate" name="ingredient_mnfctDate" class="form-control resume" size="10" required/>
+                                    <label for="ingredient_mnfctDate" class="text-muted">제조년월</label>
+                                    <input type="date" id="ingredient_mnfctDate" name="ingredient_mnfctDate" class="form-control resume" size="10" required/>
                                     <div class="check"></div>
                                 </div>
                             </div>
@@ -316,8 +315,7 @@ $.ajax({
 								<div class="row border">
 									<div class="col-md-6">
 										<div class="form-group app-label">
-											<select name="ingredient_foodType" id="ingredient_foodType" class="form-control resume" 
-													onchange="doFoodType(this, 'ingredient_selFoodType')">
+											<select name="ingredient_foodType" id="ingredient_foodType" class="form-control resume" onchange="doFoodType(this, 'ingredient_selFoodType')">
 												 <option value="육류">육류</option>
 									        	 <option value="소고기">소고기</option>
 									        	 <option value="닭고기">닭고기</option>
@@ -331,8 +329,7 @@ $.ajax({
 									</div>
 									<div class="col-md-6">
 										<div class="form-group app-label">
-											<form:select path="ingredient_selFoodType" id="ingredient_selFoodType" 
-														name="ingredient_selFoodType" class="form-control resume">
+											<form:select path="ingredient_selFoodType" id="ingredient_selFoodType" name="ingredient_selFoodType" class="form-control resume">
 												<form:option value="default">가공방법</form:option>	
 												<form:options items="${ingredient_selFoodType}" />
 											</form:select>
@@ -343,7 +340,7 @@ $.ajax({
 	
 							<div class="col-md-4">
 								<div class="form-group app-label">
-									<label for="website" class="text-muted">보관방법</label>
+									<label for="ingredient_storage" class="text-muted">보관방법</label>
 									<div class="row border">
 										<div class="col-md-6">
 											<div class="form-group app-label">
@@ -362,7 +359,7 @@ $.ajax({
 										</div>
 										<div class="col-md-6">
 											<div class="form-group app-label">
-												<form:select path="ingredient_selStorage" name = "ingredient_selStorage" 
+												<form:select path="ingredient_selStorage" name ="ingredient_selStorage" 
 															id="ingredient_selStorage" class="form-control resume">
 													<form:option value="default">식재료 보관방법</form:option>
 													<form:options items="${ingredient_selStorage}"/>
@@ -375,8 +372,8 @@ $.ajax({
                             
                             <div class="col-md-3">
                                 <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">포장재질</label>
-                                    <select name="ingredient_pckmtr" id="select1" class="form-control resume">
+                                    <label for="ingredient_pckmtr" class="text-muted">포장재질</label>
+                                    <select name="ingredient_pckmtr" id="ingredient_pckmtr" class="form-control resume">
 							      		<option value="열성형진공포장">열성형진공포장</option>
 										<option value="PE비닐">PE비닐</option>
 										<option value="폴리에틸렌">폴리에틸렌</option>
@@ -391,8 +388,8 @@ $.ajax({
                             
                             <div class="col-md-3">
                                 <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">영양분</label>
-                                    <select name="ingredient_nutrient" id="select1" class="form-control resume">
+                                    <label for="ingredient_nutrient" class="text-muted">영양분</label>
+                                    <select name="ingredient_nutrient" id="ingredient_nutrient" class="form-control resume">
 							      		<option value="육류100%">육류100%</option>
 										<option value="소고기100%">소고기100%</option>
 										<option value="닭고기100%">닭고기100%</option>
@@ -407,8 +404,8 @@ $.ajax({
                             
                             <div class="col-md-3">
                                 <div class="form-group app-label">
-                                    <label for="select1" class="text-muted">알레르기 성분</label>
-                                    <select name="ingredient_allergy" id="select1" class="form-control resume">
+                                    <label for="ingredient_allergy" class="text-muted">알레르기 성분</label>
+                                    <select name="ingredient_allergy" id="ingredient_allergy" class="form-control resume">
 							      		<option value="소고기 함유">소고기 함유</option>
 										<option value="돼지고기 함유">돼지고기 함유</option>
 										<option value="닭고기 함유">닭고기 함유</option>
@@ -439,7 +436,7 @@ $.ajax({
                    
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="marital-status" class="text-muted">이미지</label>
+                                <label for="ingredient_multi_img" class="text-muted">이미지</label>
                                 <div class="custom-file">
                                 <input type="file" id="ingredient_multi_img" name="ingredient_multi_img" multiple = "multiple" onkeypress="multiImg(event)"/>
                                   
@@ -458,7 +455,7 @@ $.ajax({
             <div class="job-detail mt-2 p-4">
                 <div class="custom-form">
 				    <div class="button_area row">
-						<div class="col-6"><button type="submit" class="btn btn-outline-success btn-block">등록하기</button></div>
+						<div class="col-6"><button type="submit" id="submit" class="btn btn-outline-success btn-block">등록하기</button></div>
 						<div class="col-6"><button type="button" class="btn btn-outline-info btn-block" onclick="location.href='/getBoardList.do'">글 목록 가기</button></div>
 					</div>
 				</div>

@@ -99,7 +99,7 @@
 				style="position: absolute;">
 				<input id="chatContent" type="text" class="chat__write"
 					placeholder="Send message" class="chat__write-input"
-					style="margin-bottom: 90px; position: fixed; width: 310px; top: 780px;"
+					style="margin-bottom: 90px; position: fixed; width: 310px;"
 					onkeydown="return enter()" />
 			</div>
 		</div>
@@ -210,6 +210,16 @@
 			}
 
 			$(document).ready(function() {
+				
+				if ("mobile" === sessionStorage.getItem("SessionCheckMobile")) {
+					$( '#chatContent' ).css( "top", "580px;" );
+					alert("chat모바일");
+	
+				} else {
+					alert("chatpc");
+					$( '#chatContent' ).css( "top", "780px;" );
+				}
+				
 				
 				today = new Date()
 				var week = new Array('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNSEDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY');
@@ -495,10 +505,14 @@ function faq_detail(faq_category,faq_sq, faq_nm) {
 				alert("오류");
 		    	}
 		});
-		
-		
 	});
 }
+
+$(window).on("beforeunload", function(){
+	let clientconnectout = "ClientLogout입니다.";			
+	webSocket.send(clientconnectout);
+	sessionStorage.removeItem("sendmessagedata");
+});
 
 </script>
 

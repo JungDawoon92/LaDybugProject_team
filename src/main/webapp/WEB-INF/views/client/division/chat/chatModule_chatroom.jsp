@@ -65,7 +65,7 @@
 				style="position: absolute;">
 				<input id="chatContent" type="text" class="chat__write"
 					placeholder="Send message" class="chat__write-input"
-					style="margin-bottom: 90px; position: fixed; width: 310px; top: 780px;"
+					style="margin-bottom: 90px; position: fixed; width: 310px;"
 					disabled
 					onkeydown="return enter()"/>
 			</div>
@@ -247,6 +247,15 @@
 		</script>
 		<script>
 		$(document).ready(function() {
+			if ("mobile" === sessionStorage.getItem("SessionCheckMobile")) {
+				$( '#chatContent' ).css( "top", "580px;" );
+				alert("chat모바일");
+
+			} else {
+				alert("chatpc");
+				$( '#chatContent' ).css( "top", "780px;" );
+			}
+			
 			chatListFunction('ten');
 			var chatRoomNum = sessionStorage.getItem("roomnum");
 			$.ajax({

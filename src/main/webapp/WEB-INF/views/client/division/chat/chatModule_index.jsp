@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="/shepe/resources/chatcss/styles.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="<c:url value ="/resources/js/mobileCheck.js" />"></script>
 
 </head>
 <body>
@@ -67,7 +68,7 @@
 
 
 	<div class="container">
-     <aside style="float:right; position: fixed; right: 5px; bottom: 95px; top: 280px; z-index: 1;  ">
+     <aside class="checkMobile" style="float:right; position: fixed; right: 5px; bottom: 95px; z-index: 1;  ">
 	    <div id ="changechat">
 	 		 
 <div id ="change">
@@ -150,6 +151,14 @@
     <script>
     
     	$(document).ready(function(){
+    		
+    		if ("mobile" === sessionStorage.getItem("SessionCheckMobile")) {
+				$( '.checkMobile' ).css( "top", "80px;" );
+			} else {
+				$( '.checkMobile' ).css( "top", "280px;" );
+			}
+    		
+    		
     		  			
 			  $("#chatbutton").click(function(){
 			    $("#togglechat").fadeToggle();
@@ -278,7 +287,7 @@
 	</script>
 	<script>
 
-var url = "ws://192.168.219.121:8090/shepe/broadsocket/";
+var url = "ws://192.168.219.130:8090/shepe/broadsocket/";
 url += '${member_id}';
 
 var id = '${member_id}';
@@ -288,6 +297,19 @@ if(id != 'null') {
 	url);
 	}
 </script>
+
+<script>
+	if (jQuery.browser.mobile == true) {
+		alert("모바일");
+		sessionStorage.setItem("SessionCheckMobile", "mobile");
+		$( '.checkMobile' ).css( "top", "80px" );
+	} else {
+		alert("pc");
+		sessionStorage.setItem("SessionCheckMobile", "pc");
+		$( '.checkMobile' ).css( "top", "280px" );
+	}
+</script>
+
 
 </body>
 </html>

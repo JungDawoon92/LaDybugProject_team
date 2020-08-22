@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DivisionDAO">
+
+	<select id="getDivisionList" resultType="division">
+		<![CDATA[
+			SELECT R.recipe_no,R.recipe_category_kind,R.recipe_category_ing,R.recipe_category_how,R.recipe_nm,R.recipe_complete_img,R.recipe_info,R.member_nickname,R.recipe_cnt,ifnull(I.recipe_like_sum,0) as recipe_like_sum  FROM recipe R LEFT OUTER JOIN  rank_like_ranking I
+            on R.recipe_no = I.recipe_no ORDER BY RECIPE_CNT DESC LIMIT #{startpage}, 8;
+		]]>
+	</select>
+	
+	<select id="getDivisionInList" resultType="divisionIn">
+			SELECT * FROM ingredient order by ingredient_price LIMIT #{startpage}, 8;
+	</select>
+	
+	<select id="getDivisionCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM RECIPE;
+		]]>
+	</select>
+	
+	<select id="getDivisionInCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM ingredient;
+		]]>
+	</select>
+	
+	<select id="getAjaxList" parameterType="java.util.HashMap" resultType="division">
+			SELECT R.recipe_no,R.recipe_category_kind,R.recipe_category_ing,R.recipe_category_how,R.recipe_nm,R.recipe_complete_img,R.recipe_info,R.member_nickname,R.recipe_cnt,ifnull(I.recipe_like_sum,0) as recipe_like_sum  FROM recipe R LEFT OUTER JOIN  rank_like_ranking I
+            on R.recipe_no = I.recipe_no WHERE recipe_category_kind=#{kind} OR recipe_category_ing=#{ing} OR recipe_category_how=#{how} ORDER BY RECIPE_CNT DESC LIMIT #{startpage}, 8;
+	</select>
+	
+	<select id="getAjaxCount" parameterType="java.util.HashMap" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) FROM  RECIPE WHERE recipe_category_kind=#{kind} OR recipe_category_ing=#{ing} OR recipe_category_how=#{how};
+		]]>
+	</select>
+	
+	<select id="getAjaxingrelist" parameterType="java.util.HashMap" resultType="divisionIn">			
+			SELECT * FROM ingredient where ingredient_categ = #{ingredient_categ} order by ingredient_price LIMIT #{startpage}, 8;
+	</select>
+	
+	<select id="getAjaxinCount" resultType="int">
+			SELECT COUNT(*) FROM ingredient WHERE ingredient_categ = #{categ}
+	</select>
+	
+
+</mapper>
+
+
+<!--		<choose>
+			<when test='!(#{kind}.equals(""))'>
+				WHERE recipe_category_kind=#{kind} ORDER BY RECIPE_CNT DESC, RECIPE_LIKE DESC LIMIT 0,8;
+			</when>
+		</choose>-->
