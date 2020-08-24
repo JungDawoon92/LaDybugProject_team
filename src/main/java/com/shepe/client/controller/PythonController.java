@@ -22,8 +22,7 @@ public class PythonController {
 		String mk = requset.getSession().getServletContext().getRealPath("/resources/python/test.py");
 		intPre = new PythonInterpreter();
 		intPre.execfile(mk);
-		System.out.println("문제없나?");
-		PyFunction pyFuntion = (PyFunction) intPre.get("testFunc", PyFunction.class);
+ 		PyFunction pyFuntion = (PyFunction) intPre.get("testFunc", PyFunction.class);
 		int a = 10, b = 20;
 		PyObject pyobj = pyFuntion.__call__(new PyInteger(a), new PyInteger(b));
 		System.out.println(pyobj.toString());

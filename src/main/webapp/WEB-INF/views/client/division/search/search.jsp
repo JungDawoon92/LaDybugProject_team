@@ -17,12 +17,43 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="/shepe/resources/chatcss/search.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <style>
+  	.box {
+    background: #fff;
+    padding: 30px;
+    margin: 0 0 24px 0;
+}
+  </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/include/Nav.jsp" />
+	
+	
 	<div class="content">
     <div class="container">
         <div class="row">
+
+        
+        <!-- 크롤링 동영상 -->
+        			<ul class="nav nav-tabs tabs-bordered col-lg-12" style="margin-left: 40px;">
+                        <li class="nav-item"><a href="#home" data-toggle="tab" aria-expanded="true" class="nav-link active">인플루언서</a></li>
+                    </ul>
+        
+
+        	<div class="col-xs-12 col-sm-6 col-lg-6">
+				<div class="box rte">
+				    <object class="mx-auto" type="text/html" width="100%" height="281" data="//www.youtube.com/embed/5VLV3VpDLxQ" frameborder="0" allowfullscreen=""></object>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-6 col-lg-6">
+				<div class="box rte">
+					<iframe src="https://www.youtube.com/embed/UcMrbi57uy8" width="100%" height="281" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+				</div>
+			</div>
+	
+		<!------------------------ -->
+        
             <div class="col-lg-12">
                 <div class="search-result-box card-box">
                     <!-- end row -->
