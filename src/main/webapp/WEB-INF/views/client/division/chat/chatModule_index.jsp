@@ -287,7 +287,7 @@
 	</script>
 	<script>
 
-var url = "ws://192.168.219.130:8090/shepe/broadsocket/";
+var url = "ws://192.168.219.110:8090/shepe/broadsocket/";
 url += '${member_id}';
 
 var id = '${member_id}';
@@ -304,7 +304,7 @@ if(id != 'null') {
 		$( '.checkMobile' ).css( "top", "80px" );
 	} else {
 		sessionStorage.setItem("SessionCheckMobile", "pc");
-		$( '.checkMobile' ).css( "top", "280px" );
+		$( '.checkMobile' ).css( "top", "80px" );
 	}
 </script>
 

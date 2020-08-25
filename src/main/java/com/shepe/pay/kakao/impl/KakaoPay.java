@@ -73,9 +73,9 @@ public class KakaoPay {
             params.add("quantity", "1");
             params.add("total_amount", String.valueOf(orderInfoVO.getOrder_sum()));
             params.add("tax_free_amount", "0");
-            params.add("approval_url", "http://localhost:8090/shepe/kakaoPaySuccess");
-            params.add("cancel_url", "http://localhost:8090/shepe/kakaoPayCancel");
-            params.add("fail_url", "http://localhost:8090/shepe/kakaoPaySuccessFail");
+            params.add("approval_url", "http://192.168.219.110:8090/shepe/kakaoPaySuccess");
+            params.add("cancel_url", "http://192.168.219.110:8090/shepe/kakaoPayCancel");
+            params.add("fail_url", "http://192.168.219.110:8090/shepe/kakaoPaySuccessFail");
             HttpEntity<MultiValueMap<String,String>> body = new HttpEntity<MultiValueMap<String,String>>(params, headers);
             
             try {

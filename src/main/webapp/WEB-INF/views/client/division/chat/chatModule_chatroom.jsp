@@ -251,7 +251,7 @@
 				$( '#chatContent' ).css( "top", "580px;" );
 
 			} else {
-				$( '#chatContent' ).css( "top", "780px;" );
+				$( '#chatContent' ).css( "top", "580px;" );
 			}
 			
 			chatListFunction('ten');

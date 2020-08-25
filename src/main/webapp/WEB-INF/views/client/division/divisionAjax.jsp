@@ -17,7 +17,7 @@
 			 <c:forEach items="${divisionList}" var="division">
 				 <div class="card col-lg-3 col-md-3 col-12" style="width:13rem; margin:20px 0 24px 0">
 			  	<a href="getRecipe.re?recipe_no=${ division.recipe_no }">
-			  		<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${division.recipe_complete_img}" alt="image" style="width: 255px;height: 280px;">
+			  		<img class="card-img-top img-thumbnail" src="${pageContext.request.contextPath}/resources/img/recipe-com-img/${division.recipe_complete_img}" alt="image" style="width: 100%;height: 280px;">
 			  	</a>
 			  	<div class="card-body row">
 			  		<a href="getRecipe.re?recipe_no=${ division.recipe_no }">

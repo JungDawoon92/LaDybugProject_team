@@ -15,7 +15,7 @@ public class KakaoPayDAO {
 	
 	public void insertKakaoPay(KakaoPayApprovalVO vo) throws Exception {
 		mybatis.insert("insertKakaoPay", vo);
-		throw new RuntimeException();
+//		throw new RuntimeException();
 	}
 	
 	public Map<String, ?> cancelKakaoPay(String order_no) {

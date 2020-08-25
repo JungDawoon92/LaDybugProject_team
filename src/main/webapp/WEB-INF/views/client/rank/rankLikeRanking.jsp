@@ -19,12 +19,6 @@
 
 	<jsp:include page="/WEB-INF/include/Nav.jsp" />
 	
-	<div class="pull-right">
-		<a href="getRankLikeRankingListToday.rk" class="btn btn-outline-success btn-md" role="button">일간</a>
-		<a href="getRankLikeRankingListWeek.rk" class="btn btn-outline-success btn-md" role="button">주간</a>
-		<a href="getRankLikeRankingListMonth.rk" class="btn btn-outline-success btn-md" role="button">월간</a>
-		<a href="getRankLikeRankingList.rk" class="btn btn-outline-success btn-md active" role="button">누적</a>
-	</div>
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item">
 			<a class="nav-link active" id="likeList" href="getRankLikeRankingListToday.rk">좋아요 TOP 레시피</a>
@@ -39,6 +33,12 @@
 			<a class="nav-link" id="ingredientList" href="getRankSellIngredientRankingList.rk">판매량 TOP 식재료</a>
 		</li>
 	</ul>
+	<div class="pull-right">
+		<a href="getRankLikeRankingListToday.rk" class="btn btn-outline-success btn-md" role="button">일간</a>
+		<a href="getRankLikeRankingListWeek.rk" class="btn btn-outline-success btn-md" role="button">주간</a>
+		<a href="getRankLikeRankingListMonth.rk" class="btn btn-outline-success btn-md" role="button">월간</a>
+		<a href="getRankLikeRankingList.rk" class="btn btn-outline-success btn-md active" role="button">누적</a>
+	</div>
 	<div class="clearfix"></div>
 	<br>
 	

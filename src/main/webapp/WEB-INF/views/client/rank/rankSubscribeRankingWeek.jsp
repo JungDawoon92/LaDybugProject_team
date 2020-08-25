@@ -19,12 +19,6 @@
 
 	<jsp:include page="/WEB-INF/include/Nav.jsp" />
 
-	<div class="pull-right">
-		<a href="getRankSubscribeRankingListToday.rk" class="btn btn-outline-success btn-md" role="button">일간</a>
-		<a href="getRankSubscribeRankingListWeek.rk" class="btn btn-outline-success btn-md active" role="button">주간</a>
-		<a href="getRankSubscribeRankingListMonth.rk" class="btn btn-outline-success btn-md" role="button">월간</a>
-		<a href="getRankSubscribeRankingList.rk" class="btn btn-outline-success btn-md" role="button">누적</a>
-	</div>
 	
 	<ul class="nav nav-tabs" role="tablist">
 		<li class="nav-item">
@@ -40,6 +34,12 @@
 			<a class="nav-link" id="ingredientList" href="getRankSellIngredientRankingList.rk">판매량 TOP 식재료</a>
 		</li>
 	</ul>
+	<div class="pull-right">
+		<a href="getRankSubscribeRankingListToday.rk" class="btn btn-outline-success btn-md" role="button">일간</a>
+		<a href="getRankSubscribeRankingListWeek.rk" class="btn btn-outline-success btn-md active" role="button">주간</a>
+		<a href="getRankSubscribeRankingListMonth.rk" class="btn btn-outline-success btn-md" role="button">월간</a>
+		<a href="getRankSubscribeRankingList.rk" class="btn btn-outline-success btn-md" role="button">누적</a>
+	</div>
 	<div class="clearfix"></div>
 	<br>
 	
