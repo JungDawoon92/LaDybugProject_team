@@ -62,10 +62,10 @@
 			
 			
 			<div class="chat__write--container chat_input"
-				style="position: absolute;">
+				>
 				<input id="chatContent" type="text" class="chat__write"
 					placeholder="Send message" class="chat__write-input"
-					style="margin-bottom: 90px; position: fixed; width: 310px;"
+					style="width: 310px;"
 					disabled
 					onkeydown="return enter()"/>
 			</div>
@@ -291,7 +291,14 @@
 			
 			
 		});
+		
+		$(window).on("beforeunload", function(){
+			let clientconnectout = "ClientLogout입니다.";			
+			webSocket.send(clientconnectout);
+		});
 		</script>
+		
+		
 
 
 	</div>

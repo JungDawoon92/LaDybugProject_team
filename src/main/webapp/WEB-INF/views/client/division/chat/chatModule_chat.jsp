@@ -96,10 +96,10 @@
 				</ul>
 			</main>
 			<div class="chat__write--container chat_input"
-				style="position: absolute;">
+				>
 				<input id="chatContent" type="text" class="chat__write"
 					placeholder="Send message" class="chat__write-input"
-					style="margin-bottom: 90px; position: fixed; width: 310px;"
+					style="width: 310px;"
 					onkeydown="return enter()" />
 			</div>
 		</div>
