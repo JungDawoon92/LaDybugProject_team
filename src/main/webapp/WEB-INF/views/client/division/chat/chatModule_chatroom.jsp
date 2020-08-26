@@ -286,18 +286,15 @@
 				var today_Recent ="" + week[new Date(today).getDay()] + ", " + month[(strArray[1]).substring(1,2)-1] + ", " +strArray[2] + ", " +strArray[0];
 				$('#Today_recent').append(today_Recent);
 			});
-			
-			
-			
-			
 		});
 		
+		</script>
+		<script>
 		$(window).on("beforeunload", function(){
 			let clientconnectout = "ClientLogout입니다.";			
 			webSocket.send(clientconnectout);
 		});
 		</script>
-		
 		
 
 
